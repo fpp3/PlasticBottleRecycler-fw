@@ -1,0 +1,50 @@
+XH3
+H B areas 3 global symbols
+M stm8s_tim1_SelectMasterSlaveMode
+O -mstm8
+S .__.ABS. Def000000
+S _assert_failed Ref000000
+A _CODE size 0 flags 0 addr 0
+A DATA size 0 flags 0 addr 0
+A INITIALIZED size 0 flags 0 addr 0
+A DABS size 0 flags 8 addr 0
+A HOME size 0 flags 0 addr 0
+A GSINIT size 0 flags 0 addr 0
+A GSFINAL size 0 flags 0 addr 0
+A CONST size 41 flags 0 addr 0
+A INITIALIZER size 0 flags 0 addr 0
+A CODE size 2A flags 0 addr 0
+S _TIM1_SelectMasterSlaveMode Def000000
+A CABS size 0 flags 8 addr 0
+T 00 00 00
+R 00 00 00 09
+T 00 00 00 88 6B 01 27 10 0D 01 26 0C 4B 33 5F 89
+R 00 00 00 09
+T 00 00 0D 4B 00 AE 00 00 CD 00 00
+R 00 00 00 09 00 06 00 07 02 09 00 01
+T 00 00 15
+R 00 00 00 09
+T 00 00 15 C6 52 52 0D 01 27 07 AA 80 C7 52 52 20
+R 00 00 00 09
+T 00 00 22 05
+R 00 00 00 09
+T 00 00 23
+R 00 00 00 09
+T 00 00 23 A4 7F C7 52 52
+R 00 00 00 09
+T 00 00 28
+R 00 00 00 09
+T 00 00 28 84 81
+R 00 00 00 09
+T 00 00 00
+R 00 00 00 07
+T 00 00 00 2E 2E 2F 53 54 4D 38 53 5F 53 74 64 50
+R 00 00 00 07
+T 00 00 0D 65 72 69 70 68 5F 44 72 69 76 65 72 2F
+R 00 00 00 07
+T 00 00 1A 73 72 63 2F 73 74 6D 38 73 5F 74 69 6D
+R 00 00 00 07
+T 00 00 27 31 5F 53 65 6C 65 63 74 4D 61 73 74 65
+R 00 00 00 07
+T 00 00 34 72 53 6C 61 76 65 4D 6F 64 65 2E 63 00
+R 00 00 00 07

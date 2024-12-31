@@ -1,0 +1,207 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_uart2_GetFlagStatus
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _UART2_GetFlagStatus
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 47: FlagStatus UART2_GetFlagStatus(UART2_Flag_TypeDef UART2_FLAG)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function UART2_GetFlagStatus
+                                     53 ;	-----------------------------------------
+      000000                         54 _UART2_GetFlagStatus:
+      000000 52 04            [ 2]   55 	sub	sp, #4
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 52: assert_param(IS_UART2_FLAG_OK(UART2_FLAG));
+      000002 90 93            [ 1]   57 	ldw	y, x
+      000004 A3 01 01         [ 2]   58 	cpw	x, #0x0101
+      000007 26 05            [ 1]   59 	jrne	00294$
+      000009 A6 01            [ 1]   60 	ld	a, #0x01
+      00000B 6B 01            [ 1]   61 	ld	(0x01, sp), a
+      00000D C5                      62 	.byte 0xc5
+      00000E                         63 00294$:
+      00000E 0F 01            [ 1]   64 	clr	(0x01, sp)
+      000010                         65 00295$:
+      000010 A3 03 01         [ 2]   66 	cpw	x, #0x0301
+      000013 26 05            [ 1]   67 	jrne	00297$
+      000015 A6 01            [ 1]   68 	ld	a, #0x01
+      000017 6B 02            [ 1]   69 	ld	(0x02, sp), a
+      000019 C5                      70 	.byte 0xc5
+      00001A                         71 00297$:
+      00001A 0F 02            [ 1]   72 	clr	(0x02, sp)
+      00001C                         73 00298$:
+      00001C A3 03 02         [ 2]   74 	cpw	x, #0x0302
+      00001F 26 05            [ 1]   75 	jrne	00300$
+      000021 A6 01            [ 1]   76 	ld	a, #0x01
+      000023 6B 03            [ 1]   77 	ld	(0x03, sp), a
+      000025 C5                      78 	.byte 0xc5
+      000026                         79 00300$:
+      000026 0F 03            [ 1]   80 	clr	(0x03, sp)
+      000028                         81 00301$:
+      000028 A3 02 10         [ 2]   82 	cpw	x, #0x0210
+      00002B 26 03            [ 1]   83 	jrne	00303$
+      00002D A6 01            [ 1]   84 	ld	a, #0x01
+      00002F 21                      85 	.byte 0x21
+      000030                         86 00303$:
+      000030 4F               [ 1]   87 	clr	a
+      000031                         88 00304$:
+      000031 A3 00 80         [ 2]   89 	cpw	x, #0x0080
+      000034 27 42            [ 1]   90 	jreq	00126$
+      000036 A3 00 40         [ 2]   91 	cpw	x, #0x0040
+      000039 27 3D            [ 1]   92 	jreq	00126$
+      00003B A3 00 20         [ 2]   93 	cpw	x, #0x0020
+      00003E 27 38            [ 1]   94 	jreq	00126$
+      000040 A3 00 10         [ 2]   95 	cpw	x, #0x0010
+      000043 27 33            [ 1]   96 	jreq	00126$
+      000045 A3 00 08         [ 2]   97 	cpw	x, #0x0008
+      000048 27 2E            [ 1]   98 	jreq	00126$
+      00004A A3 00 04         [ 2]   99 	cpw	x, #0x0004
+      00004D 27 29            [ 1]  100 	jreq	00126$
+      00004F A3 00 02         [ 2]  101 	cpw	x, #0x0002
+      000052 27 24            [ 1]  102 	jreq	00126$
+      000054 5A               [ 2]  103 	decw	x
+      000055 27 21            [ 1]  104 	jreq	00126$
+      000057 0D 01            [ 1]  105 	tnz	(0x01, sp)
+      000059 26 1D            [ 1]  106 	jrne	00126$
+      00005B 0D 02            [ 1]  107 	tnz	(0x02, sp)
+      00005D 26 19            [ 1]  108 	jrne	00126$
+      00005F 0D 03            [ 1]  109 	tnz	(0x03, sp)
+      000061 26 15            [ 1]  110 	jrne	00126$
+      000063 4D               [ 1]  111 	tnz	a
+      000064 26 12            [ 1]  112 	jrne	00126$
+      000066 88               [ 1]  113 	push	a
+      000067 90 89            [ 2]  114 	pushw	y
+      000069 4B 34            [ 1]  115 	push	#0x34
+      00006B 5F               [ 1]  116 	clrw	x
+      00006C 89               [ 2]  117 	pushw	x
+      00006D 4B 00            [ 1]  118 	push	#0x00
+      00006F AEr00r00         [ 2]  119 	ldw	x, #(___str_0+0)
+      000072 CDr00r00         [ 4]  120 	call	_assert_failed
+      000075 90 85            [ 2]  121 	popw	y
+      000077 84               [ 1]  122 	pop	a
+      000078                        123 00126$:
+                                    124 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 57: if ((UART2->CR4 & (uint8_t)UART2_FLAG) != (uint8_t)0x00)
+      000078 61               [ 1]  125 	exg	a, yl
+      000079 6B 04            [ 1]  126 	ld	(0x04, sp), a
+      00007B 61               [ 1]  127 	exg	a, yl
+                                    128 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 55: if (UART2_FLAG == UART2_FLAG_LBDF)
+      00007C 4D               [ 1]  129 	tnz	a
+      00007D 27 0E            [ 1]  130 	jreq	00121$
+                                    131 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 57: if ((UART2->CR4 & (uint8_t)UART2_FLAG) != (uint8_t)0x00)
+      00007F C6 52 47         [ 1]  132 	ld	a, 0x5247
+      000082 14 04            [ 1]  133 	and	a, (0x04, sp)
+      000084 27 04            [ 1]  134 	jreq	00102$
+                                    135 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 60: status = SET;
+      000086 A6 01            [ 1]  136 	ld	a, #0x01
+      000088 20 36            [ 2]  137 	jra	00122$
+      00008A                        138 00102$:
+                                    139 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 65: status = RESET;
+      00008A 4F               [ 1]  140 	clr	a
+      00008B 20 33            [ 2]  141 	jra	00122$
+      00008D                        142 00121$:
+                                    143 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 68: else if (UART2_FLAG == UART2_FLAG_SBK)
+      00008D 7B 01            [ 1]  144 	ld	a, (0x01, sp)
+      00008F 27 0E            [ 1]  145 	jreq	00118$
+                                    146 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 70: if ((UART2->CR2 & (uint8_t)UART2_FLAG) != (uint8_t)0x00)
+      000091 C6 52 45         [ 1]  147 	ld	a, 0x5245
+      000094 14 04            [ 1]  148 	and	a, (0x04, sp)
+      000096 27 04            [ 1]  149 	jreq	00105$
+                                    150 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 73: status = SET;
+      000098 A6 01            [ 1]  151 	ld	a, #0x01
+      00009A 20 24            [ 2]  152 	jra	00122$
+      00009C                        153 00105$:
+                                    154 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 78: status = RESET;
+      00009C 4F               [ 1]  155 	clr	a
+      00009D 20 21            [ 2]  156 	jra	00122$
+      00009F                        157 00118$:
+                                    158 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 81: else if ((UART2_FLAG == UART2_FLAG_LHDF) || (UART2_FLAG == UART2_FLAG_LSF))
+      00009F 7B 03            [ 1]  159 	ld	a, (0x03, sp)
+      0000A1 26 04            [ 1]  160 	jrne	00113$
+      0000A3 7B 02            [ 1]  161 	ld	a, (0x02, sp)
+      0000A5 27 0E            [ 1]  162 	jreq	00114$
+      0000A7                        163 00113$:
+                                    164 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 83: if ((UART2->CR6 & (uint8_t)UART2_FLAG) != (uint8_t)0x00)
+      0000A7 C6 52 49         [ 1]  165 	ld	a, 0x5249
+      0000AA 14 04            [ 1]  166 	and	a, (0x04, sp)
+      0000AC 27 04            [ 1]  167 	jreq	00108$
+                                    168 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 86: status = SET;
+      0000AE A6 01            [ 1]  169 	ld	a, #0x01
+      0000B0 20 0E            [ 2]  170 	jra	00122$
+      0000B2                        171 00108$:
+                                    172 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 91: status = RESET;
+      0000B2 4F               [ 1]  173 	clr	a
+      0000B3 20 0B            [ 2]  174 	jra	00122$
+      0000B5                        175 00114$:
+                                    176 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 96: if ((UART2->SR & (uint8_t)UART2_FLAG) != (uint8_t)0x00)
+      0000B5 C6 52 40         [ 1]  177 	ld	a, 0x5240
+      0000B8 14 04            [ 1]  178 	and	a, (0x04, sp)
+      0000BA 27 03            [ 1]  179 	jreq	00111$
+                                    180 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 99: status = SET;
+      0000BC A6 01            [ 1]  181 	ld	a, #0x01
+                                    182 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 104: status = RESET;
+      0000BE 21                     183 	.byte 0x21
+      0000BF                        184 00111$:
+      0000BF 4F               [ 1]  185 	clr	a
+      0000C0                        186 00122$:
+                                    187 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 109: return  status;
+                                    188 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c: 110: }
+      0000C0 5B 04            [ 2]  189 	addw	sp, #4
+      0000C2 81               [ 4]  190 	ret
+                                    191 	.area CODE
+                                    192 	.area CONST
+                                    193 	.area CONST
+      000000                        194 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   195 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_uart2_GetFlagStatus.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 75 61 72 74 32 5F
+             47 65 74 46 6C 61 67
+             53 74 61 74 75 73 2E
+             63
+      000039 00                     196 	.db 0x00
+                                    197 	.area CODE
+                                    198 	.area INITIALIZER
+                                    199 	.area CABS (ABS)

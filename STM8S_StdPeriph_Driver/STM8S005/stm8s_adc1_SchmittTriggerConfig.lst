@@ -1,0 +1,233 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_adc1_SchmittTriggerConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _ADC1_SchmittTriggerConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 49: void ADC1_SchmittTriggerConfig(ADC1_SchmittTrigg_TypeDef ADC1_SchmittTriggerChannel, FunctionalState NewState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function ADC1_SchmittTriggerConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _ADC1_SchmittTriggerConfig:
+      000000 88               [ 1]   55 	push	a
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 52: assert_param(IS_ADC1_SCHMITTTRIG_OK(ADC1_SchmittTriggerChannel));
+      000001 97               [ 1]   57 	ld	xl, a
+      000002 4C               [ 1]   58 	inc	a
+      000003 26 05            [ 1]   59 	jrne	00292$
+      000005 A6 01            [ 1]   60 	ld	a, #0x01
+      000007 95               [ 1]   61 	ld	xh, a
+      000008 20 02            [ 2]   62 	jra	00293$
+      00000A                         63 00292$:
+      00000A 4F               [ 1]   64 	clr	a
+      00000B 95               [ 1]   65 	ld	xh, a
+      00000C                         66 00293$:
+      00000C 9F               [ 1]   67 	ld	a, xl
+      00000D 4D               [ 1]   68 	tnz	a
+      00000E 27 45            [ 1]   69 	jreq	00119$
+      000010 9F               [ 1]   70 	ld	a, xl
+      000011 4A               [ 1]   71 	dec	a
+      000012 27 41            [ 1]   72 	jreq	00119$
+      000014 9F               [ 1]   73 	ld	a, xl
+      000015 A1 02            [ 1]   74 	cp	a, #0x02
+      000017 27 3C            [ 1]   75 	jreq	00119$
+      000019 9F               [ 1]   76 	ld	a, xl
+      00001A A1 03            [ 1]   77 	cp	a, #0x03
+      00001C 27 37            [ 1]   78 	jreq	00119$
+      00001E 9F               [ 1]   79 	ld	a, xl
+      00001F A1 04            [ 1]   80 	cp	a, #0x04
+      000021 27 32            [ 1]   81 	jreq	00119$
+      000023 9F               [ 1]   82 	ld	a, xl
+      000024 A1 05            [ 1]   83 	cp	a, #0x05
+      000026 27 2D            [ 1]   84 	jreq	00119$
+      000028 9F               [ 1]   85 	ld	a, xl
+      000029 A1 06            [ 1]   86 	cp	a, #0x06
+      00002B 27 28            [ 1]   87 	jreq	00119$
+      00002D 9F               [ 1]   88 	ld	a, xl
+      00002E A1 07            [ 1]   89 	cp	a, #0x07
+      000030 27 23            [ 1]   90 	jreq	00119$
+      000032 9F               [ 1]   91 	ld	a, xl
+      000033 A1 08            [ 1]   92 	cp	a, #0x08
+      000035 27 1E            [ 1]   93 	jreq	00119$
+      000037 9F               [ 1]   94 	ld	a, xl
+      000038 A1 0C            [ 1]   95 	cp	a, #0x0c
+      00003A 27 19            [ 1]   96 	jreq	00119$
+      00003C 9E               [ 1]   97 	ld	a, xh
+      00003D 4D               [ 1]   98 	tnz	a
+      00003E 26 15            [ 1]   99 	jrne	00119$
+      000040 9F               [ 1]  100 	ld	a, xl
+      000041 A1 09            [ 1]  101 	cp	a, #0x09
+      000043 27 10            [ 1]  102 	jreq	00119$
+      000045 89               [ 2]  103 	pushw	x
+      000046 4B 34            [ 1]  104 	push	#0x34
+      000048 4B 00            [ 1]  105 	push	#0x00
+      00004A 4B 00            [ 1]  106 	push	#0x00
+      00004C 4B 00            [ 1]  107 	push	#0x00
+      00004E AEr00r00         [ 2]  108 	ldw	x, #(___str_0+0)
+      000051 CDr00r00         [ 4]  109 	call	_assert_failed
+      000054 85               [ 2]  110 	popw	x
+      000055                        111 00119$:
+                                    112 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 53: assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+      000055 0D 04            [ 1]  113 	tnz	(0x04, sp)
+      000057 27 14            [ 1]  114 	jreq	00154$
+      000059 0D 04            [ 1]  115 	tnz	(0x04, sp)
+      00005B 26 10            [ 1]  116 	jrne	00154$
+      00005D 89               [ 2]  117 	pushw	x
+      00005E 4B 35            [ 1]  118 	push	#0x35
+      000060 4B 00            [ 1]  119 	push	#0x00
+      000062 4B 00            [ 1]  120 	push	#0x00
+      000064 4B 00            [ 1]  121 	push	#0x00
+      000066 AEr00r00         [ 2]  122 	ldw	x, #(___str_0+0)
+      000069 CDr00r00         [ 4]  123 	call	_assert_failed
+      00006C 85               [ 2]  124 	popw	x
+      00006D                        125 00154$:
+                                    126 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 55: if (ADC1_SchmittTriggerChannel == ADC1_SCHMITTTRIG_ALL)
+      00006D 9E               [ 1]  127 	ld	a, xh
+      00006E 4D               [ 1]  128 	tnz	a
+      00006F 27 21            [ 1]  129 	jreq	00114$
+                                    130 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 59: ADC1->TDRL &= (uint8_t)0x0;
+      000071 C6 54 07         [ 1]  131 	ld	a, 0x5407
+                                    132 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 57: if (NewState != DISABLE)
+      000074 0D 04            [ 1]  133 	tnz	(0x04, sp)
+      000076 27 0D            [ 1]  134 	jreq	00102$
+                                    135 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 59: ADC1->TDRL &= (uint8_t)0x0;
+      000078 35 00 54 07      [ 1]  136 	mov	0x5407+0, #0x00
+                                    137 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 60: ADC1->TDRH &= (uint8_t)0x0;
+      00007C C6 54 06         [ 1]  138 	ld	a, 0x5406
+      00007F 35 00 54 06      [ 1]  139 	mov	0x5406+0, #0x00
+      000083 20 5D            [ 2]  140 	jra	00116$
+      000085                        141 00102$:
+                                    142 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 64: ADC1->TDRL |= (uint8_t)0xFF;
+      000085 35 FF 54 07      [ 1]  143 	mov	0x5407+0, #0xff
+                                    144 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 65: ADC1->TDRH |= (uint8_t)0xFF;
+      000089 C6 54 06         [ 1]  145 	ld	a, 0x5406
+      00008C 35 FF 54 06      [ 1]  146 	mov	0x5406+0, #0xff
+      000090 20 50            [ 2]  147 	jra	00116$
+      000092                        148 00114$:
+                                    149 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 68: else if (ADC1_SchmittTriggerChannel < ADC1_SCHMITTTRIG_CHANNEL8)
+      000092 9F               [ 1]  150 	ld	a, xl
+      000093 A1 08            [ 1]  151 	cp	a, #0x08
+      000095 24 25            [ 1]  152 	jrnc	00111$
+                                    153 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 59: ADC1->TDRL &= (uint8_t)0x0;
+      000097 C6 54 07         [ 1]  154 	ld	a, 0x5407
+      00009A 6B 01            [ 1]  155 	ld	(0x01, sp), a
+                                    156 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 72: ADC1->TDRL &= (uint8_t)(~(uint8_t)((uint8_t)0x01 << (uint8_t)ADC1_SchmittTriggerChannel));
+      00009C A6 01            [ 1]  157 	ld	a, #0x01
+      00009E 88               [ 1]  158 	push	a
+      00009F 9F               [ 1]  159 	ld	a, xl
+      0000A0 4D               [ 1]  160 	tnz	a
+      0000A1 27 05            [ 1]  161 	jreq	00332$
+      0000A3                        162 00331$:
+      0000A3 08 01            [ 1]  163 	sll	(1, sp)
+      0000A5 4A               [ 1]  164 	dec	a
+      0000A6 26 FB            [ 1]  165 	jrne	00331$
+      0000A8                        166 00332$:
+      0000A8 84               [ 1]  167 	pop	a
+                                    168 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 70: if (NewState != DISABLE)
+      0000A9 0D 04            [ 1]  169 	tnz	(0x04, sp)
+      0000AB 27 08            [ 1]  170 	jreq	00105$
+                                    171 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 72: ADC1->TDRL &= (uint8_t)(~(uint8_t)((uint8_t)0x01 << (uint8_t)ADC1_SchmittTriggerChannel));
+      0000AD 43               [ 1]  172 	cpl	a
+      0000AE 14 01            [ 1]  173 	and	a, (0x01, sp)
+      0000B0 C7 54 07         [ 1]  174 	ld	0x5407, a
+      0000B3 20 2D            [ 2]  175 	jra	00116$
+      0000B5                        176 00105$:
+                                    177 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 76: ADC1->TDRL |= (uint8_t)((uint8_t)0x01 << (uint8_t)ADC1_SchmittTriggerChannel);
+      0000B5 1A 01            [ 1]  178 	or	a, (0x01, sp)
+      0000B7 C7 54 07         [ 1]  179 	ld	0x5407, a
+      0000BA 20 26            [ 2]  180 	jra	00116$
+      0000BC                        181 00111$:
+                                    182 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 60: ADC1->TDRH &= (uint8_t)0x0;
+      0000BC C6 54 06         [ 1]  183 	ld	a, 0x5406
+      0000BF 6B 01            [ 1]  184 	ld	(0x01, sp), a
+                                    185 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 83: ADC1->TDRH &= (uint8_t)(~(uint8_t)((uint8_t)0x01 << ((uint8_t)ADC1_SchmittTriggerChannel - (uint8_t)8)));
+      0000C1 1D 00 08         [ 2]  186 	subw	x, #8
+      0000C4 A6 01            [ 1]  187 	ld	a, #0x01
+      0000C6 88               [ 1]  188 	push	a
+      0000C7 9F               [ 1]  189 	ld	a, xl
+      0000C8 4D               [ 1]  190 	tnz	a
+      0000C9 27 05            [ 1]  191 	jreq	00335$
+      0000CB                        192 00334$:
+      0000CB 08 01            [ 1]  193 	sll	(1, sp)
+      0000CD 4A               [ 1]  194 	dec	a
+      0000CE 26 FB            [ 1]  195 	jrne	00334$
+      0000D0                        196 00335$:
+      0000D0 84               [ 1]  197 	pop	a
+                                    198 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 81: if (NewState != DISABLE)
+      0000D1 0D 04            [ 1]  199 	tnz	(0x04, sp)
+      0000D3 27 08            [ 1]  200 	jreq	00108$
+                                    201 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 83: ADC1->TDRH &= (uint8_t)(~(uint8_t)((uint8_t)0x01 << ((uint8_t)ADC1_SchmittTriggerChannel - (uint8_t)8)));
+      0000D5 43               [ 1]  202 	cpl	a
+      0000D6 14 01            [ 1]  203 	and	a, (0x01, sp)
+      0000D8 C7 54 06         [ 1]  204 	ld	0x5406, a
+      0000DB 20 05            [ 2]  205 	jra	00116$
+      0000DD                        206 00108$:
+                                    207 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 87: ADC1->TDRH |= (uint8_t)((uint8_t)0x01 << ((uint8_t)ADC1_SchmittTriggerChannel - (uint8_t)8));
+      0000DD 1A 01            [ 1]  208 	or	a, (0x01, sp)
+      0000DF C7 54 06         [ 1]  209 	ld	0x5406, a
+      0000E2                        210 00116$:
+                                    211 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfig.c: 90: }
+      0000E2 84               [ 1]  212 	pop	a
+      0000E3 85               [ 2]  213 	popw	x
+      0000E4 84               [ 1]  214 	pop	a
+      0000E5 FC               [ 2]  215 	jp	(x)
+                                    216 	.area CODE
+                                    217 	.area CONST
+                                    218 	.area CONST
+      000000                        219 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   220 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_adc1_SchmittTriggerConfi"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 61 64 63 31 5F 53
+             63 68 6D 69 74 74 54
+             72 69 67 67 65 72 43
+             6F 6E 66 69
+      00003C 67 2E 63               221 	.ascii "g.c"
+      00003F 00                     222 	.db 0x00
+                                    223 	.area CODE
+                                    224 	.area INITIALIZER
+                                    225 	.area CABS (ABS)

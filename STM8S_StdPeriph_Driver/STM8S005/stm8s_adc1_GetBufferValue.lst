@@ -1,0 +1,152 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_adc1_GetBufferValue
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _ADC1_GetBufferValue
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 48: uint16_t ADC1_GetBufferValue(uint8_t Buffer)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function ADC1_GetBufferValue
+                                     53 ;	-----------------------------------------
+      000000                         54 _ADC1_GetBufferValue:
+      000000 52 06            [ 2]   55 	sub	sp, #6
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 54: assert_param(IS_ADC1_BUFFER_OK(Buffer));
+      000002 A1 09            [ 1]   57 	cp	a, #0x09
+      000004 23 0E            [ 2]   58 	jrule	00107$
+      000006 88               [ 1]   59 	push	a
+      000007 4B 36            [ 1]   60 	push	#0x36
+      000009 5F               [ 1]   61 	clrw	x
+      00000A 89               [ 2]   62 	pushw	x
+      00000B 4B 00            [ 1]   63 	push	#0x00
+      00000D AEr00r00         [ 2]   64 	ldw	x, #(___str_0+0)
+      000010 CDr00r00         [ 4]   65 	call	_assert_failed
+      000013 84               [ 1]   66 	pop	a
+      000014                         67 00107$:
+                                     68 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 56: if ((ADC1->CR2 & ADC1_CR2_ALIGN) != 0) /* Right alignment */
+      000014 AE 54 02         [ 2]   69 	ldw	x, #0x5402
+      000017 88               [ 1]   70 	push	a
+      000018 F6               [ 1]   71 	ld	a, (x)
+      000019 6B 04            [ 1]   72 	ld	(0x04, sp), a
+      00001B 84               [ 1]   73 	pop	a
+                                     74 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 59: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
+      00001C 48               [ 1]   75 	sll	a
+      00001D 5F               [ 1]   76 	clrw	x
+      00001E 97               [ 1]   77 	ld	xl, a
+      00001F 90 93            [ 1]   78 	ldw	y, x
+      000021 72 A9 53 E1      [ 2]   79 	addw	y, #0x53e1
+                                     80 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 61: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
+      000025 1C 53 E0         [ 2]   81 	addw	x, #0x53e0
+                                     82 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 59: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
+                                     83 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 61: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
+                                     84 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 59: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
+      000028 90 F6            [ 1]   85 	ld	a, (y)
+      00002A 6B 06            [ 1]   86 	ld	(0x06, sp), a
+                                     87 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 61: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
+      00002C F6               [ 1]   88 	ld	a, (x)
+      00002D 6B 05            [ 1]   89 	ld	(0x05, sp), a
+      00002F 0F 04            [ 1]   90 	clr	(0x04, sp)
+                                     91 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 56: if ((ADC1->CR2 & ADC1_CR2_ALIGN) != 0) /* Right alignment */
+      000031 7B 03            [ 1]   92 	ld	a, (0x03, sp)
+      000033 A5 08            [ 1]   93 	bcp	a, #0x08
+      000035 27 16            [ 1]   94 	jreq	00102$
+                                     95 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 59: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
+                                     96 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 61: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
+      000037 16 04            [ 2]   97 	ldw	y, (0x04, sp)
+      000039 17 01            [ 2]   98 	ldw	(0x01, sp), y
+                                     99 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 63: temph = (uint16_t)(templ | (uint16_t)(temph << (uint8_t)8));
+      00003B 7B 02            [ 1]  100 	ld	a, (0x02, sp)
+      00003D 6B 03            [ 1]  101 	ld	(0x03, sp), a
+      00003F 0F 04            [ 1]  102 	clr	(0x04, sp)
+      000041 0F 05            [ 1]  103 	clr	(0x05, sp)
+      000043 7B 06            [ 1]  104 	ld	a, (0x06, sp)
+      000045 6B 02            [ 1]  105 	ld	(0x02, sp), a
+      000047 7B 03            [ 1]  106 	ld	a, (0x03, sp)
+      000049 6B 01            [ 1]  107 	ld	(0x01, sp), a
+      00004B 20 1A            [ 2]  108 	jra	00103$
+      00004D                        109 00102$:
+                                    110 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 68: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
+      00004D 16 04            [ 2]  111 	ldw	y, (0x04, sp)
+                                    112 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 70: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
+      00004F 7B 06            [ 1]  113 	ld	a, (0x06, sp)
+                                    114 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 72: temph = (uint16_t)((uint16_t)((uint16_t)templ << 6) | (uint16_t)(temph << 8));
+      000051 5F               [ 1]  115 	clrw	x
+      000052 97               [ 1]  116 	ld	xl, a
+      000053 58               [ 2]  117 	sllw	x
+      000054 58               [ 2]  118 	sllw	x
+      000055 58               [ 2]  119 	sllw	x
+      000056 58               [ 2]  120 	sllw	x
+      000057 58               [ 2]  121 	sllw	x
+      000058 58               [ 2]  122 	sllw	x
+      000059 1F 03            [ 2]  123 	ldw	(0x03, sp), x
+      00005B 90 9F            [ 1]  124 	ld	a, yl
+      00005D 0F 06            [ 1]  125 	clr	(0x06, sp)
+      00005F 1A 03            [ 1]  126 	or	a, (0x03, sp)
+      000061 6B 01            [ 1]  127 	ld	(0x01, sp), a
+      000063 7B 04            [ 1]  128 	ld	a, (0x04, sp)
+      000065 6B 02            [ 1]  129 	ld	(0x02, sp), a
+      000067                        130 00103$:
+                                    131 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 75: return ((uint16_t)temph);
+      000067 1E 01            [ 2]  132 	ldw	x, (0x01, sp)
+                                    133 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c: 76: }
+      000069 5B 06            [ 2]  134 	addw	sp, #6
+      00006B 81               [ 4]  135 	ret
+                                    136 	.area CODE
+                                    137 	.area CONST
+                                    138 	.area CONST
+      000000                        139 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   140 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_adc1_GetBufferValue.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 61 64 63 31 5F 47
+             65 74 42 75 66 66 65
+             72 56 61 6C 75 65 2E
+             63
+      000039 00                     141 	.db 0x00
+                                    142 	.area CODE
+                                    143 	.area INITIALIZER
+                                    144 	.area CABS (ABS)

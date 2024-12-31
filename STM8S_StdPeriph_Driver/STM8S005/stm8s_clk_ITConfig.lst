@@ -1,0 +1,171 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_clk_ITConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _CLK_ITConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 50: void CLK_ITConfig(CLK_IT_TypeDef CLK_IT, FunctionalState NewState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function CLK_ITConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _CLK_ITConfig:
+                                     55 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 53: assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+      000000 0D 03            [ 1]   56 	tnz	(0x03, sp)
+      000002 27 12            [ 1]   57 	jreq	00115$
+      000004 0D 03            [ 1]   58 	tnz	(0x03, sp)
+      000006 26 0E            [ 1]   59 	jrne	00115$
+      000008 88               [ 1]   60 	push	a
+      000009 4B 35            [ 1]   61 	push	#0x35
+      00000B 5F               [ 1]   62 	clrw	x
+      00000C 89               [ 2]   63 	pushw	x
+      00000D 4B 00            [ 1]   64 	push	#0x00
+      00000F AEr00r00         [ 2]   65 	ldw	x, #(___str_0+0)
+      000012 CDr00r00         [ 4]   66 	call	_assert_failed
+      000015 84               [ 1]   67 	pop	a
+      000016                         68 00115$:
+                                     69 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 54: assert_param(IS_CLK_IT_OK(CLK_IT));
+      000016 A1 0C            [ 1]   70 	cp	a, #0x0c
+      000018 26 06            [ 1]   71 	jrne	00190$
+      00001A 41               [ 1]   72 	exg	a, xl
+      00001B A6 01            [ 1]   73 	ld	a, #0x01
+      00001D 41               [ 1]   74 	exg	a, xl
+      00001E 20 03            [ 2]   75 	jra	00191$
+      000020                         76 00190$:
+      000020 41               [ 1]   77 	exg	a, xl
+      000021 4F               [ 1]   78 	clr	a
+      000022 41               [ 1]   79 	exg	a, xl
+      000023                         80 00191$:
+      000023 A0 1C            [ 1]   81 	sub	a, #0x1c
+      000025 26 04            [ 1]   82 	jrne	00193$
+      000027 4C               [ 1]   83 	inc	a
+      000028 95               [ 1]   84 	ld	xh, a
+      000029 20 02            [ 2]   85 	jra	00194$
+      00002B                         86 00193$:
+      00002B 4F               [ 1]   87 	clr	a
+      00002C 95               [ 1]   88 	ld	xh, a
+      00002D                         89 00194$:
+      00002D 9F               [ 1]   90 	ld	a, xl
+      00002E 4D               [ 1]   91 	tnz	a
+      00002F 26 14            [ 1]   92 	jrne	00120$
+      000031 9E               [ 1]   93 	ld	a, xh
+      000032 4D               [ 1]   94 	tnz	a
+      000033 26 10            [ 1]   95 	jrne	00120$
+      000035 89               [ 2]   96 	pushw	x
+      000036 4B 36            [ 1]   97 	push	#0x36
+      000038 4B 00            [ 1]   98 	push	#0x00
+      00003A 4B 00            [ 1]   99 	push	#0x00
+      00003C 4B 00            [ 1]  100 	push	#0x00
+      00003E AEr00r00         [ 2]  101 	ldw	x, #(___str_0+0)
+      000041 CDr00r00         [ 4]  102 	call	_assert_failed
+      000044 85               [ 2]  103 	popw	x
+      000045                        104 00120$:
+                                    105 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 56: if (NewState != DISABLE)
+      000045 0D 03            [ 1]  106 	tnz	(0x03, sp)
+      000047 27 1C            [ 1]  107 	jreq	00110$
+                                    108 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 58: switch (CLK_IT)
+      000049 9F               [ 1]  109 	ld	a, xl
+      00004A 4D               [ 1]  110 	tnz	a
+      00004B 26 0E            [ 1]  111 	jrne	00102$
+      00004D 9E               [ 1]  112 	ld	a, xh
+      00004E 4D               [ 1]  113 	tnz	a
+      00004F 27 2E            [ 1]  114 	jreq	00112$
+                                    115 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 61: CLK->SWCR |= CLK_SWCR_SWIEN;
+      000051 C6 50 C5         [ 1]  116 	ld	a, 0x50c5
+      000054 AA 04            [ 1]  117 	or	a, #0x04
+      000056 C7 50 C5         [ 1]  118 	ld	0x50c5, a
+                                    119 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 62: break;
+      000059 20 24            [ 2]  120 	jra	00112$
+                                    121 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 63: case CLK_IT_CSSD: /* Enable the clock security system detection interrupt */
+      00005B                        122 00102$:
+                                    123 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 64: CLK->CSSR |= CLK_CSSR_CSSDIE;
+      00005B C6 50 C8         [ 1]  124 	ld	a, 0x50c8
+      00005E AA 04            [ 1]  125 	or	a, #0x04
+      000060 C7 50 C8         [ 1]  126 	ld	0x50c8, a
+                                    127 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 65: break;
+      000063 20 1A            [ 2]  128 	jra	00112$
+                                    129 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 68: }
+      000065                        130 00110$:
+                                    131 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 72: switch (CLK_IT)
+      000065 9F               [ 1]  132 	ld	a, xl
+      000066 4D               [ 1]  133 	tnz	a
+      000067 26 0E            [ 1]  134 	jrne	00106$
+      000069 9E               [ 1]  135 	ld	a, xh
+      00006A 4D               [ 1]  136 	tnz	a
+      00006B 27 12            [ 1]  137 	jreq	00112$
+                                    138 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 75: CLK->SWCR  &= (uint8_t)(~CLK_SWCR_SWIEN);
+      00006D C6 50 C5         [ 1]  139 	ld	a, 0x50c5
+      000070 A4 FB            [ 1]  140 	and	a, #0xfb
+      000072 C7 50 C5         [ 1]  141 	ld	0x50c5, a
+                                    142 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 76: break;
+      000075 20 08            [ 2]  143 	jra	00112$
+                                    144 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 77: case CLK_IT_CSSD: /* Disable the clock security system detection interrupt */
+      000077                        145 00106$:
+                                    146 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 78: CLK->CSSR &= (uint8_t)(~CLK_CSSR_CSSDIE);
+      000077 C6 50 C8         [ 1]  147 	ld	a, 0x50c8
+      00007A A4 FB            [ 1]  148 	and	a, #0xfb
+      00007C C7 50 C8         [ 1]  149 	ld	0x50c8, a
+                                    150 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 82: }
+      00007F                        151 00112$:
+                                    152 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c: 84: }
+      00007F 85               [ 2]  153 	popw	x
+      000080 84               [ 1]  154 	pop	a
+      000081 FC               [ 2]  155 	jp	(x)
+                                    156 	.area CODE
+                                    157 	.area CONST
+                                    158 	.area CONST
+      000000                        159 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   160 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_clk_ITConfig.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 63 6C 6B 5F 49 54
+             43 6F 6E 66 69 67 2E
+             63
+      000032 00                     161 	.db 0x00
+                                    162 	.area CODE
+                                    163 	.area INITIALIZER
+                                    164 	.area CABS (ABS)

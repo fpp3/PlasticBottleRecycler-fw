@@ -1,0 +1,189 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_adc1_AWDChannelConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _ADC1_AWDChannelConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 49: void ADC1_AWDChannelConfig(ADC1_Channel_TypeDef Channel, FunctionalState NewState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function ADC1_AWDChannelConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _ADC1_AWDChannelConfig:
+      000000 89               [ 2]   55 	pushw	x
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 52: assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+      000001 0D 05            [ 1]   57 	tnz	(0x05, sp)
+      000003 27 12            [ 1]   58 	jreq	00113$
+      000005 0D 05            [ 1]   59 	tnz	(0x05, sp)
+      000007 26 0E            [ 1]   60 	jrne	00113$
+      000009 88               [ 1]   61 	push	a
+      00000A 4B 34            [ 1]   62 	push	#0x34
+      00000C 5F               [ 1]   63 	clrw	x
+      00000D 89               [ 2]   64 	pushw	x
+      00000E 4B 00            [ 1]   65 	push	#0x00
+      000010 AEr00r00         [ 2]   66 	ldw	x, #(___str_0+0)
+      000013 CDr00r00         [ 4]   67 	call	_assert_failed
+      000016 84               [ 1]   68 	pop	a
+      000017                         69 00113$:
+                                     70 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 53: assert_param(IS_ADC1_CHANNEL_OK(Channel));
+      000017 4D               [ 1]   71 	tnz	a
+      000018 27 36            [ 1]   72 	jreq	00118$
+      00001A A1 01            [ 1]   73 	cp	a, #0x01
+      00001C 27 32            [ 1]   74 	jreq	00118$
+      00001E A1 02            [ 1]   75 	cp	a, #0x02
+      000020 27 2E            [ 1]   76 	jreq	00118$
+      000022 A1 03            [ 1]   77 	cp	a, #0x03
+      000024 27 2A            [ 1]   78 	jreq	00118$
+      000026 A1 04            [ 1]   79 	cp	a, #0x04
+      000028 27 26            [ 1]   80 	jreq	00118$
+      00002A A1 05            [ 1]   81 	cp	a, #0x05
+      00002C 27 22            [ 1]   82 	jreq	00118$
+      00002E A1 06            [ 1]   83 	cp	a, #0x06
+      000030 27 1E            [ 1]   84 	jreq	00118$
+      000032 A1 07            [ 1]   85 	cp	a, #0x07
+      000034 27 1A            [ 1]   86 	jreq	00118$
+      000036 A1 08            [ 1]   87 	cp	a, #0x08
+      000038 27 16            [ 1]   88 	jreq	00118$
+      00003A A1 0C            [ 1]   89 	cp	a, #0x0c
+      00003C 27 12            [ 1]   90 	jreq	00118$
+      00003E A1 09            [ 1]   91 	cp	a, #0x09
+      000040 27 0E            [ 1]   92 	jreq	00118$
+      000042 88               [ 1]   93 	push	a
+      000043 4B 35            [ 1]   94 	push	#0x35
+      000045 5F               [ 1]   95 	clrw	x
+      000046 89               [ 2]   96 	pushw	x
+      000047 4B 00            [ 1]   97 	push	#0x00
+      000049 AEr00r00         [ 2]   98 	ldw	x, #(___str_0+0)
+      00004C CDr00r00         [ 4]   99 	call	_assert_failed
+      00004F 84               [ 1]  100 	pop	a
+      000050                        101 00118$:
+                                    102 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 55: if (Channel < (uint8_t)8)
+      000050 A1 08            [ 1]  103 	cp	a, #0x08
+      000052 24 2B            [ 1]  104 	jrnc	00108$
+                                    105 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 59: ADC1->AWCRL |= (uint8_t)((uint8_t)1 << Channel);
+      000054 AE 54 0F         [ 2]  106 	ldw	x, #0x540f
+      000057 88               [ 1]  107 	push	a
+      000058 F6               [ 1]  108 	ld	a, (x)
+      000059 6B 02            [ 1]  109 	ld	(0x02, sp), a
+      00005B A6 01            [ 1]  110 	ld	a, #0x01
+      00005D 6B 03            [ 1]  111 	ld	(0x03, sp), a
+      00005F 84               [ 1]  112 	pop	a
+      000060 4D               [ 1]  113 	tnz	a
+      000061 27 05            [ 1]  114 	jreq	00296$
+      000063                        115 00295$:
+      000063 08 02            [ 1]  116 	sll	(0x02, sp)
+      000065 4A               [ 1]  117 	dec	a
+      000066 26 FB            [ 1]  118 	jrne	00295$
+      000068                        119 00296$:
+                                    120 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 57: if (NewState != DISABLE)
+      000068 0D 05            [ 1]  121 	tnz	(0x05, sp)
+      00006A 27 09            [ 1]  122 	jreq	00102$
+                                    123 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 59: ADC1->AWCRL |= (uint8_t)((uint8_t)1 << Channel);
+      00006C 7B 01            [ 1]  124 	ld	a, (0x01, sp)
+      00006E 1A 02            [ 1]  125 	or	a, (0x02, sp)
+      000070 C7 54 0F         [ 1]  126 	ld	0x540f, a
+      000073 20 33            [ 2]  127 	jra	00110$
+      000075                        128 00102$:
+                                    129 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 63: ADC1->AWCRL &= (uint8_t)~(uint8_t)((uint8_t)1 << Channel);
+      000075 7B 02            [ 1]  130 	ld	a, (0x02, sp)
+      000077 43               [ 1]  131 	cpl	a
+      000078 14 01            [ 1]  132 	and	a, (0x01, sp)
+      00007A C7 54 0F         [ 1]  133 	ld	0x540f, a
+      00007D 20 29            [ 2]  134 	jra	00110$
+      00007F                        135 00108$:
+                                    136 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 70: ADC1->AWCRH |= (uint8_t)((uint8_t)1 << (Channel - (uint8_t)8));
+      00007F AE 54 0E         [ 2]  137 	ldw	x, #0x540e
+      000082 88               [ 1]  138 	push	a
+      000083 F6               [ 1]  139 	ld	a, (x)
+      000084 6B 03            [ 1]  140 	ld	(0x03, sp), a
+      000086 84               [ 1]  141 	pop	a
+      000087 A0 08            [ 1]  142 	sub	a, #0x08
+      000089 97               [ 1]  143 	ld	xl, a
+      00008A A6 01            [ 1]  144 	ld	a, #0x01
+      00008C 88               [ 1]  145 	push	a
+      00008D 9F               [ 1]  146 	ld	a, xl
+      00008E 4D               [ 1]  147 	tnz	a
+      00008F 27 05            [ 1]  148 	jreq	00299$
+      000091                        149 00298$:
+      000091 08 01            [ 1]  150 	sll	(1, sp)
+      000093 4A               [ 1]  151 	dec	a
+      000094 26 FB            [ 1]  152 	jrne	00298$
+      000096                        153 00299$:
+      000096 84               [ 1]  154 	pop	a
+                                    155 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 68: if (NewState != DISABLE)
+      000097 0D 05            [ 1]  156 	tnz	(0x05, sp)
+      000099 27 07            [ 1]  157 	jreq	00105$
+                                    158 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 70: ADC1->AWCRH |= (uint8_t)((uint8_t)1 << (Channel - (uint8_t)8));
+      00009B 1A 02            [ 1]  159 	or	a, (0x02, sp)
+      00009D C7 54 0E         [ 1]  160 	ld	0x540e, a
+      0000A0 20 06            [ 2]  161 	jra	00110$
+      0000A2                        162 00105$:
+                                    163 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 74: ADC1->AWCRH &= (uint8_t)~(uint8_t)((uint8_t)1 << (uint8_t)(Channel - (uint8_t)8));
+      0000A2 43               [ 1]  164 	cpl	a
+      0000A3 14 02            [ 1]  165 	and	a, (0x02, sp)
+      0000A5 C7 54 0E         [ 1]  166 	ld	0x540e, a
+      0000A8                        167 00110$:
+                                    168 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c: 77: }
+      0000A8 85               [ 2]  169 	popw	x
+      0000A9 85               [ 2]  170 	popw	x
+      0000AA 84               [ 1]  171 	pop	a
+      0000AB FC               [ 2]  172 	jp	(x)
+                                    173 	.area CODE
+                                    174 	.area CONST
+                                    175 	.area CONST
+      000000                        176 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   177 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_adc1_AWDChannelConfig.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 61 64 63 31 5F 41
+             57 44 43 68 61 6E 6E
+             65 6C 43 6F 6E 66 69
+             67 2E 63
+      00003B 00                     178 	.db 0x00
+                                    179 	.area CODE
+                                    180 	.area INITIALIZER
+                                    181 	.area CABS (ABS)

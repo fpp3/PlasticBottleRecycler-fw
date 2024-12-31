@@ -1,0 +1,131 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_tim1_GetFlagStatus
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _TIM1_GetFlagStatus
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 60: FlagStatus TIM1_GetFlagStatus(TIM1_FLAG_TypeDef TIM1_FLAG)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function TIM1_GetFlagStatus
+                                     53 ;	-----------------------------------------
+      000000                         54 _TIM1_GetFlagStatus:
+      000000 52 03            [ 2]   55 	sub	sp, #3
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 66: assert_param(IS_TIM1_GET_FLAG_OK(TIM1_FLAG));
+      000002 1F 02            [ 2]   57 	ldw	(0x02, sp), x
+      000004 A3 00 01         [ 2]   58 	cpw	x, #0x0001
+      000007 27 47            [ 1]   59 	jreq	00107$
+      000009 A3 00 02         [ 2]   60 	cpw	x, #0x0002
+      00000C 27 42            [ 1]   61 	jreq	00107$
+      00000E A3 00 04         [ 2]   62 	cpw	x, #0x0004
+      000011 27 3D            [ 1]   63 	jreq	00107$
+      000013 A3 00 08         [ 2]   64 	cpw	x, #0x0008
+      000016 27 38            [ 1]   65 	jreq	00107$
+      000018 A3 00 10         [ 2]   66 	cpw	x, #0x0010
+      00001B 27 33            [ 1]   67 	jreq	00107$
+      00001D A3 00 20         [ 2]   68 	cpw	x, #0x0020
+      000020 27 2E            [ 1]   69 	jreq	00107$
+      000022 A3 00 40         [ 2]   70 	cpw	x, #0x0040
+      000025 27 29            [ 1]   71 	jreq	00107$
+      000027 A3 00 80         [ 2]   72 	cpw	x, #0x0080
+      00002A 27 24            [ 1]   73 	jreq	00107$
+      00002C A3 02 00         [ 2]   74 	cpw	x, #0x0200
+      00002F 27 1F            [ 1]   75 	jreq	00107$
+      000031 A3 04 00         [ 2]   76 	cpw	x, #0x0400
+      000034 27 1A            [ 1]   77 	jreq	00107$
+      000036 A3 08 00         [ 2]   78 	cpw	x, #0x0800
+      000039 27 15            [ 1]   79 	jreq	00107$
+      00003B A3 10 00         [ 2]   80 	cpw	x, #0x1000
+      00003E 27 10            [ 1]   81 	jreq	00107$
+      000040 89               [ 2]   82 	pushw	x
+      000041 4B 42            [ 1]   83 	push	#0x42
+      000043 4B 00            [ 1]   84 	push	#0x00
+      000045 4B 00            [ 1]   85 	push	#0x00
+      000047 4B 00            [ 1]   86 	push	#0x00
+      000049 AEr00r00         [ 2]   87 	ldw	x, #(___str_0+0)
+      00004C CDr00r00         [ 4]   88 	call	_assert_failed
+      00004F 85               [ 2]   89 	popw	x
+      000050                         90 00107$:
+                                     91 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 68: tim1_flag_l = (uint8_t)(TIM1->SR1 & (uint8_t)TIM1_FLAG);
+      000050 C6 52 55         [ 1]   92 	ld	a, 0x5255
+      000053 6B 01            [ 1]   93 	ld	(0x01, sp), a
+      000055 7B 03            [ 1]   94 	ld	a, (0x03, sp)
+      000057 14 01            [ 1]   95 	and	a, (0x01, sp)
+      000059 6B 01            [ 1]   96 	ld	(0x01, sp), a
+                                     97 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 69: tim1_flag_h = (uint8_t)((uint16_t)TIM1_FLAG >> 8);
+                                     98 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 71: if ((tim1_flag_l | (uint8_t)(TIM1->SR2 & tim1_flag_h)) != 0)
+      00005B C6 52 56         [ 1]   99 	ld	a, 0x5256
+      00005E 89               [ 2]  100 	pushw	x
+      00005F 14 01            [ 1]  101 	and	a, (1, sp)
+      000061 85               [ 2]  102 	popw	x
+      000062 1A 01            [ 1]  103 	or	a, (0x01, sp)
+      000064 27 03            [ 1]  104 	jreq	00102$
+                                    105 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 73: bitstatus = SET;
+      000066 A6 01            [ 1]  106 	ld	a, #0x01
+                                    107 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 77: bitstatus = RESET;
+      000068 21                     108 	.byte 0x21
+      000069                        109 00102$:
+      000069 4F               [ 1]  110 	clr	a
+      00006A                        111 00103$:
+                                    112 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 79: return (FlagStatus)(bitstatus);
+                                    113 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c: 80: }
+      00006A 5B 03            [ 2]  114 	addw	sp, #3
+      00006C 81               [ 4]  115 	ret
+                                    116 	.area CODE
+                                    117 	.area CONST
+                                    118 	.area CONST
+      000000                        119 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   120 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_tim1_GetFlagStatus.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 74 69 6D 31 5F 47
+             65 74 46 6C 61 67 53
+             74 61 74 75 73 2E 63
+      000038 00                     121 	.db 0x00
+                                    122 	.area CODE
+                                    123 	.area INITIALIZER
+                                    124 	.area CABS (ABS)

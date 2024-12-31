@@ -1,0 +1,162 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_i2c_GetITStatus
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _I2C_GetITStatus
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 62: ITStatus I2C_GetITStatus(I2C_ITPendingBit_TypeDef I2C_ITPendingBit)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function I2C_GetITStatus
+                                     53 ;	-----------------------------------------
+      000000                         54 _I2C_GetITStatus:
+      000000 52 06            [ 2]   55 	sub	sp, #6
+      000002 1F 05            [ 2]   56 	ldw	(0x05, sp), x
+                                     57 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 65: __IO uint8_t enablestatus = 0;
+      000004 0F 03            [ 1]   58 	clr	(0x03, sp)
+                                     59 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 69: assert_param(IS_I2C_ITPENDINGBIT_OK(I2C_ITPendingBit));
+      000006 1E 05            [ 2]   60 	ldw	x, (0x05, sp)
+      000008 A3 16 80         [ 2]   61 	cpw	x, #0x1680
+      00000B 27 47            [ 1]   62 	jreq	00115$
+      00000D A3 16 40         [ 2]   63 	cpw	x, #0x1640
+      000010 27 42            [ 1]   64 	jreq	00115$
+      000012 A3 12 10         [ 2]   65 	cpw	x, #0x1210
+      000015 27 3D            [ 1]   66 	jreq	00115$
+      000017 A3 12 08         [ 2]   67 	cpw	x, #0x1208
+      00001A 27 38            [ 1]   68 	jreq	00115$
+      00001C A3 12 04         [ 2]   69 	cpw	x, #0x1204
+      00001F 27 33            [ 1]   70 	jreq	00115$
+      000021 A3 12 02         [ 2]   71 	cpw	x, #0x1202
+      000024 27 2E            [ 1]   72 	jreq	00115$
+      000026 A3 12 01         [ 2]   73 	cpw	x, #0x1201
+      000029 27 29            [ 1]   74 	jreq	00115$
+      00002B A3 22 20         [ 2]   75 	cpw	x, #0x2220
+      00002E 27 24            [ 1]   76 	jreq	00115$
+      000030 A3 21 08         [ 2]   77 	cpw	x, #0x2108
+      000033 27 1F            [ 1]   78 	jreq	00115$
+      000035 A3 21 04         [ 2]   79 	cpw	x, #0x2104
+      000038 27 1A            [ 1]   80 	jreq	00115$
+      00003A A3 21 02         [ 2]   81 	cpw	x, #0x2102
+      00003D 27 15            [ 1]   82 	jreq	00115$
+      00003F A3 21 01         [ 2]   83 	cpw	x, #0x2101
+      000042 27 10            [ 1]   84 	jreq	00115$
+      000044 89               [ 2]   85 	pushw	x
+      000045 4B 45            [ 1]   86 	push	#0x45
+      000047 4B 00            [ 1]   87 	push	#0x00
+      000049 4B 00            [ 1]   88 	push	#0x00
+      00004B 4B 00            [ 1]   89 	push	#0x00
+      00004D AEr00r00         [ 2]   90 	ldw	x, #(___str_0+0)
+      000050 CDr00r00         [ 4]   91 	call	_assert_failed
+      000053 85               [ 2]   92 	popw	x
+      000054                         93 00115$:
+                                     94 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 71: tempregister = (uint8_t)( ((uint16_t)((uint16_t)I2C_ITPendingBit & ITEN_Mask)) >> 8);
+      000054 0F 02            [ 1]   95 	clr	(0x02, sp)
+      000056 9E               [ 1]   96 	ld	a, xh
+      000057 A4 07            [ 1]   97 	and	a, #0x07
+      000059 90 97            [ 1]   98 	ld	yl, a
+                                     99 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 74: enablestatus = (uint8_t)(I2C->ITR & ( uint8_t)tempregister);
+      00005B C6 52 1A         [ 1]  100 	ld	a, 0x521a
+      00005E 6B 04            [ 1]  101 	ld	(0x04, sp), a
+      000060 90 9F            [ 1]  102 	ld	a, yl
+      000062 14 04            [ 1]  103 	and	a, (0x04, sp)
+      000064 6B 03            [ 1]  104 	ld	(0x03, sp), a
+                                    105 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 76: if ((uint16_t)((uint16_t)I2C_ITPendingBit & REGISTER_Mask) == REGISTER_SR1_Index)
+      000066 4F               [ 1]  106 	clr	a
+      000067 02               [ 1]  107 	rlwa	x
+      000068 A4 30            [ 1]  108 	and	a, #0x30
+      00006A 95               [ 1]  109 	ld	xh, a
+                                    110 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 79: if (((I2C->SR1 & (uint8_t)I2C_ITPendingBit) != RESET) && enablestatus)
+      00006B 7B 06            [ 1]  111 	ld	a, (0x06, sp)
+      00006D 6B 04            [ 1]  112 	ld	(0x04, sp), a
+                                    113 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 76: if ((uint16_t)((uint16_t)I2C_ITPendingBit & REGISTER_Mask) == REGISTER_SR1_Index)
+      00006F A3 01 00         [ 2]  114 	cpw	x, #0x0100
+      000072 26 12            [ 1]  115 	jrne	00110$
+                                    116 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 79: if (((I2C->SR1 & (uint8_t)I2C_ITPendingBit) != RESET) && enablestatus)
+      000074 C6 52 17         [ 1]  117 	ld	a, 0x5217
+      000077 14 04            [ 1]  118 	and	a, (0x04, sp)
+      000079 27 08            [ 1]  119 	jreq	00102$
+      00007B 0D 03            [ 1]  120 	tnz	(0x03, sp)
+      00007D 27 04            [ 1]  121 	jreq	00102$
+                                    122 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 82: bitstatus = SET;
+      00007F A6 01            [ 1]  123 	ld	a, #0x01
+      000081 20 12            [ 2]  124 	jra	00111$
+      000083                        125 00102$:
+                                    126 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 87: bitstatus = RESET;
+      000083 4F               [ 1]  127 	clr	a
+      000084 20 0F            [ 2]  128 	jra	00111$
+      000086                        129 00110$:
+                                    130 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 93: if (((I2C->SR2 & (uint8_t)I2C_ITPendingBit) != RESET) && enablestatus)
+      000086 C6 52 18         [ 1]  131 	ld	a, 0x5218
+      000089 14 04            [ 1]  132 	and	a, (0x04, sp)
+      00008B 27 07            [ 1]  133 	jreq	00106$
+      00008D 0D 03            [ 1]  134 	tnz	(0x03, sp)
+      00008F 27 03            [ 1]  135 	jreq	00106$
+                                    136 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 96: bitstatus = SET;
+      000091 A6 01            [ 1]  137 	ld	a, #0x01
+                                    138 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 101: bitstatus = RESET;
+      000093 21                     139 	.byte 0x21
+      000094                        140 00106$:
+      000094 4F               [ 1]  141 	clr	a
+      000095                        142 00111$:
+                                    143 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 105: return  bitstatus;
+                                    144 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c: 106: }
+      000095 5B 06            [ 2]  145 	addw	sp, #6
+      000097 81               [ 4]  146 	ret
+                                    147 	.area CODE
+                                    148 	.area CONST
+                                    149 	.area CONST
+      000000                        150 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   151 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_i2c_GetITStatus.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 69 32 63 5F 47 65
+             74 49 54 53 74 61 74
+             75 73 2E 63
+      000035 00                     152 	.db 0x00
+                                    153 	.area CODE
+                                    154 	.area INITIALIZER
+                                    155 	.area CABS (ABS)

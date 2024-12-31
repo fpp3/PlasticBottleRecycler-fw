@@ -1,0 +1,123 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_adc1_ITConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _ADC1_ITConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 50: void ADC1_ITConfig(ADC1_IT_TypeDef ADC1_IT, FunctionalState NewState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function ADC1_ITConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _ADC1_ITConfig:
+      000000 52 04            [ 2]   55 	sub	sp, #4
+      000002 1F 03            [ 2]   56 	ldw	(0x03, sp), x
+      000004 6B 02            [ 1]   57 	ld	(0x02, sp), a
+                                     58 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 53: assert_param(IS_ADC1_IT_OK(ADC1_IT));
+      000006 1E 03            [ 2]   59 	ldw	x, (0x03, sp)
+      000008 A3 00 20         [ 2]   60 	cpw	x, #0x0020
+      00000B 27 15            [ 1]   61 	jreq	00107$
+      00000D A3 00 10         [ 2]   62 	cpw	x, #0x0010
+      000010 27 10            [ 1]   63 	jreq	00107$
+      000012 89               [ 2]   64 	pushw	x
+      000013 4B 35            [ 1]   65 	push	#0x35
+      000015 4B 00            [ 1]   66 	push	#0x00
+      000017 4B 00            [ 1]   67 	push	#0x00
+      000019 4B 00            [ 1]   68 	push	#0x00
+      00001B AEr00r00         [ 2]   69 	ldw	x, #(___str_0+0)
+      00001E CDr00r00         [ 4]   70 	call	_assert_failed
+      000021 85               [ 2]   71 	popw	x
+      000022                         72 00107$:
+                                     73 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 54: assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+      000022 0D 02            [ 1]   74 	tnz	(0x02, sp)
+      000024 27 14            [ 1]   75 	jreq	00112$
+      000026 0D 02            [ 1]   76 	tnz	(0x02, sp)
+      000028 26 10            [ 1]   77 	jrne	00112$
+      00002A 89               [ 2]   78 	pushw	x
+      00002B 4B 36            [ 1]   79 	push	#0x36
+      00002D 4B 00            [ 1]   80 	push	#0x00
+      00002F 4B 00            [ 1]   81 	push	#0x00
+      000031 4B 00            [ 1]   82 	push	#0x00
+      000033 AEr00r00         [ 2]   83 	ldw	x, #(___str_0+0)
+      000036 CDr00r00         [ 4]   84 	call	_assert_failed
+      000039 85               [ 2]   85 	popw	x
+      00003A                         86 00112$:
+                                     87 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 59: ADC1->CSR |= (uint8_t)ADC1_IT;
+      00003A C6 54 00         [ 1]   88 	ld	a, 0x5400
+      00003D 6B 01            [ 1]   89 	ld	(0x01, sp), a
+                                     90 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 56: if (NewState != DISABLE)
+      00003F 0D 02            [ 1]   91 	tnz	(0x02, sp)
+      000041 27 09            [ 1]   92 	jreq	00102$
+                                     93 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 59: ADC1->CSR |= (uint8_t)ADC1_IT;
+      000043 7B 04            [ 1]   94 	ld	a, (0x04, sp)
+      000045 1A 01            [ 1]   95 	or	a, (0x01, sp)
+      000047 C7 54 00         [ 1]   96 	ld	0x5400, a
+      00004A 20 07            [ 2]   97 	jra	00104$
+      00004C                         98 00102$:
+                                     99 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 64: ADC1->CSR &= (uint8_t)((uint16_t)~(uint16_t)ADC1_IT);
+      00004C 53               [ 2]  100 	cplw	x
+      00004D 9F               [ 1]  101 	ld	a, xl
+      00004E 14 01            [ 1]  102 	and	a, (0x01, sp)
+      000050 C7 54 00         [ 1]  103 	ld	0x5400, a
+      000053                        104 00104$:
+                                    105 ;	../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c: 66: }
+      000053 5B 04            [ 2]  106 	addw	sp, #4
+      000055 81               [ 4]  107 	ret
+                                    108 	.area CODE
+                                    109 	.area CONST
+                                    110 	.area CONST
+      000000                        111 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   112 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_adc1_ITConfig.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 61 64 63 31 5F 49
+             54 43 6F 6E 66 69 67
+             2E 63
+      000033 00                     113 	.db 0x00
+                                    114 	.area CODE
+                                    115 	.area INITIALIZER
+                                    116 	.area CABS (ABS)

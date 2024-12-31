@@ -1,0 +1,280 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_itc_SetSoftwarePriority
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _ITC_GetSoftIntStatus
+                                     12 	.globl _assert_failed
+                                     13 	.globl _ITC_SetSoftwarePriority
+                                     14 ;--------------------------------------------------------
+                                     15 ; ram data
+                                     16 ;--------------------------------------------------------
+                                     17 	.area DATA
+                                     18 ;--------------------------------------------------------
+                                     19 ; ram data
+                                     20 ;--------------------------------------------------------
+                                     21 	.area INITIALIZED
+                                     22 ;--------------------------------------------------------
+                                     23 ; absolute external ram data
+                                     24 ;--------------------------------------------------------
+                                     25 	.area DABS (ABS)
+                                     26 
+                                     27 ; default segment ordering for linker
+                                     28 	.area HOME
+                                     29 	.area GSINIT
+                                     30 	.area GSFINAL
+                                     31 	.area CONST
+                                     32 	.area INITIALIZER
+                                     33 	.area CODE
+                                     34 
+                                     35 ;--------------------------------------------------------
+                                     36 ; global & static initialisations
+                                     37 ;--------------------------------------------------------
+                                     38 	.area HOME
+                                     39 	.area GSINIT
+                                     40 	.area GSFINAL
+                                     41 	.area GSINIT
+                                     42 ;--------------------------------------------------------
+                                     43 ; Home
+                                     44 ;--------------------------------------------------------
+                                     45 	.area HOME
+                                     46 	.area HOME
+                                     47 ;--------------------------------------------------------
+                                     48 ; code
+                                     49 ;--------------------------------------------------------
+                                     50 	.area CODE
+                                     51 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 54: void ITC_SetSoftwarePriority(ITC_Irq_TypeDef IrqNum, ITC_PriorityLevel_TypeDef PriorityValue)
+                                     52 ;	-----------------------------------------
+                                     53 ;	 function ITC_SetSoftwarePriority
+                                     54 ;	-----------------------------------------
+      000000                         55 _ITC_SetSoftwarePriority:
+      000000 52 04            [ 2]   56 	sub	sp, #4
+                                     57 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 60: assert_param(IS_ITC_IRQ_OK((uint8_t)IrqNum));
+      000002 6B 04            [ 1]   58 	ld	(0x04, sp), a
+      000004 A1 18            [ 1]   59 	cp	a, #0x18
+      000006 22 04            [ 1]   60 	jrugt	00190$
+      000008 0F 01            [ 1]   61 	clr	(0x01, sp)
+      00000A 20 04            [ 2]   62 	jra	00191$
+      00000C                         63 00190$:
+      00000C A6 01            [ 1]   64 	ld	a, #0x01
+      00000E 6B 01            [ 1]   65 	ld	(0x01, sp), a
+      000010                         66 00191$:
+      000010 0D 01            [ 1]   67 	tnz	(0x01, sp)
+      000012 27 0C            [ 1]   68 	jreq	00127$
+      000014 4B 3C            [ 1]   69 	push	#0x3c
+      000016 5F               [ 1]   70 	clrw	x
+      000017 89               [ 2]   71 	pushw	x
+      000018 4B 00            [ 1]   72 	push	#0x00
+      00001A AEr00r00         [ 2]   73 	ldw	x, #(___str_0+0)
+      00001D CDr00r00         [ 4]   74 	call	_assert_failed
+      000020                         75 00127$:
+                                     76 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 61: assert_param(IS_ITC_PRIORITY_OK(PriorityValue));
+      000020 7B 07            [ 1]   77 	ld	a, (0x07, sp)
+      000022 A1 02            [ 1]   78 	cp	a, #0x02
+      000024 27 1B            [ 1]   79 	jreq	00129$
+      000026 7B 07            [ 1]   80 	ld	a, (0x07, sp)
+      000028 4A               [ 1]   81 	dec	a
+      000029 27 16            [ 1]   82 	jreq	00129$
+      00002B 0D 07            [ 1]   83 	tnz	(0x07, sp)
+      00002D 27 12            [ 1]   84 	jreq	00129$
+      00002F 7B 07            [ 1]   85 	ld	a, (0x07, sp)
+      000031 A1 03            [ 1]   86 	cp	a, #0x03
+      000033 27 0C            [ 1]   87 	jreq	00129$
+      000035 4B 3D            [ 1]   88 	push	#0x3d
+      000037 5F               [ 1]   89 	clrw	x
+      000038 89               [ 2]   90 	pushw	x
+      000039 4B 00            [ 1]   91 	push	#0x00
+      00003B AEr00r00         [ 2]   92 	ldw	x, #(___str_0+0)
+      00003E CDr00r00         [ 4]   93 	call	_assert_failed
+      000041                         94 00129$:
+                                     95 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 64: assert_param(IS_ITC_INTERRUPTS_DISABLED);
+      000041 CDr00r00         [ 4]   96 	call	_ITC_GetSoftIntStatus
+      000044 A1 28            [ 1]   97 	cp	a, #0x28
+      000046 27 0C            [ 1]   98 	jreq	00140$
+      000048 4B 40            [ 1]   99 	push	#0x40
+      00004A 5F               [ 1]  100 	clrw	x
+      00004B 89               [ 2]  101 	pushw	x
+      00004C 4B 00            [ 1]  102 	push	#0x00
+      00004E AEr00r00         [ 2]  103 	ldw	x, #(___str_0+0)
+      000051 CDr00r00         [ 4]  104 	call	_assert_failed
+      000054                        105 00140$:
+                                    106 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 68: Mask = (uint8_t)(~(uint8_t)(0x03U << (((uint8_t)IrqNum % 4U) * 2U)));
+      000054 7B 04            [ 1]  107 	ld	a, (0x04, sp)
+      000056 A4 03            [ 1]  108 	and	a, #0x03
+      000058 48               [ 1]  109 	sll	a
+      000059 97               [ 1]  110 	ld	xl, a
+      00005A A6 03            [ 1]  111 	ld	a, #0x03
+      00005C 88               [ 1]  112 	push	a
+      00005D 9F               [ 1]  113 	ld	a, xl
+      00005E 4D               [ 1]  114 	tnz	a
+      00005F 27 05            [ 1]  115 	jreq	00207$
+      000061                        116 00206$:
+      000061 08 01            [ 1]  117 	sll	(1, sp)
+      000063 4A               [ 1]  118 	dec	a
+      000064 26 FB            [ 1]  119 	jrne	00206$
+      000066                        120 00207$:
+      000066 84               [ 1]  121 	pop	a
+      000067 43               [ 1]  122 	cpl	a
+      000068 6B 02            [ 1]  123 	ld	(0x02, sp), a
+                                    124 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 71: NewPriority = (uint8_t)((uint8_t)(PriorityValue) << (((uint8_t)IrqNum % 4U) * 2U));
+      00006A 7B 07            [ 1]  125 	ld	a, (0x07, sp)
+      00006C 88               [ 1]  126 	push	a
+      00006D 9F               [ 1]  127 	ld	a, xl
+      00006E 4D               [ 1]  128 	tnz	a
+      00006F 27 05            [ 1]  129 	jreq	00209$
+      000071                        130 00208$:
+      000071 08 01            [ 1]  131 	sll	(1, sp)
+      000073 4A               [ 1]  132 	dec	a
+      000074 26 FB            [ 1]  133 	jrne	00208$
+      000076                        134 00209$:
+      000076 84               [ 1]  135 	pop	a
+      000077 6B 03            [ 1]  136 	ld	(0x03, sp), a
+                                    137 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 73: switch (IrqNum)
+      000079 7B 01            [ 1]  138 	ld	a, (0x01, sp)
+      00007B 27 03            [ 1]  139 	jreq	00210$
+      00007D CCr01r37         [ 2]  140 	jp	00124$
+      000080                        141 00210$:
+      000080 5F               [ 1]  142 	clrw	x
+      000081 7B 04            [ 1]  143 	ld	a, (0x04, sp)
+      000083 97               [ 1]  144 	ld	xl, a
+      000084 58               [ 2]  145 	sllw	x
+      000085 DEu00u89         [ 2]  146 	ldw	x, (#00211$, x)
+      000088 FC               [ 2]  147 	jp	(x)
+      000089                        148 00211$:
+      000089r00rBB                  149 	.dw	#00104$
+      00008Br00rBB                  150 	.dw	#00104$
+      00008Dr00rBB                  151 	.dw	#00104$
+      00008Fr00rBB                  152 	.dw	#00104$
+      000091r00rCD                  153 	.dw	#00108$
+      000093r00rCD                  154 	.dw	#00108$
+      000095r00rCD                  155 	.dw	#00108$
+      000097r00rCD                  156 	.dw	#00108$
+      000099r01r37                  157 	.dw	#00124$
+      00009Br01r37                  158 	.dw	#00124$
+      00009Dr00rDF                  159 	.dw	#00110$
+      00009Fr00rDF                  160 	.dw	#00110$
+      0000A1r00rF1                  161 	.dw	#00114$
+      0000A3r00rF1                  162 	.dw	#00114$
+      0000A5r00rF1                  163 	.dw	#00114$
+      0000A7r00rF1                  164 	.dw	#00114$
+      0000A9r01r03                  165 	.dw	#00116$
+      0000ABr01r37                  166 	.dw	#00124$
+      0000ADr01r37                  167 	.dw	#00124$
+      0000AFr01r03                  168 	.dw	#00116$
+      0000B1r01r15                  169 	.dw	#00120$
+      0000B3r01r15                  170 	.dw	#00120$
+      0000B5r01r15                  171 	.dw	#00120$
+      0000B7r01r15                  172 	.dw	#00120$
+      0000B9r01r27                  173 	.dw	#00121$
+                                    174 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 78: case ITC_IRQ_PORTA:
+      0000BB                        175 00104$:
+                                    176 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 79: ITC->ISPR1 &= Mask;
+      0000BB C6 7F 70         [ 1]  177 	ld	a, 0x7f70
+      0000BE 14 02            [ 1]  178 	and	a, (0x02, sp)
+      0000C0 C7 7F 70         [ 1]  179 	ld	0x7f70, a
+                                    180 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 80: ITC->ISPR1 |= NewPriority;
+      0000C3 C6 7F 70         [ 1]  181 	ld	a, 0x7f70
+      0000C6 1A 03            [ 1]  182 	or	a, (0x03, sp)
+      0000C8 C7 7F 70         [ 1]  183 	ld	0x7f70, a
+                                    184 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 81: break;
+      0000CB 20 6A            [ 2]  185 	jra	00124$
+                                    186 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 86: case ITC_IRQ_PORTE:
+      0000CD                        187 00108$:
+                                    188 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 87: ITC->ISPR2 &= Mask;
+      0000CD C6 7F 71         [ 1]  189 	ld	a, 0x7f71
+      0000D0 14 02            [ 1]  190 	and	a, (0x02, sp)
+      0000D2 C7 7F 71         [ 1]  191 	ld	0x7f71, a
+                                    192 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 88: ITC->ISPR2 |= NewPriority;
+      0000D5 C6 7F 71         [ 1]  193 	ld	a, 0x7f71
+      0000D8 1A 03            [ 1]  194 	or	a, (0x03, sp)
+      0000DA C7 7F 71         [ 1]  195 	ld	0x7f71, a
+                                    196 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 89: break;
+      0000DD 20 58            [ 2]  197 	jra	00124$
+                                    198 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 99: case ITC_IRQ_TIM1_OVF:
+      0000DF                        199 00110$:
+                                    200 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 100: ITC->ISPR3 &= Mask;
+      0000DF C6 7F 72         [ 1]  201 	ld	a, 0x7f72
+      0000E2 14 02            [ 1]  202 	and	a, (0x02, sp)
+      0000E4 C7 7F 72         [ 1]  203 	ld	0x7f72, a
+                                    204 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 101: ITC->ISPR3 |= NewPriority;
+      0000E7 C6 7F 72         [ 1]  205 	ld	a, 0x7f72
+      0000EA 1A 03            [ 1]  206 	or	a, (0x03, sp)
+      0000EC C7 7F 72         [ 1]  207 	ld	0x7f72, a
+                                    208 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 102: break;
+      0000EF 20 46            [ 2]  209 	jra	00124$
+                                    210 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 112: case ITC_IRQ_TIM3_OVF:
+      0000F1                        211 00114$:
+                                    212 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 113: ITC->ISPR4 &= Mask;
+      0000F1 C6 7F 73         [ 1]  213 	ld	a, 0x7f73
+      0000F4 14 02            [ 1]  214 	and	a, (0x02, sp)
+      0000F6 C7 7F 73         [ 1]  215 	ld	0x7f73, a
+                                    216 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 114: ITC->ISPR4 |= NewPriority;
+      0000F9 C6 7F 73         [ 1]  217 	ld	a, 0x7f73
+      0000FC 1A 03            [ 1]  218 	or	a, (0x03, sp)
+      0000FE C7 7F 73         [ 1]  219 	ld	0x7f73, a
+                                    220 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 115: break;
+      000101 20 34            [ 2]  221 	jra	00124$
+                                    222 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 127: case ITC_IRQ_I2C:
+      000103                        223 00116$:
+                                    224 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 128: ITC->ISPR5 &= Mask;
+      000103 C6 7F 74         [ 1]  225 	ld	a, 0x7f74
+      000106 14 02            [ 1]  226 	and	a, (0x02, sp)
+      000108 C7 7F 74         [ 1]  227 	ld	0x7f74, a
+                                    228 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 129: ITC->ISPR5 |= NewPriority;
+      00010B C6 7F 74         [ 1]  229 	ld	a, 0x7f74
+      00010E 1A 03            [ 1]  230 	or	a, (0x03, sp)
+      000110 C7 7F 74         [ 1]  231 	ld	0x7f74, a
+                                    232 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 130: break;
+      000113 20 22            [ 2]  233 	jra	00124$
+                                    234 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 152: case ITC_IRQ_TIM4_OVF:
+      000115                        235 00120$:
+                                    236 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 154: ITC->ISPR6 &= Mask;
+      000115 C6 7F 75         [ 1]  237 	ld	a, 0x7f75
+      000118 14 02            [ 1]  238 	and	a, (0x02, sp)
+      00011A C7 7F 75         [ 1]  239 	ld	0x7f75, a
+                                    240 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 155: ITC->ISPR6 |= NewPriority;
+      00011D C6 7F 75         [ 1]  241 	ld	a, 0x7f75
+      000120 1A 03            [ 1]  242 	or	a, (0x03, sp)
+      000122 C7 7F 75         [ 1]  243 	ld	0x7f75, a
+                                    244 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 156: break;
+      000125 20 10            [ 2]  245 	jra	00124$
+                                    246 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 158: case ITC_IRQ_EEPROM_EEC:
+      000127                        247 00121$:
+                                    248 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 159: ITC->ISPR7 &= Mask;
+      000127 C6 7F 76         [ 1]  249 	ld	a, 0x7f76
+      00012A 14 02            [ 1]  250 	and	a, (0x02, sp)
+      00012C C7 7F 76         [ 1]  251 	ld	0x7f76, a
+                                    252 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 160: ITC->ISPR7 |= NewPriority;
+      00012F C6 7F 76         [ 1]  253 	ld	a, 0x7f76
+      000132 1A 03            [ 1]  254 	or	a, (0x03, sp)
+      000134 C7 7F 76         [ 1]  255 	ld	0x7f76, a
+                                    256 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 165: }
+      000137                        257 00124$:
+                                    258 ;	../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority.c: 166: }
+      000137 5B 04            [ 2]  259 	addw	sp, #4
+      000139 85               [ 2]  260 	popw	x
+      00013A 84               [ 1]  261 	pop	a
+      00013B FC               [ 2]  262 	jp	(x)
+                                    263 	.area CODE
+                                    264 	.area CONST
+                                    265 	.area CONST
+      000000                        266 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   267 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_itc_SetSoftwarePriority."
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 69 74 63 5F 53 65
+             74 53 6F 66 74 77 61
+             72 65 50 72 69 6F 72
+             69 74 79 2E
+      00003C 63                     268 	.ascii "c"
+      00003D 00                     269 	.db 0x00
+                                    270 	.area CODE
+                                    271 	.area INITIALIZER
+                                    272 	.area CABS (ABS)

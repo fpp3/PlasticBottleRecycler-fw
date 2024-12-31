@@ -1,0 +1,256 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_clk_ClockSwitchConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _CLK_ClockSwitchConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 54: ErrorStatus CLK_ClockSwitchConfig(CLK_SwitchMode_TypeDef CLK_SwitchMode, CLK_Source_TypeDef CLK_NewClock, FunctionalState ITState, CLK_CurrentClockState_TypeDef CLK_CurrentClockState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function CLK_ClockSwitchConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _CLK_ClockSwitchConfig:
+      000000 88               [ 1]   55 	push	a
+      000001 6B 01            [ 1]   56 	ld	(0x01, sp), a
+                                     57 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 61: assert_param(IS_CLK_SOURCE_OK(CLK_NewClock));
+      000003 7B 04            [ 1]   58 	ld	a, (0x04, sp)
+      000005 A1 E1            [ 1]   59 	cp	a, #0xe1
+      000007 27 18            [ 1]   60 	jreq	00140$
+      000009 7B 04            [ 1]   61 	ld	a, (0x04, sp)
+      00000B A1 D2            [ 1]   62 	cp	a, #0xd2
+      00000D 27 12            [ 1]   63 	jreq	00140$
+      00000F 7B 04            [ 1]   64 	ld	a, (0x04, sp)
+      000011 A1 B4            [ 1]   65 	cp	a, #0xb4
+      000013 27 0C            [ 1]   66 	jreq	00140$
+      000015 4B 3D            [ 1]   67 	push	#0x3d
+      000017 5F               [ 1]   68 	clrw	x
+      000018 89               [ 2]   69 	pushw	x
+      000019 4B 00            [ 1]   70 	push	#0x00
+      00001B AEr00r00         [ 2]   71 	ldw	x, #(___str_0+0)
+      00001E CDr00r00         [ 4]   72 	call	_assert_failed
+      000021                         73 00140$:
+                                     74 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 62: assert_param(IS_CLK_SWITCHMODE_OK(CLK_SwitchMode));
+      000021 0D 01            [ 1]   75 	tnz	(0x01, sp)
+      000023 27 10            [ 1]   76 	jreq	00148$
+      000025 0D 01            [ 1]   77 	tnz	(0x01, sp)
+      000027 26 0C            [ 1]   78 	jrne	00148$
+      000029 4B 3E            [ 1]   79 	push	#0x3e
+      00002B 5F               [ 1]   80 	clrw	x
+      00002C 89               [ 2]   81 	pushw	x
+      00002D 4B 00            [ 1]   82 	push	#0x00
+      00002F AEr00r00         [ 2]   83 	ldw	x, #(___str_0+0)
+      000032 CDr00r00         [ 4]   84 	call	_assert_failed
+      000035                         85 00148$:
+                                     86 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 63: assert_param(IS_FUNCTIONALSTATE_OK(ITState));
+      000035 0D 05            [ 1]   87 	tnz	(0x05, sp)
+      000037 27 10            [ 1]   88 	jreq	00153$
+      000039 0D 05            [ 1]   89 	tnz	(0x05, sp)
+      00003B 26 0C            [ 1]   90 	jrne	00153$
+      00003D 4B 3F            [ 1]   91 	push	#0x3f
+      00003F 5F               [ 1]   92 	clrw	x
+      000040 89               [ 2]   93 	pushw	x
+      000041 4B 00            [ 1]   94 	push	#0x00
+      000043 AEr00r00         [ 2]   95 	ldw	x, #(___str_0+0)
+      000046 CDr00r00         [ 4]   96 	call	_assert_failed
+      000049                         97 00153$:
+                                     98 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 64: assert_param(IS_CLK_CURRENTCLOCKSTATE_OK(CLK_CurrentClockState));
+      000049 0D 06            [ 1]   99 	tnz	(0x06, sp)
+      00004B 27 10            [ 1]  100 	jreq	00158$
+      00004D 0D 06            [ 1]  101 	tnz	(0x06, sp)
+      00004F 26 0C            [ 1]  102 	jrne	00158$
+      000051 4B 40            [ 1]  103 	push	#0x40
+      000053 5F               [ 1]  104 	clrw	x
+      000054 89               [ 2]  105 	pushw	x
+      000055 4B 00            [ 1]  106 	push	#0x00
+      000057 AEr00r00         [ 2]  107 	ldw	x, #(___str_0+0)
+      00005A CDr00r00         [ 4]  108 	call	_assert_failed
+      00005D                        109 00158$:
+                                    110 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 67: clock_master = (CLK_Source_TypeDef)CLK->CMSR;
+      00005D C6 50 C3         [ 1]  111 	ld	a, 0x50c3
+      000060 90 97            [ 1]  112 	ld	yl, a
+                                    113 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 73: CLK->SWCR |= CLK_SWCR_SWEN;
+      000062 C6 50 C5         [ 1]  114 	ld	a, 0x50c5
+                                    115 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 70: if (CLK_SwitchMode == CLK_SWITCHMODE_AUTO)
+      000065 0D 01            [ 1]  116 	tnz	(0x01, sp)
+      000067 27 36            [ 1]  117 	jreq	00122$
+                                    118 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 73: CLK->SWCR |= CLK_SWCR_SWEN;
+      000069 AA 02            [ 1]  119 	or	a, #0x02
+      00006B C7 50 C5         [ 1]  120 	ld	0x50c5, a
+      00006E C6 50 C5         [ 1]  121 	ld	a, 0x50c5
+                                    122 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 76: if (ITState != DISABLE)
+      000071 0D 05            [ 1]  123 	tnz	(0x05, sp)
+      000073 27 07            [ 1]  124 	jreq	00102$
+                                    125 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 78: CLK->SWCR |= CLK_SWCR_SWIEN;
+      000075 AA 04            [ 1]  126 	or	a, #0x04
+      000077 C7 50 C5         [ 1]  127 	ld	0x50c5, a
+      00007A 20 05            [ 2]  128 	jra	00103$
+      00007C                        129 00102$:
+                                    130 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 82: CLK->SWCR &= (uint8_t)(~CLK_SWCR_SWIEN);
+      00007C A4 FB            [ 1]  131 	and	a, #0xfb
+      00007E C7 50 C5         [ 1]  132 	ld	0x50c5, a
+      000081                        133 00103$:
+                                    134 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 86: CLK->SWR = (uint8_t)CLK_NewClock;
+      000081 AE 50 C4         [ 2]  135 	ldw	x, #0x50c4
+      000084 7B 04            [ 1]  136 	ld	a, (0x04, sp)
+      000086 F7               [ 1]  137 	ld	(x), a
+                                    138 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 89: while((((CLK->SWCR & CLK_SWCR_SWBSY) != 0 )&& (DownCounter != 0)))
+      000087 5F               [ 1]  139 	clrw	x
+      000088 5A               [ 2]  140 	decw	x
+      000089                        141 00105$:
+      000089 72 01 50 C5 06   [ 2]  142 	btjf	0x50c5, #0, 00107$
+      00008E 5D               [ 2]  143 	tnzw	x
+      00008F 27 03            [ 1]  144 	jreq	00107$
+                                    145 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 91: DownCounter--;
+      000091 5A               [ 2]  146 	decw	x
+      000092 20 F5            [ 2]  147 	jra	00105$
+      000094                        148 00107$:
+                                    149 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 94: if(DownCounter != 0)
+      000094 5D               [ 2]  150 	tnzw	x
+      000095 27 05            [ 1]  151 	jreq	00109$
+                                    152 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 96: Swif = SUCCESS;
+      000097 A6 01            [ 1]  153 	ld	a, #0x01
+      000099 97               [ 1]  154 	ld	xl, a
+      00009A 20 32            [ 2]  155 	jra	00123$
+      00009C                        156 00109$:
+                                    157 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 100: Swif = ERROR;
+      00009C 5F               [ 1]  158 	clrw	x
+      00009D 20 2F            [ 2]  159 	jra	00123$
+      00009F                        160 00122$:
+                                    161 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 106: if (ITState != DISABLE)
+      00009F 0D 05            [ 1]  162 	tnz	(0x05, sp)
+      0000A1 27 07            [ 1]  163 	jreq	00112$
+                                    164 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 108: CLK->SWCR |= CLK_SWCR_SWIEN;
+      0000A3 AA 04            [ 1]  165 	or	a, #0x04
+      0000A5 C7 50 C5         [ 1]  166 	ld	0x50c5, a
+      0000A8 20 05            [ 2]  167 	jra	00113$
+      0000AA                        168 00112$:
+                                    169 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 112: CLK->SWCR &= (uint8_t)(~CLK_SWCR_SWIEN);
+      0000AA A4 FB            [ 1]  170 	and	a, #0xfb
+      0000AC C7 50 C5         [ 1]  171 	ld	0x50c5, a
+      0000AF                        172 00113$:
+                                    173 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 116: CLK->SWR = (uint8_t)CLK_NewClock;
+      0000AF AE 50 C4         [ 2]  174 	ldw	x, #0x50c4
+      0000B2 7B 04            [ 1]  175 	ld	a, (0x04, sp)
+      0000B4 F7               [ 1]  176 	ld	(x), a
+                                    177 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 119: while((((CLK->SWCR & CLK_SWCR_SWIF) != 0 ) && (DownCounter != 0)))
+      0000B5 5F               [ 1]  178 	clrw	x
+      0000B6 5A               [ 2]  179 	decw	x
+      0000B7                        180 00115$:
+      0000B7 72 07 50 C5 06   [ 2]  181 	btjf	0x50c5, #3, 00117$
+      0000BC 5D               [ 2]  182 	tnzw	x
+      0000BD 27 03            [ 1]  183 	jreq	00117$
+                                    184 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 121: DownCounter--;
+      0000BF 5A               [ 2]  185 	decw	x
+      0000C0 20 F5            [ 2]  186 	jra	00115$
+      0000C2                        187 00117$:
+                                    188 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 124: if(DownCounter != 0)
+      0000C2 5D               [ 2]  189 	tnzw	x
+      0000C3 27 08            [ 1]  190 	jreq	00119$
+                                    191 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 127: CLK->SWCR |= CLK_SWCR_SWEN;
+      0000C5 72 12 50 C5      [ 1]  192 	bset	0x50c5, #1
+                                    193 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 128: Swif = SUCCESS;
+      0000C9 A6 01            [ 1]  194 	ld	a, #0x01
+      0000CB 97               [ 1]  195 	ld	xl, a
+                                    196 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 132: Swif = ERROR;
+      0000CC 21                     197 	.byte 0x21
+      0000CD                        198 00119$:
+      0000CD 5F               [ 1]  199 	clrw	x
+      0000CE                        200 00123$:
+                                    201 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 135: if(Swif != ERROR)
+      0000CE 9F               [ 1]  202 	ld	a, xl
+      0000CF 4D               [ 1]  203 	tnz	a
+      0000D0 27 2E            [ 1]  204 	jreq	00136$
+                                    205 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 138: if((CLK_CurrentClockState == CLK_CURRENTCLOCKSTATE_DISABLE) && ( clock_master == CLK_SOURCE_HSI))
+      0000D2 0D 06            [ 1]  206 	tnz	(0x06, sp)
+      0000D4 26 0C            [ 1]  207 	jrne	00132$
+      0000D6 90 9F            [ 1]  208 	ld	a, yl
+      0000D8 A1 E1            [ 1]  209 	cp	a, #0xe1
+      0000DA 26 06            [ 1]  210 	jrne	00132$
+                                    211 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 140: CLK->ICKR &= (uint8_t)(~CLK_ICKR_HSIEN);
+      0000DC 72 11 50 C0      [ 1]  212 	bres	0x50c0, #0
+      0000E0 20 1E            [ 2]  213 	jra	00136$
+      0000E2                        214 00132$:
+                                    215 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 142: else if((CLK_CurrentClockState == CLK_CURRENTCLOCKSTATE_DISABLE) && ( clock_master == CLK_SOURCE_LSI))
+      0000E2 0D 06            [ 1]  216 	tnz	(0x06, sp)
+      0000E4 26 0C            [ 1]  217 	jrne	00128$
+      0000E6 90 9F            [ 1]  218 	ld	a, yl
+      0000E8 A1 D2            [ 1]  219 	cp	a, #0xd2
+      0000EA 26 06            [ 1]  220 	jrne	00128$
+                                    221 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 144: CLK->ICKR &= (uint8_t)(~CLK_ICKR_LSIEN);
+      0000EC 72 17 50 C0      [ 1]  222 	bres	0x50c0, #3
+      0000F0 20 0E            [ 2]  223 	jra	00136$
+      0000F2                        224 00128$:
+                                    225 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 146: else if ((CLK_CurrentClockState == CLK_CURRENTCLOCKSTATE_DISABLE) && ( clock_master == CLK_SOURCE_HSE))
+      0000F2 0D 06            [ 1]  226 	tnz	(0x06, sp)
+      0000F4 26 0A            [ 1]  227 	jrne	00136$
+      0000F6 90 9F            [ 1]  228 	ld	a, yl
+      0000F8 A1 B4            [ 1]  229 	cp	a, #0xb4
+      0000FA 26 04            [ 1]  230 	jrne	00136$
+                                    231 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 148: CLK->ECKR &= (uint8_t)(~CLK_ECKR_HSEEN);
+      0000FC 72 11 50 C1      [ 1]  232 	bres	0x50c1, #0
+      000100                        233 00136$:
+                                    234 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 151: return(Swif);
+      000100 9F               [ 1]  235 	ld	a, xl
+                                    236 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c: 152: }
+      000101 1E 02            [ 2]  237 	ldw	x, (2, sp)
+      000103 5B 06            [ 2]  238 	addw	sp, #6
+      000105 FC               [ 2]  239 	jp	(x)
+                                    240 	.area CODE
+                                    241 	.area CONST
+                                    242 	.area CONST
+      000000                        243 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   244 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_clk_ClockSwitchConfig.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 63 6C 6B 5F 43 6C
+             6F 63 6B 53 77 69 74
+             63 68 43 6F 6E 66 69
+             67 2E 63
+      00003B 00                     245 	.db 0x00
+                                    246 	.area CODE
+                                    247 	.area INITIALIZER
+                                    248 	.area CABS (ABS)

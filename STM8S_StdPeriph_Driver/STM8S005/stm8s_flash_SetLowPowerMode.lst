@@ -1,0 +1,102 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_flash_SetLowPowerMode
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _FLASH_SetLowPowerMode
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_flash_SetLowPowerMode.c: 48: void FLASH_SetLowPowerMode(FLASH_LPMode_TypeDef FLASH_LPMode)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function FLASH_SetLowPowerMode
+                                     53 ;	-----------------------------------------
+      000000                         54 _FLASH_SetLowPowerMode:
+      000000 88               [ 1]   55 	push	a
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_flash_SetLowPowerMode.c: 51: assert_param(IS_FLASH_LOW_POWER_MODE_OK(FLASH_LPMode));
+      000001 6B 01            [ 1]   57 	ld	(0x01, sp), a
+      000003 A1 04            [ 1]   58 	cp	a, #0x04
+      000005 27 1C            [ 1]   59 	jreq	00104$
+      000007 7B 01            [ 1]   60 	ld	a, (0x01, sp)
+      000009 A1 08            [ 1]   61 	cp	a, #0x08
+      00000B 27 16            [ 1]   62 	jreq	00104$
+      00000D 0D 01            [ 1]   63 	tnz	(0x01, sp)
+      00000F 27 12            [ 1]   64 	jreq	00104$
+      000011 7B 01            [ 1]   65 	ld	a, (0x01, sp)
+      000013 A1 0C            [ 1]   66 	cp	a, #0x0c
+      000015 27 0C            [ 1]   67 	jreq	00104$
+      000017 4B 33            [ 1]   68 	push	#0x33
+      000019 5F               [ 1]   69 	clrw	x
+      00001A 89               [ 2]   70 	pushw	x
+      00001B 4B 00            [ 1]   71 	push	#0x00
+      00001D AEr00r00         [ 2]   72 	ldw	x, #(___str_0+0)
+      000020 CDr00r00         [ 4]   73 	call	_assert_failed
+      000023                         74 00104$:
+                                     75 ;	../STM8S_StdPeriph_Driver/src/stm8s_flash_SetLowPowerMode.c: 54: FLASH->CR1 &= (uint8_t)(~(FLASH_CR1_HALT | FLASH_CR1_AHALT)); 
+      000023 C6 50 5A         [ 1]   76 	ld	a, 0x505a
+      000026 A4 F3            [ 1]   77 	and	a, #0xf3
+      000028 C7 50 5A         [ 1]   78 	ld	0x505a, a
+                                     79 ;	../STM8S_StdPeriph_Driver/src/stm8s_flash_SetLowPowerMode.c: 57: FLASH->CR1 |= (uint8_t)FLASH_LPMode; 
+      00002B C6 50 5A         [ 1]   80 	ld	a, 0x505a
+      00002E 1A 01            [ 1]   81 	or	a, (0x01, sp)
+      000030 C7 50 5A         [ 1]   82 	ld	0x505a, a
+                                     83 ;	../STM8S_StdPeriph_Driver/src/stm8s_flash_SetLowPowerMode.c: 58: }
+      000033 84               [ 1]   84 	pop	a
+      000034 81               [ 4]   85 	ret
+                                     86 	.area CODE
+                                     87 	.area CONST
+                                     88 	.area CONST
+      000000                         89 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38    90 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_flash_SetLowPowerMode.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 66 6C 61 73 68 5F
+             53 65 74 4C 6F 77 50
+             6F 77 65 72 4D 6F 64
+             65 2E 63
+      00003B 00                      91 	.db 0x00
+                                     92 	.area CODE
+                                     93 	.area INITIALIZER
+                                     94 	.area CABS (ABS)

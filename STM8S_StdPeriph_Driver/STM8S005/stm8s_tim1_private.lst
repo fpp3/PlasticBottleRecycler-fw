@@ -1,0 +1,225 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_tim1_private
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _TIM1_TI1_Config
+                                     12 	.globl _TIM1_TI2_Config
+                                     13 	.globl _TIM1_TI3_Config
+                                     14 	.globl _TIM1_TI4_Config
+                                     15 ;--------------------------------------------------------
+                                     16 ; ram data
+                                     17 ;--------------------------------------------------------
+                                     18 	.area DATA
+                                     19 ;--------------------------------------------------------
+                                     20 ; ram data
+                                     21 ;--------------------------------------------------------
+                                     22 	.area INITIALIZED
+                                     23 ;--------------------------------------------------------
+                                     24 ; absolute external ram data
+                                     25 ;--------------------------------------------------------
+                                     26 	.area DABS (ABS)
+                                     27 
+                                     28 ; default segment ordering for linker
+                                     29 	.area HOME
+                                     30 	.area GSINIT
+                                     31 	.area GSFINAL
+                                     32 	.area CONST
+                                     33 	.area INITIALIZER
+                                     34 	.area CODE
+                                     35 
+                                     36 ;--------------------------------------------------------
+                                     37 ; global & static initialisations
+                                     38 ;--------------------------------------------------------
+                                     39 	.area HOME
+                                     40 	.area GSINIT
+                                     41 	.area GSFINAL
+                                     42 	.area GSINIT
+                                     43 ;--------------------------------------------------------
+                                     44 ; Home
+                                     45 ;--------------------------------------------------------
+                                     46 	.area HOME
+                                     47 	.area HOME
+                                     48 ;--------------------------------------------------------
+                                     49 ; code
+                                     50 ;--------------------------------------------------------
+                                     51 	.area CODE
+                                     52 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 58: void TIM1_TI1_Config(uint8_t TIM1_ICPolarity,
+                                     53 ;	-----------------------------------------
+                                     54 ;	 function TIM1_TI1_Config
+                                     55 ;	-----------------------------------------
+      000000                         56 _TIM1_TI1_Config:
+      000000 89               [ 2]   57 	pushw	x
+      000001 6B 02            [ 1]   58 	ld	(0x02, sp), a
+                                     59 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 63: TIM1->CCER1 &= (uint8_t)(~TIM1_CCER1_CC1E);
+      000003 72 11 52 5C      [ 1]   60 	bres	0x525c, #0
+                                     61 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 66: TIM1->CCMR1 = (uint8_t)((uint8_t)(TIM1->CCMR1 & (uint8_t)(~(uint8_t)( TIM1_CCMR_CCxS | TIM1_CCMR_ICxF ))) | 
+      000007 C6 52 58         [ 1]   62 	ld	a, 0x5258
+      00000A A4 0C            [ 1]   63 	and	a, #0x0c
+      00000C 6B 01            [ 1]   64 	ld	(0x01, sp), a
+                                     65 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 67: (uint8_t)(( (TIM1_ICSelection)) | ((uint8_t)( TIM1_ICFilter << 4))));
+      00000E 7B 06            [ 1]   66 	ld	a, (0x06, sp)
+      000010 4E               [ 1]   67 	swap	a
+      000011 A4 F0            [ 1]   68 	and	a, #0xf0
+      000013 1A 05            [ 1]   69 	or	a, (0x05, sp)
+      000015 1A 01            [ 1]   70 	or	a, (0x01, sp)
+      000017 C7 52 58         [ 1]   71 	ld	0x5258, a
+                                     72 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 63: TIM1->CCER1 &= (uint8_t)(~TIM1_CCER1_CC1E);
+      00001A C6 52 5C         [ 1]   73 	ld	a, 0x525c
+                                     74 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 70: if (TIM1_ICPolarity != TIM1_ICPOLARITY_RISING)
+      00001D 0D 02            [ 1]   75 	tnz	(0x02, sp)
+      00001F 27 07            [ 1]   76 	jreq	00102$
+                                     77 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 72: TIM1->CCER1 |= TIM1_CCER1_CC1P;
+      000021 AA 02            [ 1]   78 	or	a, #0x02
+      000023 C7 52 5C         [ 1]   79 	ld	0x525c, a
+      000026 20 05            [ 2]   80 	jra	00103$
+      000028                         81 00102$:
+                                     82 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 76: TIM1->CCER1 &= (uint8_t)(~TIM1_CCER1_CC1P);
+      000028 A4 FD            [ 1]   83 	and	a, #0xfd
+      00002A C7 52 5C         [ 1]   84 	ld	0x525c, a
+      00002D                         85 00103$:
+                                     86 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 80: TIM1->CCER1 |=  TIM1_CCER1_CC1E;
+      00002D C6 52 5C         [ 1]   87 	ld	a, 0x525c
+      000030 AA 01            [ 1]   88 	or	a, #0x01
+      000032 C7 52 5C         [ 1]   89 	ld	0x525c, a
+                                     90 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 81: }
+      000035 1E 03            [ 2]   91 	ldw	x, (3, sp)
+      000037 5B 06            [ 2]   92 	addw	sp, #6
+      000039 FC               [ 2]   93 	jp	(x)
+                                     94 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 99: void TIM1_TI2_Config(uint8_t TIM1_ICPolarity,
+                                     95 ;	-----------------------------------------
+                                     96 ;	 function TIM1_TI2_Config
+                                     97 ;	-----------------------------------------
+      00003A                         98 _TIM1_TI2_Config:
+      00003A 89               [ 2]   99 	pushw	x
+      00003B 6B 02            [ 1]  100 	ld	(0x02, sp), a
+                                    101 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 104: TIM1->CCER1 &=  (uint8_t)(~TIM1_CCER1_CC2E);
+      00003D 72 19 52 5C      [ 1]  102 	bres	0x525c, #4
+                                    103 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 107: TIM1->CCMR2  = (uint8_t)((uint8_t)(TIM1->CCMR2 & (uint8_t)(~(uint8_t)( TIM1_CCMR_CCxS | TIM1_CCMR_ICxF ))) 
+      000041 C6 52 59         [ 1]  104 	ld	a, 0x5259
+      000044 A4 0C            [ 1]  105 	and	a, #0x0c
+      000046 6B 01            [ 1]  106 	ld	(0x01, sp), a
+                                    107 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 108: | (uint8_t)(( (TIM1_ICSelection)) | ((uint8_t)( TIM1_ICFilter << 4))));
+      000048 7B 06            [ 1]  108 	ld	a, (0x06, sp)
+      00004A 4E               [ 1]  109 	swap	a
+      00004B A4 F0            [ 1]  110 	and	a, #0xf0
+      00004D 1A 05            [ 1]  111 	or	a, (0x05, sp)
+      00004F 1A 01            [ 1]  112 	or	a, (0x01, sp)
+      000051 C7 52 59         [ 1]  113 	ld	0x5259, a
+                                    114 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 104: TIM1->CCER1 &=  (uint8_t)(~TIM1_CCER1_CC2E);
+      000054 C6 52 5C         [ 1]  115 	ld	a, 0x525c
+                                    116 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 110: if (TIM1_ICPolarity != TIM1_ICPOLARITY_RISING)
+      000057 0D 02            [ 1]  117 	tnz	(0x02, sp)
+      000059 27 07            [ 1]  118 	jreq	00102$
+                                    119 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 112: TIM1->CCER1 |= TIM1_CCER1_CC2P;
+      00005B AA 20            [ 1]  120 	or	a, #0x20
+      00005D C7 52 5C         [ 1]  121 	ld	0x525c, a
+      000060 20 05            [ 2]  122 	jra	00103$
+      000062                        123 00102$:
+                                    124 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 116: TIM1->CCER1 &= (uint8_t)(~TIM1_CCER1_CC2P);
+      000062 A4 DF            [ 1]  125 	and	a, #0xdf
+      000064 C7 52 5C         [ 1]  126 	ld	0x525c, a
+      000067                        127 00103$:
+                                    128 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 119: TIM1->CCER1 |=  TIM1_CCER1_CC2E;
+      000067 C6 52 5C         [ 1]  129 	ld	a, 0x525c
+      00006A AA 10            [ 1]  130 	or	a, #0x10
+      00006C C7 52 5C         [ 1]  131 	ld	0x525c, a
+                                    132 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 120: }
+      00006F 1E 03            [ 2]  133 	ldw	x, (3, sp)
+      000071 5B 06            [ 2]  134 	addw	sp, #6
+      000073 FC               [ 2]  135 	jp	(x)
+                                    136 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 138: void TIM1_TI3_Config(uint8_t TIM1_ICPolarity,
+                                    137 ;	-----------------------------------------
+                                    138 ;	 function TIM1_TI3_Config
+                                    139 ;	-----------------------------------------
+      000074                        140 _TIM1_TI3_Config:
+      000074 89               [ 2]  141 	pushw	x
+      000075 6B 02            [ 1]  142 	ld	(0x02, sp), a
+                                    143 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 143: TIM1->CCER2 &=  (uint8_t)(~TIM1_CCER2_CC3E);
+      000077 C6 52 5D         [ 1]  144 	ld	a, 0x525d
+      00007A A4 FE            [ 1]  145 	and	a, #0xfe
+      00007C C7 52 5D         [ 1]  146 	ld	0x525d, a
+                                    147 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 146: TIM1->CCMR3 = (uint8_t)((uint8_t)(TIM1->CCMR3 & (uint8_t)(~(uint8_t)( TIM1_CCMR_CCxS | TIM1_CCMR_ICxF))) 
+      00007F C6 52 5A         [ 1]  148 	ld	a, 0x525a
+      000082 A4 0C            [ 1]  149 	and	a, #0x0c
+      000084 6B 01            [ 1]  150 	ld	(0x01, sp), a
+                                    151 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 147: | (uint8_t)(( (TIM1_ICSelection)) | ((uint8_t)( TIM1_ICFilter << 4))));
+      000086 7B 06            [ 1]  152 	ld	a, (0x06, sp)
+      000088 4E               [ 1]  153 	swap	a
+      000089 A4 F0            [ 1]  154 	and	a, #0xf0
+      00008B 1A 05            [ 1]  155 	or	a, (0x05, sp)
+      00008D 1A 01            [ 1]  156 	or	a, (0x01, sp)
+      00008F C7 52 5A         [ 1]  157 	ld	0x525a, a
+                                    158 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 143: TIM1->CCER2 &=  (uint8_t)(~TIM1_CCER2_CC3E);
+      000092 C6 52 5D         [ 1]  159 	ld	a, 0x525d
+                                    160 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 150: if (TIM1_ICPolarity != TIM1_ICPOLARITY_RISING)
+      000095 0D 02            [ 1]  161 	tnz	(0x02, sp)
+      000097 27 07            [ 1]  162 	jreq	00102$
+                                    163 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 152: TIM1->CCER2 |= TIM1_CCER2_CC3P;
+      000099 AA 02            [ 1]  164 	or	a, #0x02
+      00009B C7 52 5D         [ 1]  165 	ld	0x525d, a
+      00009E 20 05            [ 2]  166 	jra	00103$
+      0000A0                        167 00102$:
+                                    168 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 156: TIM1->CCER2 &= (uint8_t)(~TIM1_CCER2_CC3P);
+      0000A0 A4 FD            [ 1]  169 	and	a, #0xfd
+      0000A2 C7 52 5D         [ 1]  170 	ld	0x525d, a
+      0000A5                        171 00103$:
+                                    172 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 159: TIM1->CCER2 |=  TIM1_CCER2_CC3E;
+      0000A5 C6 52 5D         [ 1]  173 	ld	a, 0x525d
+      0000A8 AA 01            [ 1]  174 	or	a, #0x01
+      0000AA C7 52 5D         [ 1]  175 	ld	0x525d, a
+                                    176 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 160: }
+      0000AD 1E 03            [ 2]  177 	ldw	x, (3, sp)
+      0000AF 5B 06            [ 2]  178 	addw	sp, #6
+      0000B1 FC               [ 2]  179 	jp	(x)
+                                    180 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 178: void TIM1_TI4_Config(uint8_t TIM1_ICPolarity,
+                                    181 ;	-----------------------------------------
+                                    182 ;	 function TIM1_TI4_Config
+                                    183 ;	-----------------------------------------
+      0000B2                        184 _TIM1_TI4_Config:
+      0000B2 89               [ 2]  185 	pushw	x
+      0000B3 6B 02            [ 1]  186 	ld	(0x02, sp), a
+                                    187 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 183: TIM1->CCER2 &=  (uint8_t)(~TIM1_CCER2_CC4E);
+      0000B5 72 19 52 5D      [ 1]  188 	bres	0x525d, #4
+                                    189 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 186: TIM1->CCMR4 = (uint8_t)((uint8_t)(TIM1->CCMR4 & (uint8_t)(~(uint8_t)( TIM1_CCMR_CCxS | TIM1_CCMR_ICxF )))
+      0000B9 C6 52 5B         [ 1]  190 	ld	a, 0x525b
+      0000BC A4 0C            [ 1]  191 	and	a, #0x0c
+      0000BE 6B 01            [ 1]  192 	ld	(0x01, sp), a
+                                    193 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 187: | (uint8_t)(( (TIM1_ICSelection)) | ((uint8_t)( TIM1_ICFilter << 4))));
+      0000C0 7B 06            [ 1]  194 	ld	a, (0x06, sp)
+      0000C2 4E               [ 1]  195 	swap	a
+      0000C3 A4 F0            [ 1]  196 	and	a, #0xf0
+      0000C5 1A 05            [ 1]  197 	or	a, (0x05, sp)
+      0000C7 1A 01            [ 1]  198 	or	a, (0x01, sp)
+      0000C9 C7 52 5B         [ 1]  199 	ld	0x525b, a
+                                    200 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 183: TIM1->CCER2 &=  (uint8_t)(~TIM1_CCER2_CC4E);
+      0000CC C6 52 5D         [ 1]  201 	ld	a, 0x525d
+                                    202 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 190: if (TIM1_ICPolarity != TIM1_ICPOLARITY_RISING)
+      0000CF 0D 02            [ 1]  203 	tnz	(0x02, sp)
+      0000D1 27 07            [ 1]  204 	jreq	00102$
+                                    205 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 192: TIM1->CCER2 |= TIM1_CCER2_CC4P;
+      0000D3 AA 20            [ 1]  206 	or	a, #0x20
+      0000D5 C7 52 5D         [ 1]  207 	ld	0x525d, a
+      0000D8 20 05            [ 2]  208 	jra	00103$
+      0000DA                        209 00102$:
+                                    210 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 196: TIM1->CCER2 &= (uint8_t)(~TIM1_CCER2_CC4P);
+      0000DA A4 DF            [ 1]  211 	and	a, #0xdf
+      0000DC C7 52 5D         [ 1]  212 	ld	0x525d, a
+      0000DF                        213 00103$:
+                                    214 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 200: TIM1->CCER2 |=  TIM1_CCER2_CC4E;
+      0000DF C6 52 5D         [ 1]  215 	ld	a, 0x525d
+      0000E2 AA 10            [ 1]  216 	or	a, #0x10
+      0000E4 C7 52 5D         [ 1]  217 	ld	0x525d, a
+                                    218 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_private.c: 201: }
+      0000E7 1E 03            [ 2]  219 	ldw	x, (3, sp)
+      0000E9 5B 06            [ 2]  220 	addw	sp, #6
+      0000EB FC               [ 2]  221 	jp	(x)
+                                    222 	.area CODE
+                                    223 	.area CONST
+                                    224 	.area INITIALIZER
+                                    225 	.area CABS (ABS)

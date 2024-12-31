@@ -1,0 +1,231 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_uart2_ITConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _UART2_ITConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 56: void UART2_ITConfig(UART2_IT_TypeDef UART2_IT, FunctionalState NewState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function UART2_ITConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _UART2_ITConfig:
+      000000 52 07            [ 2]   55 	sub	sp, #7
+      000002 1F 06            [ 2]   56 	ldw	(0x06, sp), x
+      000004 6B 05            [ 1]   57 	ld	(0x05, sp), a
+                                     58 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 61: assert_param(IS_UART2_CONFIG_IT_OK(UART2_IT));
+      000006 1E 06            [ 2]   59 	ldw	x, (0x06, sp)
+      000008 A3 01 00         [ 2]   60 	cpw	x, #0x0100
+      00000B 27 2E            [ 1]   61 	jreq	00125$
+      00000D A3 02 77         [ 2]   62 	cpw	x, #0x0277
+      000010 27 29            [ 1]   63 	jreq	00125$
+      000012 A3 02 66         [ 2]   64 	cpw	x, #0x0266
+      000015 27 24            [ 1]   65 	jreq	00125$
+      000017 A3 02 05         [ 2]   66 	cpw	x, #0x0205
+      00001A 27 1F            [ 1]   67 	jreq	00125$
+      00001C A3 02 44         [ 2]   68 	cpw	x, #0x0244
+      00001F 27 1A            [ 1]   69 	jreq	00125$
+      000021 A3 04 12         [ 2]   70 	cpw	x, #0x0412
+      000024 27 15            [ 1]   71 	jreq	00125$
+      000026 A3 03 46         [ 2]   72 	cpw	x, #0x0346
+      000029 27 10            [ 1]   73 	jreq	00125$
+      00002B 89               [ 2]   74 	pushw	x
+      00002C 4B 3D            [ 1]   75 	push	#0x3d
+      00002E 4B 00            [ 1]   76 	push	#0x00
+      000030 4B 00            [ 1]   77 	push	#0x00
+      000032 4B 00            [ 1]   78 	push	#0x00
+      000034 AEr00r00         [ 2]   79 	ldw	x, #(___str_0+0)
+      000037 CDr00r00         [ 4]   80 	call	_assert_failed
+      00003A 85               [ 2]   81 	popw	x
+      00003B                         82 00125$:
+                                     83 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 62: assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+      00003B 0D 05            [ 1]   84 	tnz	(0x05, sp)
+      00003D 27 14            [ 1]   85 	jreq	00145$
+      00003F 0D 05            [ 1]   86 	tnz	(0x05, sp)
+      000041 26 10            [ 1]   87 	jrne	00145$
+      000043 89               [ 2]   88 	pushw	x
+      000044 4B 3E            [ 1]   89 	push	#0x3e
+      000046 4B 00            [ 1]   90 	push	#0x00
+      000048 4B 00            [ 1]   91 	push	#0x00
+      00004A 4B 00            [ 1]   92 	push	#0x00
+      00004C AEr00r00         [ 2]   93 	ldw	x, #(___str_0+0)
+      00004F CDr00r00         [ 4]   94 	call	_assert_failed
+      000052 85               [ 2]   95 	popw	x
+      000053                         96 00145$:
+                                     97 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 65: uartreg = (uint8_t)((uint16_t)UART2_IT >> 0x08);
+                                     98 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 68: itpos = (uint8_t)((uint8_t)1 << (uint8_t)((uint8_t)UART2_IT & (uint8_t)0x0F));
+      000053 7B 07            [ 1]   99 	ld	a, (0x07, sp)
+      000055 A4 0F            [ 1]  100 	and	a, #0x0f
+      000057 88               [ 1]  101 	push	a
+      000058 A6 01            [ 1]  102 	ld	a, #0x01
+      00005A 6B 05            [ 1]  103 	ld	(0x05, sp), a
+      00005C 84               [ 1]  104 	pop	a
+      00005D 4D               [ 1]  105 	tnz	a
+      00005E 27 05            [ 1]  106 	jreq	00285$
+      000060                        107 00284$:
+      000060 08 04            [ 1]  108 	sll	(0x04, sp)
+      000062 4A               [ 1]  109 	dec	a
+      000063 26 FB            [ 1]  110 	jrne	00284$
+      000065                        111 00285$:
+                                    112 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 73: if (uartreg == 0x01)
+      000065 9E               [ 1]  113 	ld	a, xh
+      000066 4A               [ 1]  114 	dec	a
+      000067 26 05            [ 1]  115 	jrne	00287$
+      000069 A6 01            [ 1]  116 	ld	a, #0x01
+      00006B 6B 01            [ 1]  117 	ld	(0x01, sp), a
+      00006D C5                     118 	.byte 0xc5
+      00006E                        119 00287$:
+      00006E 0F 01            [ 1]  120 	clr	(0x01, sp)
+      000070                        121 00288$:
+                                    122 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 77: else if (uartreg == 0x02)
+      000070 9E               [ 1]  123 	ld	a, xh
+      000071 A0 02            [ 1]  124 	sub	a, #0x02
+      000073 26 04            [ 1]  125 	jrne	00290$
+      000075 4C               [ 1]  126 	inc	a
+      000076 6B 02            [ 1]  127 	ld	(0x02, sp), a
+      000078 C5                     128 	.byte 0xc5
+      000079                        129 00290$:
+      000079 0F 02            [ 1]  130 	clr	(0x02, sp)
+      00007B                        131 00291$:
+                                    132 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 81: else if (uartreg == 0x03)
+      00007B 9E               [ 1]  133 	ld	a, xh
+      00007C A0 03            [ 1]  134 	sub	a, #0x03
+      00007E 26 04            [ 1]  135 	jrne	00293$
+      000080 4C               [ 1]  136 	inc	a
+      000081 6B 03            [ 1]  137 	ld	(0x03, sp), a
+      000083 C5                     138 	.byte 0xc5
+      000084                        139 00293$:
+      000084 0F 03            [ 1]  140 	clr	(0x03, sp)
+      000086                        141 00294$:
+                                    142 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 70: if (NewState != DISABLE)
+      000086 0D 05            [ 1]  143 	tnz	(0x05, sp)
+      000088 27 34            [ 1]  144 	jreq	00120$
+                                    145 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 73: if (uartreg == 0x01)
+      00008A 0D 01            [ 1]  146 	tnz	(0x01, sp)
+      00008C 27 0A            [ 1]  147 	jreq	00108$
+                                    148 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 75: UART2->CR1 |= itpos;
+      00008E C6 52 44         [ 1]  149 	ld	a, 0x5244
+      000091 1A 04            [ 1]  150 	or	a, (0x04, sp)
+      000093 C7 52 44         [ 1]  151 	ld	0x5244, a
+      000096 20 5C            [ 2]  152 	jra	00122$
+      000098                        153 00108$:
+                                    154 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 77: else if (uartreg == 0x02)
+      000098 0D 02            [ 1]  155 	tnz	(0x02, sp)
+      00009A 27 0A            [ 1]  156 	jreq	00105$
+                                    157 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 79: UART2->CR2 |= itpos;
+      00009C C6 52 45         [ 1]  158 	ld	a, 0x5245
+      00009F 1A 04            [ 1]  159 	or	a, (0x04, sp)
+      0000A1 C7 52 45         [ 1]  160 	ld	0x5245, a
+      0000A4 20 4E            [ 2]  161 	jra	00122$
+      0000A6                        162 00105$:
+                                    163 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 81: else if (uartreg == 0x03)
+      0000A6 0D 03            [ 1]  164 	tnz	(0x03, sp)
+      0000A8 27 0A            [ 1]  165 	jreq	00102$
+                                    166 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 83: UART2->CR4 |= itpos;
+      0000AA C6 52 47         [ 1]  167 	ld	a, 0x5247
+      0000AD 1A 04            [ 1]  168 	or	a, (0x04, sp)
+      0000AF C7 52 47         [ 1]  169 	ld	0x5247, a
+      0000B2 20 40            [ 2]  170 	jra	00122$
+      0000B4                        171 00102$:
+                                    172 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 87: UART2->CR6 |= itpos;
+      0000B4 C6 52 49         [ 1]  173 	ld	a, 0x5249
+      0000B7 1A 04            [ 1]  174 	or	a, (0x04, sp)
+      0000B9 C7 52 49         [ 1]  175 	ld	0x5249, a
+      0000BC 20 36            [ 2]  176 	jra	00122$
+      0000BE                        177 00120$:
+                                    178 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 95: UART2->CR1 &= (uint8_t)(~itpos);
+      0000BE 03 04            [ 1]  179 	cpl	(0x04, sp)
+                                    180 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 93: if (uartreg == 0x01)
+      0000C0 0D 01            [ 1]  181 	tnz	(0x01, sp)
+      0000C2 27 0C            [ 1]  182 	jreq	00117$
+                                    183 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 95: UART2->CR1 &= (uint8_t)(~itpos);
+      0000C4 C6 52 44         [ 1]  184 	ld	a, 0x5244
+      0000C7 6B 03            [ 1]  185 	ld	(0x03, sp), a
+      0000C9 14 04            [ 1]  186 	and	a, (0x04, sp)
+      0000CB C7 52 44         [ 1]  187 	ld	0x5244, a
+      0000CE 20 24            [ 2]  188 	jra	00122$
+      0000D0                        189 00117$:
+                                    190 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 97: else if (uartreg == 0x02)
+      0000D0 0D 02            [ 1]  191 	tnz	(0x02, sp)
+      0000D2 27 0A            [ 1]  192 	jreq	00114$
+                                    193 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 99: UART2->CR2 &= (uint8_t)(~itpos);
+      0000D4 C6 52 45         [ 1]  194 	ld	a, 0x5245
+      0000D7 14 04            [ 1]  195 	and	a, (0x04, sp)
+      0000D9 C7 52 45         [ 1]  196 	ld	0x5245, a
+      0000DC 20 16            [ 2]  197 	jra	00122$
+      0000DE                        198 00114$:
+                                    199 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 101: else if (uartreg == 0x03)
+      0000DE 0D 03            [ 1]  200 	tnz	(0x03, sp)
+      0000E0 27 0A            [ 1]  201 	jreq	00111$
+                                    202 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 103: UART2->CR4 &= (uint8_t)(~itpos);
+      0000E2 C6 52 47         [ 1]  203 	ld	a, 0x5247
+      0000E5 14 04            [ 1]  204 	and	a, (0x04, sp)
+      0000E7 C7 52 47         [ 1]  205 	ld	0x5247, a
+      0000EA 20 08            [ 2]  206 	jra	00122$
+      0000EC                        207 00111$:
+                                    208 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 107: UART2->CR6 &= (uint8_t)(~itpos);
+      0000EC C6 52 49         [ 1]  209 	ld	a, 0x5249
+      0000EF 14 04            [ 1]  210 	and	a, (0x04, sp)
+      0000F1 C7 52 49         [ 1]  211 	ld	0x5249, a
+      0000F4                        212 00122$:
+                                    213 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c: 110: }
+      0000F4 5B 07            [ 2]  214 	addw	sp, #7
+      0000F6 81               [ 4]  215 	ret
+                                    216 	.area CODE
+                                    217 	.area CONST
+                                    218 	.area CONST
+      000000                        219 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   220 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_uart2_ITConfig.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 75 61 72 74 32 5F
+             49 54 43 6F 6E 66 69
+             67 2E 63
+      000034 00                     221 	.db 0x00
+                                    222 	.area CODE
+                                    223 	.area INITIALIZER
+                                    224 	.area CABS (ABS)

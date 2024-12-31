@@ -1,0 +1,345 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_i2c_Init
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _I2C_AcknowledgeConfig
+                                     12 	.globl _assert_failed
+                                     13 	.globl _I2C_Init
+                                     14 ;--------------------------------------------------------
+                                     15 ; ram data
+                                     16 ;--------------------------------------------------------
+                                     17 	.area DATA
+                                     18 ;--------------------------------------------------------
+                                     19 ; ram data
+                                     20 ;--------------------------------------------------------
+                                     21 	.area INITIALIZED
+                                     22 ;--------------------------------------------------------
+                                     23 ; absolute external ram data
+                                     24 ;--------------------------------------------------------
+                                     25 	.area DABS (ABS)
+                                     26 
+                                     27 ; default segment ordering for linker
+                                     28 	.area HOME
+                                     29 	.area GSINIT
+                                     30 	.area GSFINAL
+                                     31 	.area CONST
+                                     32 	.area INITIALIZER
+                                     33 	.area CODE
+                                     34 
+                                     35 ;--------------------------------------------------------
+                                     36 ; global & static initialisations
+                                     37 ;--------------------------------------------------------
+                                     38 	.area HOME
+                                     39 	.area GSINIT
+                                     40 	.area GSFINAL
+                                     41 	.area GSINIT
+                                     42 ;--------------------------------------------------------
+                                     43 ; Home
+                                     44 ;--------------------------------------------------------
+                                     45 	.area HOME
+                                     46 	.area HOME
+                                     47 ;--------------------------------------------------------
+                                     48 ; code
+                                     49 ;--------------------------------------------------------
+                                     50 	.area CODE
+                                     51 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 58: void I2C_Init(uint32_t OutputClockFrequencyHz, uint16_t OwnAddress, 
+                                     52 ;	-----------------------------------------
+                                     53 ;	 function I2C_Init
+                                     54 ;	-----------------------------------------
+      000000                         55 _I2C_Init:
+      000000 52 07            [ 2]   56 	sub	sp, #7
+                                     57 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 64: uint8_t tmpccrh = 0;
+      000002 0F 05            [ 1]   58 	clr	(0x05, sp)
+                                     59 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 67: assert_param(IS_I2C_ACK_OK(Ack));
+      000004 0D 11            [ 1]   60 	tnz	(0x11, sp)
+      000006 27 17            [ 1]   61 	jreq	00114$
+      000008 7B 11            [ 1]   62 	ld	a, (0x11, sp)
+      00000A 4A               [ 1]   63 	dec	a
+      00000B 27 12            [ 1]   64 	jreq	00114$
+      00000D 7B 11            [ 1]   65 	ld	a, (0x11, sp)
+      00000F A1 02            [ 1]   66 	cp	a, #0x02
+      000011 27 0C            [ 1]   67 	jreq	00114$
+      000013 4B 43            [ 1]   68 	push	#0x43
+      000015 5F               [ 1]   69 	clrw	x
+      000016 89               [ 2]   70 	pushw	x
+      000017 4B 00            [ 1]   71 	push	#0x00
+      000019 AEr00r00         [ 2]   72 	ldw	x, #(___str_0+0)
+      00001C CDr00r00         [ 4]   73 	call	_assert_failed
+      00001F                         74 00114$:
+                                     75 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 68: assert_param(IS_I2C_ADDMODE_OK(AddMode));
+      00001F 0D 12            [ 1]   76 	tnz	(0x12, sp)
+      000021 27 12            [ 1]   77 	jreq	00122$
+      000023 7B 12            [ 1]   78 	ld	a, (0x12, sp)
+      000025 A1 80            [ 1]   79 	cp	a, #0x80
+      000027 27 0C            [ 1]   80 	jreq	00122$
+      000029 4B 44            [ 1]   81 	push	#0x44
+      00002B 5F               [ 1]   82 	clrw	x
+      00002C 89               [ 2]   83 	pushw	x
+      00002D 4B 00            [ 1]   84 	push	#0x00
+      00002F AEr00r00         [ 2]   85 	ldw	x, #(___str_0+0)
+      000032 CDr00r00         [ 4]   86 	call	_assert_failed
+      000035                         87 00122$:
+                                     88 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 69: assert_param(IS_I2C_OWN_ADDRESS_OK(OwnAddress));
+      000035 1E 0E            [ 2]   89 	ldw	x, (0x0e, sp)
+      000037 A3 03 FF         [ 2]   90 	cpw	x, #0x03ff
+      00003A 23 0C            [ 2]   91 	jrule	00127$
+      00003C 4B 45            [ 1]   92 	push	#0x45
+      00003E 5F               [ 1]   93 	clrw	x
+      00003F 89               [ 2]   94 	pushw	x
+      000040 4B 00            [ 1]   95 	push	#0x00
+      000042 AEr00r00         [ 2]   96 	ldw	x, #(___str_0+0)
+      000045 CDr00r00         [ 4]   97 	call	_assert_failed
+      000048                         98 00127$:
+                                     99 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 70: assert_param(IS_I2C_DUTYCYCLE_OK(I2C_DutyCycle));  
+      000048 0D 10            [ 1]  100 	tnz	(0x10, sp)
+      00004A 27 12            [ 1]  101 	jreq	00129$
+      00004C 7B 10            [ 1]  102 	ld	a, (0x10, sp)
+      00004E A1 40            [ 1]  103 	cp	a, #0x40
+      000050 27 0C            [ 1]  104 	jreq	00129$
+      000052 4B 46            [ 1]  105 	push	#0x46
+      000054 5F               [ 1]  106 	clrw	x
+      000055 89               [ 2]  107 	pushw	x
+      000056 4B 00            [ 1]  108 	push	#0x00
+      000058 AEr00r00         [ 2]  109 	ldw	x, #(___str_0+0)
+      00005B CDr00r00         [ 4]  110 	call	_assert_failed
+      00005E                        111 00129$:
+                                    112 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 71: assert_param(IS_I2C_INPUT_CLOCK_FREQ_OK(InputClockFrequencyMHz));
+      00005E 7B 13            [ 1]  113 	ld	a, (0x13, sp)
+      000060 A1 01            [ 1]  114 	cp	a, #0x01
+      000062 25 06            [ 1]  115 	jrc	00133$
+      000064 7B 13            [ 1]  116 	ld	a, (0x13, sp)
+      000066 A1 10            [ 1]  117 	cp	a, #0x10
+      000068 23 0C            [ 2]  118 	jrule	00134$
+      00006A                        119 00133$:
+      00006A 4B 47            [ 1]  120 	push	#0x47
+      00006C 5F               [ 1]  121 	clrw	x
+      00006D 89               [ 2]  122 	pushw	x
+      00006E 4B 00            [ 1]  123 	push	#0x00
+      000070 AEr00r00         [ 2]  124 	ldw	x, #(___str_0+0)
+      000073 CDr00r00         [ 4]  125 	call	_assert_failed
+      000076                        126 00134$:
+                                    127 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 72: assert_param(IS_I2C_OUTPUT_CLOCK_FREQ_OK(OutputClockFrequencyHz));
+      000076 1E 0C            [ 2]  128 	ldw	x, (0x0c, sp)
+      000078 A3 00 01         [ 2]  129 	cpw	x, #0x0001
+      00007B 7B 0B            [ 1]  130 	ld	a, (0x0b, sp)
+      00007D A2 00            [ 1]  131 	sbc	a, #0x00
+      00007F 7B 0A            [ 1]  132 	ld	a, (0x0a, sp)
+      000081 A2 00            [ 1]  133 	sbc	a, #0x00
+      000083 25 0E            [ 1]  134 	jrc	00138$
+      000085 AE 1A 80         [ 2]  135 	ldw	x, #0x1a80
+      000088 13 0C            [ 2]  136 	cpw	x, (0x0c, sp)
+      00008A A6 06            [ 1]  137 	ld	a, #0x06
+      00008C 12 0B            [ 1]  138 	sbc	a, (0x0b, sp)
+      00008E 4F               [ 1]  139 	clr	a
+      00008F 12 0A            [ 1]  140 	sbc	a, (0x0a, sp)
+      000091 24 0C            [ 1]  141 	jrnc	00139$
+      000093                        142 00138$:
+      000093 4B 48            [ 1]  143 	push	#0x48
+      000095 5F               [ 1]  144 	clrw	x
+      000096 89               [ 2]  145 	pushw	x
+      000097 4B 00            [ 1]  146 	push	#0x00
+      000099 AEr00r00         [ 2]  147 	ldw	x, #(___str_0+0)
+      00009C CDr00r00         [ 4]  148 	call	_assert_failed
+      00009F                        149 00139$:
+                                    150 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 77: I2C->FREQR &= (uint8_t)(~I2C_FREQR_FREQ);
+      00009F C6 52 12         [ 1]  151 	ld	a, 0x5212
+      0000A2 A4 C0            [ 1]  152 	and	a, #0xc0
+      0000A4 C7 52 12         [ 1]  153 	ld	0x5212, a
+                                    154 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 79: I2C->FREQR |= InputClockFrequencyMHz;
+      0000A7 C6 52 12         [ 1]  155 	ld	a, 0x5212
+      0000AA 1A 13            [ 1]  156 	or	a, (0x13, sp)
+      0000AC C7 52 12         [ 1]  157 	ld	0x5212, a
+                                    158 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 83: I2C->CR1 &= (uint8_t)(~I2C_CR1_PE);
+      0000AF 72 11 52 10      [ 1]  159 	bres	0x5210, #0
+                                    160 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 86: I2C->CCRH &= (uint8_t)(~(I2C_CCRH_FS | I2C_CCRH_DUTY | I2C_CCRH_CCR));
+      0000B3 C6 52 1C         [ 1]  161 	ld	a, 0x521c
+      0000B6 A4 30            [ 1]  162 	and	a, #0x30
+      0000B8 C7 52 1C         [ 1]  163 	ld	0x521c, a
+                                    164 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 87: I2C->CCRL &= (uint8_t)(~I2C_CCRL_CCR);
+      0000BB C6 52 1B         [ 1]  165 	ld	a, 0x521b
+      0000BE 35 00 52 1B      [ 1]  166 	mov	0x521b+0, #0x00
+                                    167 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 98: result = (uint16_t) ((InputClockFrequencyMHz * 1000000) / (OutputClockFrequencyHz * 3));
+      0000C2 7B 13            [ 1]  168 	ld	a, (0x13, sp)
+      0000C4 5F               [ 1]  169 	clrw	x
+      0000C5 0F 01            [ 1]  170 	clr	(0x01, sp)
+      0000C7 88               [ 1]  171 	push	a
+      0000C8 89               [ 2]  172 	pushw	x
+      0000C9 4F               [ 1]  173 	clr	a
+      0000CA 88               [ 1]  174 	push	a
+      0000CB 4B 40            [ 1]  175 	push	#0x40
+      0000CD 4B 42            [ 1]  176 	push	#0x42
+      0000CF 4B 0F            [ 1]  177 	push	#0x0f
+      0000D1 4B 00            [ 1]  178 	push	#0x00
+      0000D3 CDr00r00         [ 4]  179 	call	__mullong
+      0000D6 5B 08            [ 2]  180 	addw	sp, #8
+      0000D8 1F 03            [ 2]  181 	ldw	(0x03, sp), x
+      0000DA 17 01            [ 2]  182 	ldw	(0x01, sp), y
+                                    183 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 90: if (OutputClockFrequencyHz > I2C_MAX_STANDARD_FREQ) /* FAST MODE */
+      0000DC AE 86 A0         [ 2]  184 	ldw	x, #0x86a0
+      0000DF 13 0C            [ 2]  185 	cpw	x, (0x0c, sp)
+      0000E1 A6 01            [ 1]  186 	ld	a, #0x01
+      0000E3 12 0B            [ 1]  187 	sbc	a, (0x0b, sp)
+      0000E5 4F               [ 1]  188 	clr	a
+      0000E6 12 0A            [ 1]  189 	sbc	a, (0x0a, sp)
+      0000E8 24 76            [ 1]  190 	jrnc	00109$
+                                    191 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 93: tmpccrh = I2C_CCRH_FS;
+      0000EA A6 80            [ 1]  192 	ld	a, #0x80
+      0000EC 6B 05            [ 1]  193 	ld	(0x05, sp), a
+                                    194 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 95: if (I2C_DutyCycle == I2C_DUTYCYCLE_2)
+      0000EE 0D 10            [ 1]  195 	tnz	(0x10, sp)
+      0000F0 26 21            [ 1]  196 	jrne	00102$
+                                    197 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 98: result = (uint16_t) ((InputClockFrequencyMHz * 1000000) / (OutputClockFrequencyHz * 3));
+      0000F2 1E 0C            [ 2]  198 	ldw	x, (0x0c, sp)
+      0000F4 89               [ 2]  199 	pushw	x
+      0000F5 1E 0C            [ 2]  200 	ldw	x, (0x0c, sp)
+      0000F7 89               [ 2]  201 	pushw	x
+      0000F8 4B 03            [ 1]  202 	push	#0x03
+      0000FA 5F               [ 1]  203 	clrw	x
+      0000FB 89               [ 2]  204 	pushw	x
+      0000FC 4B 00            [ 1]  205 	push	#0x00
+      0000FE CDr00r00         [ 4]  206 	call	__mullong
+      000101 5B 08            [ 2]  207 	addw	sp, #8
+      000103 89               [ 2]  208 	pushw	x
+      000104 90 89            [ 2]  209 	pushw	y
+      000106 1E 07            [ 2]  210 	ldw	x, (0x07, sp)
+      000108 89               [ 2]  211 	pushw	x
+      000109 1E 07            [ 2]  212 	ldw	x, (0x07, sp)
+      00010B 89               [ 2]  213 	pushw	x
+      00010C CDr00r00         [ 4]  214 	call	__divulong
+      00010F 5B 08            [ 2]  215 	addw	sp, #8
+      000111 20 26            [ 2]  216 	jra	00103$
+      000113                        217 00102$:
+                                    218 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 103: result = (uint16_t) ((InputClockFrequencyMHz * 1000000) / (OutputClockFrequencyHz * 25));
+      000113 1E 0C            [ 2]  219 	ldw	x, (0x0c, sp)
+      000115 89               [ 2]  220 	pushw	x
+      000116 1E 0C            [ 2]  221 	ldw	x, (0x0c, sp)
+      000118 89               [ 2]  222 	pushw	x
+      000119 4B 19            [ 1]  223 	push	#0x19
+      00011B 5F               [ 1]  224 	clrw	x
+      00011C 89               [ 2]  225 	pushw	x
+      00011D 4B 00            [ 1]  226 	push	#0x00
+      00011F CDr00r00         [ 4]  227 	call	__mullong
+      000122 5B 08            [ 2]  228 	addw	sp, #8
+      000124 9F               [ 1]  229 	ld	a, xl
+      000125 88               [ 1]  230 	push	a
+      000126 9E               [ 1]  231 	ld	a, xh
+      000127 88               [ 1]  232 	push	a
+      000128 90 89            [ 2]  233 	pushw	y
+      00012A 1E 07            [ 2]  234 	ldw	x, (0x07, sp)
+      00012C 89               [ 2]  235 	pushw	x
+      00012D 1E 07            [ 2]  236 	ldw	x, (0x07, sp)
+      00012F 89               [ 2]  237 	pushw	x
+      000130 CDr00r00         [ 4]  238 	call	__divulong
+      000133 5B 08            [ 2]  239 	addw	sp, #8
+                                    240 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 105: tmpccrh |= I2C_CCRH_DUTY;
+      000135 A6 C0            [ 1]  241 	ld	a, #0xc0
+      000137 6B 05            [ 1]  242 	ld	(0x05, sp), a
+      000139                        243 00103$:
+                                    244 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 109: if (result < (uint16_t)0x01)
+      000139 A3 00 01         [ 2]  245 	cpw	x, #0x0001
+      00013C 24 02            [ 1]  246 	jrnc	00105$
+                                    247 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 112: result = (uint16_t)0x0001;
+      00013E 5F               [ 1]  248 	clrw	x
+      00013F 5C               [ 1]  249 	incw	x
+      000140                        250 00105$:
+                                    251 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 118: tmpval = ((InputClockFrequencyMHz * 3) / 10) + 1;
+      000140 7B 13            [ 1]  252 	ld	a, (0x13, sp)
+      000142 6B 07            [ 1]  253 	ld	(0x07, sp), a
+      000144 0F 06            [ 1]  254 	clr	(0x06, sp)
+      000146 89               [ 2]  255 	pushw	x
+      000147 1E 08            [ 2]  256 	ldw	x, (0x08, sp)
+      000149 58               [ 2]  257 	sllw	x
+      00014A 72 FB 08         [ 2]  258 	addw	x, (0x08, sp)
+      00014D 51               [ 1]  259 	exgw	x, y
+      00014E 4B 0A            [ 1]  260 	push	#0x0a
+      000150 4B 00            [ 1]  261 	push	#0x00
+      000152 93               [ 1]  262 	ldw	x, y
+      000153 CDr00r00         [ 4]  263 	call	__divsint
+      000156 90 93            [ 1]  264 	ldw	y, x
+      000158 9F               [ 1]  265 	ld	a, xl
+      000159 85               [ 2]  266 	popw	x
+      00015A 4C               [ 1]  267 	inc	a
+                                    268 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 119: I2C->TRISER = (uint8_t)tmpval;
+      00015B C7 52 1D         [ 1]  269 	ld	0x521d, a
+      00015E 20 23            [ 2]  270 	jra	00110$
+      000160                        271 00109$:
+                                    272 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 126: result = (uint16_t)((InputClockFrequencyMHz * 1000000) / (OutputClockFrequencyHz << (uint8_t)1));
+      000160 1E 0C            [ 2]  273 	ldw	x, (0x0c, sp)
+      000162 16 0A            [ 2]  274 	ldw	y, (0x0a, sp)
+      000164 58               [ 2]  275 	sllw	x
+      000165 90 59            [ 2]  276 	rlcw	y
+      000167 89               [ 2]  277 	pushw	x
+      000168 90 89            [ 2]  278 	pushw	y
+      00016A 1E 07            [ 2]  279 	ldw	x, (0x07, sp)
+      00016C 89               [ 2]  280 	pushw	x
+      00016D 1E 07            [ 2]  281 	ldw	x, (0x07, sp)
+      00016F 89               [ 2]  282 	pushw	x
+      000170 CDr00r00         [ 4]  283 	call	__divulong
+      000173 5B 08            [ 2]  284 	addw	sp, #8
+                                    285 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 129: if (result < (uint16_t)0x0004)
+      000175 A3 00 04         [ 2]  286 	cpw	x, #0x0004
+      000178 24 03            [ 1]  287 	jrnc	00107$
+                                    288 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 132: result = (uint16_t)0x0004;
+      00017A AE 00 04         [ 2]  289 	ldw	x, #0x0004
+      00017D                        290 00107$:
+                                    291 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 138: I2C->TRISER = (uint8_t)(InputClockFrequencyMHz + (uint8_t)1);
+      00017D 7B 13            [ 1]  292 	ld	a, (0x13, sp)
+      00017F 4C               [ 1]  293 	inc	a
+      000180 C7 52 1D         [ 1]  294 	ld	0x521d, a
+      000183                        295 00110$:
+                                    296 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 143: I2C->CCRL = (uint8_t)result;
+      000183 9F               [ 1]  297 	ld	a, xl
+      000184 C7 52 1B         [ 1]  298 	ld	0x521b, a
+                                    299 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 144: I2C->CCRH = (uint8_t)((uint8_t)((uint8_t)(result >> 8) & I2C_CCRH_CCR) | tmpccrh);
+      000187 9E               [ 1]  300 	ld	a, xh
+      000188 A4 0F            [ 1]  301 	and	a, #0x0f
+      00018A 1A 05            [ 1]  302 	or	a, (0x05, sp)
+      00018C C7 52 1C         [ 1]  303 	ld	0x521c, a
+                                    304 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 147: I2C->CR1 |= I2C_CR1_PE;
+      00018F 72 10 52 10      [ 1]  305 	bset	0x5210, #0
+                                    306 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 150: I2C_AcknowledgeConfig(Ack);
+      000193 7B 11            [ 1]  307 	ld	a, (0x11, sp)
+      000195 CDr00r00         [ 4]  308 	call	_I2C_AcknowledgeConfig
+                                    309 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 153: I2C->OARL = (uint8_t)(OwnAddress);
+      000198 7B 0F            [ 1]  310 	ld	a, (0x0f, sp)
+      00019A C7 52 13         [ 1]  311 	ld	0x5213, a
+                                    312 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 154: I2C->OARH = (uint8_t)((uint8_t)(AddMode | I2C_OARH_ADDCONF) |
+      00019D 7B 12            [ 1]  313 	ld	a, (0x12, sp)
+      00019F AA 40            [ 1]  314 	or	a, #0x40
+      0001A1 6B 07            [ 1]  315 	ld	(0x07, sp), a
+                                    316 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 155: (uint8_t)((OwnAddress & (uint16_t)0x0300) >> (uint8_t)7));
+      0001A3 4F               [ 1]  317 	clr	a
+      0001A4 97               [ 1]  318 	ld	xl, a
+      0001A5 7B 0E            [ 1]  319 	ld	a, (0x0e, sp)
+      0001A7 A4 03            [ 1]  320 	and	a, #0x03
+      0001A9 95               [ 1]  321 	ld	xh, a
+      0001AA A6 80            [ 1]  322 	ld	a, #0x80
+      0001AC 62               [ 2]  323 	div	x, a
+      0001AD 9F               [ 1]  324 	ld	a, xl
+      0001AE 1A 07            [ 1]  325 	or	a, (0x07, sp)
+      0001B0 C7 52 14         [ 1]  326 	ld	0x5214, a
+                                    327 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c: 156: }
+      0001B3 1E 08            [ 2]  328 	ldw	x, (8, sp)
+      0001B5 5B 13            [ 2]  329 	addw	sp, #19
+      0001B7 FC               [ 2]  330 	jp	(x)
+                                    331 	.area CODE
+                                    332 	.area CONST
+                                    333 	.area CONST
+      000000                        334 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   335 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_i2c_Init.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 69 32 63 5F 49 6E
+             69 74 2E 63
+      00002E 00                     336 	.db 0x00
+                                    337 	.area CODE
+                                    338 	.area INITIALIZER
+                                    339 	.area CABS (ABS)

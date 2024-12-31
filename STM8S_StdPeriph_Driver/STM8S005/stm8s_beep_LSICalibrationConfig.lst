@@ -1,0 +1,157 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_beep_LSICalibrationConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _BEEP_LSICalibrationConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 54: void BEEP_LSICalibrationConfig(uint32_t LSIFreqHz)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function BEEP_LSICalibrationConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _BEEP_LSICalibrationConfig:
+      000000 52 09            [ 2]   55 	sub	sp, #9
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 60: assert_param(IS_LSI_FREQUENCY_OK(LSIFreqHz));
+      000002 1E 0E            [ 2]   57 	ldw	x, (0x0e, sp)
+      000004 A3 AD B0         [ 2]   58 	cpw	x, #0xadb0
+      000007 7B 0D            [ 1]   59 	ld	a, (0x0d, sp)
+      000009 A2 01            [ 1]   60 	sbc	a, #0x01
+      00000B 7B 0C            [ 1]   61 	ld	a, (0x0c, sp)
+      00000D A2 00            [ 1]   62 	sbc	a, #0x00
+      00000F 25 0E            [ 1]   63 	jrc	00106$
+      000011 AE 49 F0         [ 2]   64 	ldw	x, #0x49f0
+      000014 13 0E            [ 2]   65 	cpw	x, (0x0e, sp)
+      000016 A6 02            [ 1]   66 	ld	a, #0x02
+      000018 12 0D            [ 1]   67 	sbc	a, (0x0d, sp)
+      00001A 4F               [ 1]   68 	clr	a
+      00001B 12 0C            [ 1]   69 	sbc	a, (0x0c, sp)
+      00001D 24 0C            [ 1]   70 	jrnc	00107$
+      00001F                         71 00106$:
+      00001F 4B 3C            [ 1]   72 	push	#0x3c
+      000021 5F               [ 1]   73 	clrw	x
+      000022 89               [ 2]   74 	pushw	x
+      000023 4B 00            [ 1]   75 	push	#0x00
+      000025 AEr00r00         [ 2]   76 	ldw	x, #(___str_0+0)
+      000028 CDr00r00         [ 4]   77 	call	_assert_failed
+      00002B                         78 00107$:
+                                     79 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 62: lsifreqkhz = (uint16_t)(LSIFreqHz / 1000); /* Converts value in kHz */
+      00002B 4B E8            [ 1]   80 	push	#0xe8
+      00002D 4B 03            [ 1]   81 	push	#0x03
+      00002F 5F               [ 1]   82 	clrw	x
+      000030 89               [ 2]   83 	pushw	x
+      000031 1E 12            [ 2]   84 	ldw	x, (0x12, sp)
+      000033 89               [ 2]   85 	pushw	x
+      000034 1E 12            [ 2]   86 	ldw	x, (0x12, sp)
+      000036 89               [ 2]   87 	pushw	x
+      000037 CDr00r00         [ 4]   88 	call	__divulong
+      00003A 5B 08            [ 2]   89 	addw	sp, #8
+      00003C 1F 01            [ 2]   90 	ldw	(0x01, sp), x
+                                     91 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 66: BEEP->CSR &= (uint8_t)(~BEEP_CSR_BEEPDIV); /* Clear bits */
+      00003E C6 50 F3         [ 1]   92 	ld	a, 0x50f3
+      000041 A4 E0            [ 1]   93 	and	a, #0xe0
+      000043 C7 50 F3         [ 1]   94 	ld	0x50f3, a
+                                     95 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 68: A = (uint16_t)(lsifreqkhz >> 3U); /* Division by 8, keep integer part only */
+      000046 1E 01            [ 2]   96 	ldw	x, (0x01, sp)
+      000048 54               [ 2]   97 	srlw	x
+      000049 54               [ 2]   98 	srlw	x
+      00004A 54               [ 2]   99 	srlw	x
+                                    100 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 70: if ((8U * A) >= ((lsifreqkhz - (8U * A)) * (1U + (2U * A))))
+      00004B 1F 03            [ 2]  101 	ldw	(0x03, sp), x
+      00004D 1F 08            [ 2]  102 	ldw	(0x08, sp), x
+      00004F 58               [ 2]  103 	sllw	x
+      000050 58               [ 2]  104 	sllw	x
+      000051 58               [ 2]  105 	sllw	x
+      000052 1F 05            [ 2]  106 	ldw	(0x05, sp), x
+      000054 16 01            [ 2]  107 	ldw	y, (0x01, sp)
+      000056 72 F2 05         [ 2]  108 	subw	y, (0x05, sp)
+      000059 1E 08            [ 2]  109 	ldw	x, (0x08, sp)
+      00005B 58               [ 2]  110 	sllw	x
+      00005C 5C               [ 1]  111 	incw	x
+      00005D 89               [ 2]  112 	pushw	x
+      00005E 93               [ 1]  113 	ldw	x, y
+                                    114 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 66: BEEP->CSR &= (uint8_t)(~BEEP_CSR_BEEPDIV); /* Clear bits */
+      00005F CDr00r00         [ 4]  115 	call	__mulint
+      000062 1F 07            [ 2]  116 	ldw	(0x07, sp), x
+      000064 C6 50 F3         [ 1]  117 	ld	a, 0x50f3
+      000067 6B 09            [ 1]  118 	ld	(0x09, sp), a
+                                    119 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 72: BEEP->CSR |= (uint8_t)(A - 2U);
+      000069 7B 04            [ 1]  120 	ld	a, (0x04, sp)
+                                    121 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 70: if ((8U * A) >= ((lsifreqkhz - (8U * A)) * (1U + (2U * A))))
+      00006B 1E 05            [ 2]  122 	ldw	x, (0x05, sp)
+      00006D 13 07            [ 2]  123 	cpw	x, (0x07, sp)
+      00006F 25 09            [ 1]  124 	jrc	00102$
+                                    125 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 72: BEEP->CSR |= (uint8_t)(A - 2U);
+      000071 A0 02            [ 1]  126 	sub	a, #0x02
+      000073 1A 09            [ 1]  127 	or	a, (0x09, sp)
+      000075 C7 50 F3         [ 1]  128 	ld	0x50f3, a
+      000078 20 06            [ 2]  129 	jra	00104$
+      00007A                        130 00102$:
+                                    131 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 76: BEEP->CSR |= (uint8_t)(A - 1U);
+      00007A 4A               [ 1]  132 	dec	a
+      00007B 1A 09            [ 1]  133 	or	a, (0x09, sp)
+      00007D C7 50 F3         [ 1]  134 	ld	0x50f3, a
+      000080                        135 00104$:
+                                    136 ;	../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfig.c: 78: }
+      000080 1E 0A            [ 2]  137 	ldw	x, (10, sp)
+      000082 5B 0F            [ 2]  138 	addw	sp, #15
+      000084 FC               [ 2]  139 	jp	(x)
+                                    140 	.area CODE
+                                    141 	.area CONST
+                                    142 	.area CONST
+      000000                        143 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   144 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_beep_LSICalibrationConfi"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 62 65 65 70 5F 4C
+             53 49 43 61 6C 69 62
+             72 61 74 69 6F 6E 43
+             6F 6E 66 69
+      00003C 67 2E 63               145 	.ascii "g.c"
+      00003F 00                     146 	.db 0x00
+                                    147 	.area CODE
+                                    148 	.area INITIALIZER
+                                    149 	.area CABS (ABS)

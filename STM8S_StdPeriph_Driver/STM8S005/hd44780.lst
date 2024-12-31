@@ -1,0 +1,370 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module hd44780
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl __delay_ms
+                                     12 	.globl _lcd_gpioinit
+                                     13 	.globl _lcd_send_byte
+                                     14 	.globl _lcd_init
+                                     15 	.globl _lcd_puts
+                                     16 	.globl _lcd_setpos
+                                     17 	.globl _lcd_puts_auto
+                                     18 	.globl _lcd_puti
+                                     19 ;--------------------------------------------------------
+                                     20 ; ram data
+                                     21 ;--------------------------------------------------------
+                                     22 	.area DATA
+                                     23 ;--------------------------------------------------------
+                                     24 ; ram data
+                                     25 ;--------------------------------------------------------
+                                     26 	.area INITIALIZED
+                                     27 ;--------------------------------------------------------
+                                     28 ; absolute external ram data
+                                     29 ;--------------------------------------------------------
+                                     30 	.area DABS (ABS)
+                                     31 
+                                     32 ; default segment ordering for linker
+                                     33 	.area HOME
+                                     34 	.area GSINIT
+                                     35 	.area GSFINAL
+                                     36 	.area CONST
+                                     37 	.area INITIALIZER
+                                     38 	.area CODE
+                                     39 
+                                     40 ;--------------------------------------------------------
+                                     41 ; global & static initialisations
+                                     42 ;--------------------------------------------------------
+                                     43 	.area HOME
+                                     44 	.area GSINIT
+                                     45 	.area GSFINAL
+                                     46 	.area GSINIT
+                                     47 ;--------------------------------------------------------
+                                     48 ; Home
+                                     49 ;--------------------------------------------------------
+                                     50 	.area HOME
+                                     51 	.area HOME
+                                     52 ;--------------------------------------------------------
+                                     53 ; code
+                                     54 ;--------------------------------------------------------
+                                     55 	.area CODE
+                                     56 ;	../hd44780.c: 23: void lcd_gpioinit(void){
+                                     57 ;	-----------------------------------------
+                                     58 ;	 function lcd_gpioinit
+                                     59 ;	-----------------------------------------
+      000000                         60 _lcd_gpioinit:
+                                     61 ;	../hd44780.c: 24: LCD_PORT_DDR |= LCD_PORT_DATAMASK; //set all used pins as output
+      000000 C6 50 07         [ 1]   62 	ld	a, 0x5007
+      000003 AA 3F            [ 1]   63 	or	a, #0x3f
+      000005 C7 50 07         [ 1]   64 	ld	0x5007, a
+                                     65 ;	../hd44780.c: 25: LCD_PORT_ODR |= (1<<LCD_PORT_E); //keep E high
+      000008 72 12 50 05      [ 1]   66 	bset	0x5005, #1
+                                     67 ;	../hd44780.c: 26: LCD_PORT_CR1 |= LCD_PORT_DATAMASK; //slow push pull output
+      00000C C6 50 08         [ 1]   68 	ld	a, 0x5008
+      00000F AA 3F            [ 1]   69 	or	a, #0x3f
+      000011 C7 50 08         [ 1]   70 	ld	0x5008, a
+                                     71 ;	../hd44780.c: 27: }
+      000014 81               [ 4]   72 	ret
+                                     73 ;	../hd44780.c: 30: void lcd_send_byte(uint8_t b, uint8_t cmd){
+                                     74 ;	-----------------------------------------
+                                     75 ;	 function lcd_send_byte
+                                     76 ;	-----------------------------------------
+      000015                         77 _lcd_send_byte:
+      000015 89               [ 2]   78 	pushw	x
+      000016 6B 02            [ 1]   79 	ld	(0x02, sp), a
+                                     80 ;	../hd44780.c: 31: cmd &= 0x01;
+      000018 7B 05            [ 1]   81 	ld	a, (0x05, sp)
+      00001A A4 01            [ 1]   82 	and	a, #0x01
+      00001C 6B 05            [ 1]   83 	ld	(0x05, sp), a
+                                     84 ;	../hd44780.c: 33: LCD_PORT_ODR &= ~( LCD_PORT_DATAMASK & ~(1<<LCD_PORT_E) ); //all bits off
+      00001E C6 50 05         [ 1]   85 	ld	a, 0x5005
+      000021 A4 C2            [ 1]   86 	and	a, #0xc2
+      000023 C7 50 05         [ 1]   87 	ld	0x5005, a
+                                     88 ;	../hd44780.c: 35: LCD_PORT_ODR |= (cmd << LCD_PORT_RS); //command or data?
+      000026 C6 50 05         [ 1]   89 	ld	a, 0x5005
+      000029 6B 01            [ 1]   90 	ld	(0x01, sp), a
+      00002B 7B 05            [ 1]   91 	ld	a, (0x05, sp)
+      00002D 1A 01            [ 1]   92 	or	a, (0x01, sp)
+      00002F C7 50 05         [ 1]   93 	ld	0x5005, a
+                                     94 ;	../hd44780.c: 37: LCD_PORT_ODR |= (1<<LCD_PORT_E); //E up
+      000032 72 12 50 05      [ 1]   95 	bset	0x5005, #1
+                                     96 ;	../hd44780.c: 38: LCD_PORT_ODR |= ( (b>>4) << LCD_PORT_D); //send data bit (MS nibble)
+      000036 C6 50 05         [ 1]   97 	ld	a, 0x5005
+      000039 6B 01            [ 1]   98 	ld	(0x01, sp), a
+      00003B 7B 02            [ 1]   99 	ld	a, (0x02, sp)
+      00003D 4E               [ 1]  100 	swap	a
+      00003E A4 0F            [ 1]  101 	and	a, #0x0f
+      000040 48               [ 1]  102 	sll	a
+      000041 48               [ 1]  103 	sll	a
+      000042 1A 01            [ 1]  104 	or	a, (0x01, sp)
+      000044 C7 50 05         [ 1]  105 	ld	0x5005, a
+                                    106 ;	../hd44780.c: 39: LCD_PORT_ODR &= ~(1<<LCD_PORT_E); //E down
+      000047 72 13 50 05      [ 1]  107 	bres	0x5005, #1
+                                    108 ;	../hd44780.c: 40: _delay_ms(2);
+      00004B AE 00 02         [ 2]  109 	ldw	x, #0x0002
+      00004E CDr00r00         [ 4]  110 	call	__delay_ms
+                                    111 ;	../hd44780.c: 41: LCD_PORT_ODR |= (1<<LCD_PORT_E); //E up
+      000051 72 12 50 05      [ 1]  112 	bset	0x5005, #1
+                                    113 ;	../hd44780.c: 42: LCD_PORT_ODR &= ~(0x0F << LCD_PORT_D);
+      000055 C6 50 05         [ 1]  114 	ld	a, 0x5005
+      000058 A4 C3            [ 1]  115 	and	a, #0xc3
+      00005A C7 50 05         [ 1]  116 	ld	0x5005, a
+                                    117 ;	../hd44780.c: 43: LCD_PORT_ODR |= ( (b & 0x0F) << LCD_PORT_D); //send data bit (LS nibble)
+      00005D C6 50 05         [ 1]  118 	ld	a, 0x5005
+      000060 6B 01            [ 1]  119 	ld	(0x01, sp), a
+      000062 7B 02            [ 1]  120 	ld	a, (0x02, sp)
+      000064 A4 0F            [ 1]  121 	and	a, #0x0f
+      000066 48               [ 1]  122 	sll	a
+      000067 48               [ 1]  123 	sll	a
+      000068 1A 01            [ 1]  124 	or	a, (0x01, sp)
+      00006A C7 50 05         [ 1]  125 	ld	0x5005, a
+                                    126 ;	../hd44780.c: 44: LCD_PORT_ODR &= ~(1<<LCD_PORT_E); //E down
+      00006D 72 13 50 05      [ 1]  127 	bres	0x5005, #1
+                                    128 ;	../hd44780.c: 45: _delay_ms(2);
+      000071 AE 00 02         [ 2]  129 	ldw	x, #0x0002
+      000074 CDr00r00         [ 4]  130 	call	__delay_ms
+                                    131 ;	../hd44780.c: 46: LCD_PORT_ODR |= (1<<LCD_PORT_E); //E up
+      000077 C6 50 05         [ 1]  132 	ld	a, 0x5005
+      00007A AA 02            [ 1]  133 	or	a, #0x02
+      00007C C7 50 05         [ 1]  134 	ld	0x5005, a
+                                    135 ;	../hd44780.c: 48: }
+      00007F 85               [ 2]  136 	popw	x
+      000080 85               [ 2]  137 	popw	x
+      000081 84               [ 1]  138 	pop	a
+      000082 FC               [ 2]  139 	jp	(x)
+                                    140 ;	../hd44780.c: 50: void lcd_init(void){
+                                    141 ;	-----------------------------------------
+                                    142 ;	 function lcd_init
+                                    143 ;	-----------------------------------------
+      000083                        144 _lcd_init:
+                                    145 ;	../hd44780.c: 52: lcd_send_byte(0x33, LCD_CMD);
+      000083 4B 00            [ 1]  146 	push	#0x00
+      000085 A6 33            [ 1]  147 	ld	a, #0x33
+      000087 CDr00r15         [ 4]  148 	call	_lcd_send_byte
+                                    149 ;	../hd44780.c: 53: lcd_send_byte(0x32, LCD_CMD);
+      00008A 4B 00            [ 1]  150 	push	#0x00
+      00008C A6 32            [ 1]  151 	ld	a, #0x32
+      00008E CDr00r15         [ 4]  152 	call	_lcd_send_byte
+                                    153 ;	../hd44780.c: 56: lcd_send_byte(0x40, LCD_CMD);
+      000091 4B 00            [ 1]  154 	push	#0x00
+      000093 A6 40            [ 1]  155 	ld	a, #0x40
+      000095 CDr00r15         [ 4]  156 	call	_lcd_send_byte
+                                    157 ;	../hd44780.c: 57: lcd_send_byte(0x01, LCD_CMD);
+      000098 4B 00            [ 1]  158 	push	#0x00
+      00009A A6 01            [ 1]  159 	ld	a, #0x01
+      00009C CDr00r15         [ 4]  160 	call	_lcd_send_byte
+                                    161 ;	../hd44780.c: 58: lcd_send_byte(0x02, LCD_CMD);
+      00009F 4B 00            [ 1]  162 	push	#0x00
+      0000A1 A6 02            [ 1]  163 	ld	a, #0x02
+      0000A3 CDr00r15         [ 4]  164 	call	_lcd_send_byte
+                                    165 ;	../hd44780.c: 59: }
+      0000A6 81               [ 4]  166 	ret
+                                    167 ;	../hd44780.c: 62: void lcd_puts(uint8_t *c){
+                                    168 ;	-----------------------------------------
+                                    169 ;	 function lcd_puts
+                                    170 ;	-----------------------------------------
+      0000A7                        171 _lcd_puts:
+                                    172 ;	../hd44780.c: 63: while(*c){
+      0000A7                        173 00101$:
+      0000A7 F6               [ 1]  174 	ld	a, (x)
+      0000A8 26 01            [ 1]  175 	jrne	00121$
+      0000AA 81               [ 4]  176 	ret
+      0000AB                        177 00121$:
+                                    178 ;	../hd44780.c: 64: lcd_send_byte(*c, LCD_DATA);
+      0000AB 89               [ 2]  179 	pushw	x
+      0000AC 4B 01            [ 1]  180 	push	#0x01
+      0000AE CDr00r15         [ 4]  181 	call	_lcd_send_byte
+      0000B1 85               [ 2]  182 	popw	x
+                                    183 ;	../hd44780.c: 65: c++;
+      0000B2 5C               [ 1]  184 	incw	x
+      0000B3 20 F2            [ 2]  185 	jra	00101$
+                                    186 ;	../hd44780.c: 67: }
+      0000B5 81               [ 4]  187 	ret
+                                    188 ;	../hd44780.c: 69: void lcd_setpos(uint8_t l, uint8_t c){
+                                    189 ;	-----------------------------------------
+                                    190 ;	 function lcd_setpos
+                                    191 ;	-----------------------------------------
+      0000B6                        192 _lcd_setpos:
+      0000B6 88               [ 1]  193 	push	a
+                                    194 ;	../hd44780.c: 70: lcd_send_byte(LCD_DDRAM_SET | c + (l * LCD_LINE2), LCD_CMD);
+      0000B7 4E               [ 1]  195 	swap	a
+      0000B8 A4 F0            [ 1]  196 	and	a, #0xf0
+      0000BA 48               [ 1]  197 	sll	a
+      0000BB 48               [ 1]  198 	sll	a
+      0000BC 6B 01            [ 1]  199 	ld	(0x01, sp), a
+      0000BE 7B 04            [ 1]  200 	ld	a, (0x04, sp)
+      0000C0 1B 01            [ 1]  201 	add	a, (0x01, sp)
+      0000C2 AA 80            [ 1]  202 	or	a, #0x80
+      0000C4 4B 00            [ 1]  203 	push	#0x00
+      0000C6 CDr00r15         [ 4]  204 	call	_lcd_send_byte
+                                    205 ;	../hd44780.c: 71: }
+      0000C9 84               [ 1]  206 	pop	a
+      0000CA 85               [ 2]  207 	popw	x
+      0000CB 84               [ 1]  208 	pop	a
+      0000CC FC               [ 2]  209 	jp	(x)
+                                    210 ;	../hd44780.c: 73: void lcd_puts_auto(uint8_t *c){
+                                    211 ;	-----------------------------------------
+                                    212 ;	 function lcd_puts_auto
+                                    213 ;	-----------------------------------------
+      0000CD                        214 _lcd_puts_auto:
+      0000CD 89               [ 2]  215 	pushw	x
+                                    216 ;	../hd44780.c: 75: while(*c){
+      0000CE 0F 02            [ 1]  217 	clr	(0x02, sp)
+      0000D0 0F 01            [ 1]  218 	clr	(0x01, sp)
+      0000D2                        219 00103$:
+      0000D2 F6               [ 1]  220 	ld	a, (x)
+      0000D3 27 22            [ 1]  221 	jreq	00106$
+                                    222 ;	../hd44780.c: 76: if (count == 8)
+      0000D5 16 01            [ 2]  223 	ldw	y, (0x01, sp)
+      0000D7 90 A3 00 08      [ 2]  224 	cpw	y, #0x0008
+      0000DB 26 09            [ 1]  225 	jrne	00102$
+                                    226 ;	../hd44780.c: 77: lcd_setpos(1,0);
+      0000DD 89               [ 2]  227 	pushw	x
+      0000DE 4B 00            [ 1]  228 	push	#0x00
+      0000E0 A6 01            [ 1]  229 	ld	a, #0x01
+      0000E2 CDr00rB6         [ 4]  230 	call	_lcd_setpos
+      0000E5 85               [ 2]  231 	popw	x
+      0000E6                        232 00102$:
+                                    233 ;	../hd44780.c: 78: lcd_send_byte(*c, LCD_DATA);
+      0000E6 F6               [ 1]  234 	ld	a, (x)
+      0000E7 89               [ 2]  235 	pushw	x
+      0000E8 4B 01            [ 1]  236 	push	#0x01
+      0000EA CDr00r15         [ 4]  237 	call	_lcd_send_byte
+      0000ED 85               [ 2]  238 	popw	x
+                                    239 ;	../hd44780.c: 79: c++;
+      0000EE 5C               [ 1]  240 	incw	x
+                                    241 ;	../hd44780.c: 80: count++;
+      0000EF 16 01            [ 2]  242 	ldw	y, (0x01, sp)
+      0000F1 90 5C            [ 1]  243 	incw	y
+      0000F3 17 01            [ 2]  244 	ldw	(0x01, sp), y
+      0000F5 20 DB            [ 2]  245 	jra	00103$
+      0000F7                        246 00106$:
+                                    247 ;	../hd44780.c: 82: }
+      0000F7 85               [ 2]  248 	popw	x
+      0000F8 81               [ 4]  249 	ret
+                                    250 ;	../hd44780.c: 84: void lcd_puti(int16_t number){
+                                    251 ;	-----------------------------------------
+                                    252 ;	 function lcd_puti
+                                    253 ;	-----------------------------------------
+      0000F9                        254 _lcd_puti:
+      0000F9 52 12            [ 2]  255 	sub	sp, #18
+                                    256 ;	../hd44780.c: 86: if(number == 0) { string[0] = '0'; return; };
+      0000FB 1F 0F            [ 2]  257 	ldw	(0x0f, sp), x
+      0000FD 26 07            [ 1]  258 	jrne	00102$
+      0000FF A6 30            [ 1]  259 	ld	a, #0x30
+      000101 6B 01            [ 1]  260 	ld	(0x01, sp), a
+      000103 CCr01r8A         [ 2]  261 	jp	00114$
+      000106                        262 00102$:
+                                    263 ;	../hd44780.c: 89: int  length = 0;
+      000106 5F               [ 1]  264 	clrw	x
+                                    265 ;	../hd44780.c: 90: int isNegative = 0;
+      000107 0F 08            [ 1]  266 	clr	(0x08, sp)
+                                    267 ;	../hd44780.c: 93: copyOfNumber = number;
+      000109 16 0F            [ 2]  268 	ldw	y, (0x0f, sp)
+      00010B 17 11            [ 2]  269 	ldw	(0x11, sp), y
+                                    270 ;	../hd44780.c: 94: if( number < 0 ) {
+      00010D 90 5D            [ 2]  271 	tnzw	y
+      00010F 2A 0D            [ 1]  272 	jrpl	00119$
+                                    273 ;	../hd44780.c: 95: isNegative = 1;
+      000111 A6 01            [ 1]  274 	ld	a, #0x01
+      000113 6B 08            [ 1]  275 	ld	(0x08, sp), a
+                                    276 ;	../hd44780.c: 96: number = 0 - number;
+      000115 00 10            [ 1]  277 	neg	(0x10, sp)
+      000117 4F               [ 1]  278 	clr	a
+      000118 12 0F            [ 1]  279 	sbc	a, (0x0f, sp)
+      00011A 6B 0F            [ 1]  280 	ld	(0x0f, sp), a
+                                    281 ;	../hd44780.c: 97: length++;
+      00011C 5F               [ 1]  282 	clrw	x
+      00011D 5C               [ 1]  283 	incw	x
+                                    284 ;	../hd44780.c: 99: while(copyOfNumber != 0)
+      00011E                        285 00119$:
+      00011E                        286 00105$:
+      00011E 16 11            [ 2]  287 	ldw	y, (0x11, sp)
+      000120 27 10            [ 1]  288 	jreq	00123$
+                                    289 ;	../hd44780.c: 101: length++;
+      000122 5C               [ 1]  290 	incw	x
+                                    291 ;	../hd44780.c: 102: copyOfNumber /= 10;
+      000123 89               [ 2]  292 	pushw	x
+      000124 4B 0A            [ 1]  293 	push	#0x0a
+      000126 4B 00            [ 1]  294 	push	#0x00
+      000128 1E 15            [ 2]  295 	ldw	x, (0x15, sp)
+      00012A CDr00r00         [ 4]  296 	call	__divsint
+      00012D 1F 13            [ 2]  297 	ldw	(0x13, sp), x
+      00012F 85               [ 2]  298 	popw	x
+      000130 20 EC            [ 2]  299 	jra	00105$
+      000132                        300 00123$:
+      000132 1F 09            [ 2]  301 	ldw	(0x09, sp), x
+                                    302 ;	../hd44780.c: 105: for(divide = 0; divide < length; divide++) {
+      000134 5F               [ 1]  303 	clrw	x
+      000135 1F 11            [ 2]  304 	ldw	(0x11, sp), x
+      000137                        305 00112$:
+      000137 1E 11            [ 2]  306 	ldw	x, (0x11, sp)
+      000139 13 09            [ 2]  307 	cpw	x, (0x09, sp)
+      00013B 2E 3A            [ 1]  308 	jrsge	00108$
+                                    309 ;	../hd44780.c: 106: modResult = number % 10;
+      00013D 1E 0F            [ 2]  310 	ldw	x, (0x0f, sp)
+      00013F 89               [ 2]  311 	pushw	x
+      000140 4B 0A            [ 1]  312 	push	#0x0a
+      000142 4B 00            [ 1]  313 	push	#0x00
+                                    314 ;	../hd44780.c: 107: number    = number / 10;
+      000144 CDr00r00         [ 4]  315 	call	__modsint
+      000147 1F 0D            [ 2]  316 	ldw	(0x0d, sp), x
+      000149 85               [ 2]  317 	popw	x
+      00014A 4B 0A            [ 1]  318 	push	#0x0a
+      00014C 4B 00            [ 1]  319 	push	#0x00
+      00014E CDr00r00         [ 4]  320 	call	__divsint
+      000151 1F 0F            [ 2]  321 	ldw	(0x0f, sp), x
+                                    322 ;	../hd44780.c: 108: string[length - (divide + 1)] = modResult + '0';
+      000153 7B 0A            [ 1]  323 	ld	a, (0x0a, sp)
+      000155 97               [ 1]  324 	ld	xl, a
+      000156 7B 12            [ 1]  325 	ld	a, (0x12, sp)
+      000158 4C               [ 1]  326 	inc	a
+      000159 6B 0E            [ 1]  327 	ld	(0x0e, sp), a
+      00015B 9F               [ 1]  328 	ld	a, xl
+      00015C 10 0E            [ 1]  329 	sub	a, (0x0e, sp)
+      00015E 6B 0E            [ 1]  330 	ld	(0x0e, sp), a
+      000160 49               [ 1]  331 	rlc	a
+      000161 4F               [ 1]  332 	clr	a
+      000162 A2 00            [ 1]  333 	sbc	a, #0x00
+      000164 6B 0D            [ 1]  334 	ld	(0x0d, sp), a
+      000166 96               [ 1]  335 	ldw	x, sp
+      000167 5C               [ 1]  336 	incw	x
+      000168 72 FB 0D         [ 2]  337 	addw	x, (0x0d, sp)
+      00016B 7B 0C            [ 1]  338 	ld	a, (0x0c, sp)
+      00016D AB 30            [ 1]  339 	add	a, #0x30
+      00016F F7               [ 1]  340 	ld	(x), a
+                                    341 ;	../hd44780.c: 105: for(divide = 0; divide < length; divide++) {
+      000170 1E 11            [ 2]  342 	ldw	x, (0x11, sp)
+      000172 5C               [ 1]  343 	incw	x
+      000173 1F 11            [ 2]  344 	ldw	(0x11, sp), x
+      000175 20 C0            [ 2]  345 	jra	00112$
+      000177                        346 00108$:
+                                    347 ;	../hd44780.c: 110: if(isNegative) {
+      000177 0D 08            [ 1]  348 	tnz	(0x08, sp)
+      000179 27 04            [ 1]  349 	jreq	00110$
+                                    350 ;	../hd44780.c: 111: string[0] = '-';
+      00017B A6 2D            [ 1]  351 	ld	a, #0x2d
+      00017D 6B 01            [ 1]  352 	ld	(0x01, sp), a
+      00017F                        353 00110$:
+                                    354 ;	../hd44780.c: 113: string[length] = '\0';
+      00017F 96               [ 1]  355 	ldw	x, sp
+      000180 5C               [ 1]  356 	incw	x
+      000181 72 FB 09         [ 2]  357 	addw	x, (0x09, sp)
+      000184 7F               [ 1]  358 	clr	(x)
+                                    359 ;	../hd44780.c: 115: lcd_puts(string);
+      000185 96               [ 1]  360 	ldw	x, sp
+      000186 5C               [ 1]  361 	incw	x
+      000187 CDr00rA7         [ 4]  362 	call	_lcd_puts
+      00018A                        363 00114$:
+                                    364 ;	../hd44780.c: 116: }
+      00018A 5B 12            [ 2]  365 	addw	sp, #18
+      00018C 81               [ 4]  366 	ret
+                                    367 	.area CODE
+                                    368 	.area CONST
+                                    369 	.area INITIALIZER
+                                    370 	.area CABS (ABS)

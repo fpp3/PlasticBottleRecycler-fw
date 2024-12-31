@@ -1,0 +1,167 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_i2c_CheckEvent
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _I2C_CheckEvent
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 71: ErrorStatus I2C_CheckEvent(I2C_Event_TypeDef I2C_Event)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function I2C_CheckEvent
+                                     53 ;	-----------------------------------------
+      000000                         54 _I2C_CheckEvent:
+      000000 52 06            [ 2]   55 	sub	sp, #6
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 73: __IO uint16_t lastevent = 0x00;
+      000002 0F 02            [ 1]   57 	clr	(0x02, sp)
+      000004 0F 01            [ 1]   58 	clr	(0x01, sp)
+                                     59 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 79: assert_param(IS_I2C_EVENT_OK(I2C_Event));
+      000006 A3 00 04         [ 2]   60 	cpw	x, #0x0004
+      000009 26 03            [ 1]   61 	jrne	00283$
+      00000B A6 01            [ 1]   62 	ld	a, #0x01
+      00000D 21                      63 	.byte 0x21
+      00000E                         64 00283$:
+      00000E 4F               [ 1]   65 	clr	a
+      00000F                         66 00284$:
+      00000F A3 06 82         [ 2]   67 	cpw	x, #0x0682
+      000012 27 5B            [ 1]   68 	jreq	00110$
+      000014 A3 02 02         [ 2]   69 	cpw	x, #0x0202
+      000017 27 56            [ 1]   70 	jreq	00110$
+      000019 A3 12 00         [ 2]   71 	cpw	x, #0x1200
+      00001C 27 51            [ 1]   72 	jreq	00110$
+      00001E A3 02 40         [ 2]   73 	cpw	x, #0x0240
+      000021 27 4C            [ 1]   74 	jreq	00110$
+      000023 A3 03 50         [ 2]   75 	cpw	x, #0x0350
+      000026 27 47            [ 1]   76 	jreq	00110$
+      000028 A3 06 84         [ 2]   77 	cpw	x, #0x0684
+      00002B 27 42            [ 1]   78 	jreq	00110$
+      00002D A3 07 94         [ 2]   79 	cpw	x, #0x0794
+      000030 27 3D            [ 1]   80 	jreq	00110$
+      000032 4D               [ 1]   81 	tnz	a
+      000033 26 3A            [ 1]   82 	jrne	00110$
+      000035 A3 00 10         [ 2]   83 	cpw	x, #0x0010
+      000038 27 35            [ 1]   84 	jreq	00110$
+      00003A A3 03 01         [ 2]   85 	cpw	x, #0x0301
+      00003D 27 30            [ 1]   86 	jreq	00110$
+      00003F A3 07 82         [ 2]   87 	cpw	x, #0x0782
+      000042 27 2B            [ 1]   88 	jreq	00110$
+      000044 A3 03 02         [ 2]   89 	cpw	x, #0x0302
+      000047 27 26            [ 1]   90 	jreq	00110$
+      000049 A3 03 40         [ 2]   91 	cpw	x, #0x0340
+      00004C 27 21            [ 1]   92 	jreq	00110$
+      00004E A3 07 84         [ 2]   93 	cpw	x, #0x0784
+      000051 27 1C            [ 1]   94 	jreq	00110$
+      000053 A3 07 80         [ 2]   95 	cpw	x, #0x0780
+      000056 27 17            [ 1]   96 	jreq	00110$
+      000058 A3 03 08         [ 2]   97 	cpw	x, #0x0308
+      00005B 27 12            [ 1]   98 	jreq	00110$
+      00005D 88               [ 1]   99 	push	a
+      00005E 89               [ 2]  100 	pushw	x
+      00005F 4B 4F            [ 1]  101 	push	#0x4f
+      000061 4B 00            [ 1]  102 	push	#0x00
+      000063 4B 00            [ 1]  103 	push	#0x00
+      000065 4B 00            [ 1]  104 	push	#0x00
+      000067 AEr00r00         [ 2]  105 	ldw	x, #(___str_0+0)
+      00006A CDr00r00         [ 4]  106 	call	_assert_failed
+      00006D 85               [ 2]  107 	popw	x
+      00006E 84               [ 1]  108 	pop	a
+      00006F                        109 00110$:
+                                    110 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 81: if (I2C_Event == I2C_EVENT_SLAVE_ACK_FAILURE)
+      00006F 4D               [ 1]  111 	tnz	a
+      000070 27 0D            [ 1]  112 	jreq	00102$
+                                    113 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 83: lastevent = I2C->SR2 & I2C_SR2_AF;
+      000072 C6 52 18         [ 1]  114 	ld	a, 0x5218
+      000075 A4 04            [ 1]  115 	and	a, #0x04
+      000077 0F 05            [ 1]  116 	clr	(0x05, sp)
+      000079 6B 02            [ 1]  117 	ld	(0x02, sp), a
+      00007B 0F 01            [ 1]  118 	clr	(0x01, sp)
+      00007D 20 10            [ 2]  119 	jra	00103$
+      00007F                        120 00102$:
+                                    121 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 87: flag1 = I2C->SR1;
+      00007F C6 52 17         [ 1]  122 	ld	a, 0x5217
+      000082 90 97            [ 1]  123 	ld	yl, a
+                                    124 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 88: flag2 = I2C->SR3;
+      000084 C6 52 19         [ 1]  125 	ld	a, 0x5219
+                                    126 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 89: lastevent = ((uint16_t)((uint16_t)flag2 << (uint16_t)8) | (uint16_t)flag1);
+      000087 90 95            [ 1]  127 	ld	yh, a
+      000089 0F 04            [ 1]  128 	clr	(0x04, sp)
+      00008B 0F 05            [ 1]  129 	clr	(0x05, sp)
+      00008D 17 01            [ 2]  130 	ldw	(0x01, sp), y
+      00008F                        131 00103$:
+                                    132 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 92: if (((uint16_t)lastevent & (uint16_t)I2C_Event) == (uint16_t)I2C_Event)
+      00008F 9F               [ 1]  133 	ld	a, xl
+      000090 14 02            [ 1]  134 	and	a, (0x02, sp)
+      000092 6B 06            [ 1]  135 	ld	(0x06, sp), a
+      000094 9E               [ 1]  136 	ld	a, xh
+      000095 14 01            [ 1]  137 	and	a, (0x01, sp)
+      000097 6B 05            [ 1]  138 	ld	(0x05, sp), a
+      000099 13 05            [ 2]  139 	cpw	x, (0x05, sp)
+      00009B 26 03            [ 1]  140 	jrne	00105$
+                                    141 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 95: status = SUCCESS;
+      00009D A6 01            [ 1]  142 	ld	a, #0x01
+                                    143 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 100: status = ERROR;
+      00009F 21                     144 	.byte 0x21
+      0000A0                        145 00105$:
+      0000A0 4F               [ 1]  146 	clr	a
+      0000A1                        147 00106$:
+                                    148 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 104: return status;
+                                    149 ;	../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c: 105: }
+      0000A1 5B 06            [ 2]  150 	addw	sp, #6
+      0000A3 81               [ 4]  151 	ret
+                                    152 	.area CODE
+                                    153 	.area CONST
+                                    154 	.area CONST
+      000000                        155 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   156 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_i2c_CheckEvent.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 69 32 63 5F 43 68
+             65 63 6B 45 76 65 6E
+             74 2E 63
+      000034 00                     157 	.db 0x00
+                                    158 	.area CODE
+                                    159 	.area INITIALIZER
+                                    160 	.area CABS (ABS)

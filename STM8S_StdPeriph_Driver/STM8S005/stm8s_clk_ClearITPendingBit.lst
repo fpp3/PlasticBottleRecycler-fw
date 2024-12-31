@@ -1,0 +1,107 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_clk_ClearITPendingBit
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _CLK_ClearITPendingBit
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c: 48: void CLK_ClearITPendingBit(CLK_IT_TypeDef CLK_IT)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function CLK_ClearITPendingBit
+                                     53 ;	-----------------------------------------
+      000000                         54 _CLK_ClearITPendingBit:
+                                     55 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c: 51: assert_param(IS_CLK_IT_OK(CLK_IT));
+      000000 97               [ 1]   56 	ld	xl, a
+      000001 A0 0C            [ 1]   57 	sub	a, #0x0c
+      000003 26 02            [ 1]   58 	jrne	00133$
+      000005 4C               [ 1]   59 	inc	a
+      000006 21                      60 	.byte 0x21
+      000007                         61 00133$:
+      000007 4F               [ 1]   62 	clr	a
+      000008                         63 00134$:
+      000008 4D               [ 1]   64 	tnz	a
+      000009 26 15            [ 1]   65 	jrne	00107$
+      00000B 88               [ 1]   66 	push	a
+      00000C 9F               [ 1]   67 	ld	a, xl
+      00000D A1 1C            [ 1]   68 	cp	a, #0x1c
+      00000F 84               [ 1]   69 	pop	a
+      000010 27 0E            [ 1]   70 	jreq	00107$
+      000012 88               [ 1]   71 	push	a
+      000013 4B 33            [ 1]   72 	push	#0x33
+      000015 5F               [ 1]   73 	clrw	x
+      000016 89               [ 2]   74 	pushw	x
+      000017 4B 00            [ 1]   75 	push	#0x00
+      000019 AEr00r00         [ 2]   76 	ldw	x, #(___str_0+0)
+      00001C CDr00r00         [ 4]   77 	call	_assert_failed
+      00001F 84               [ 1]   78 	pop	a
+      000020                         79 00107$:
+                                     80 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c: 53: if (CLK_IT == (uint8_t)CLK_IT_CSSD)
+      000020 4D               [ 1]   81 	tnz	a
+      000021 27 05            [ 1]   82 	jreq	00102$
+                                     83 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c: 56: CLK->CSSR &= (uint8_t)(~CLK_CSSR_CSSD);
+      000023 72 17 50 C8      [ 1]   84 	bres	0x50c8, #3
+      000027 81               [ 4]   85 	ret
+      000028                         86 00102$:
+                                     87 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c: 61: CLK->SWCR &= (uint8_t)(~CLK_SWCR_SWIF);
+      000028 72 17 50 C5      [ 1]   88 	bres	0x50c5, #3
+                                     89 ;	../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c: 64: }
+      00002C 81               [ 4]   90 	ret
+                                     91 	.area CODE
+                                     92 	.area CONST
+                                     93 	.area CONST
+      000000                         94 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38    95 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_clk_ClearITPendingBit.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 63 6C 6B 5F 43 6C
+             65 61 72 49 54 50 65
+             6E 64 69 6E 67 42 69
+             74 2E 63
+      00003B 00                      96 	.db 0x00
+                                     97 	.area CODE
+                                     98 	.area INITIALIZER
+                                     99 	.area CABS (ABS)

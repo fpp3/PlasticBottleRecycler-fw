@@ -1,0 +1,176 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_tim3_ICInit
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _TIM3_TI2_Config
+                                     12 	.globl _TIM3_TI1_Config
+                                     13 	.globl _TIM3_SetIC2Prescaler
+                                     14 	.globl _TIM3_SetIC1Prescaler
+                                     15 	.globl _assert_failed
+                                     16 	.globl _TIM3_ICInit
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area DATA
+                                     21 ;--------------------------------------------------------
+                                     22 ; ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area INITIALIZED
+                                     25 ;--------------------------------------------------------
+                                     26 ; absolute external ram data
+                                     27 ;--------------------------------------------------------
+                                     28 	.area DABS (ABS)
+                                     29 
+                                     30 ; default segment ordering for linker
+                                     31 	.area HOME
+                                     32 	.area GSINIT
+                                     33 	.area GSFINAL
+                                     34 	.area CONST
+                                     35 	.area INITIALIZER
+                                     36 	.area CODE
+                                     37 
+                                     38 ;--------------------------------------------------------
+                                     39 ; global & static initialisations
+                                     40 ;--------------------------------------------------------
+                                     41 	.area HOME
+                                     42 	.area GSINIT
+                                     43 	.area GSFINAL
+                                     44 	.area GSINIT
+                                     45 ;--------------------------------------------------------
+                                     46 ; Home
+                                     47 ;--------------------------------------------------------
+                                     48 	.area HOME
+                                     49 	.area HOME
+                                     50 ;--------------------------------------------------------
+                                     51 ; code
+                                     52 ;--------------------------------------------------------
+                                     53 	.area CODE
+                                     54 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 51: void TIM3_ICInit(TIM3_Channel_TypeDef TIM3_Channel,
+                                     55 ;	-----------------------------------------
+                                     56 ;	 function TIM3_ICInit
+                                     57 ;	-----------------------------------------
+      000000                         58 _TIM3_ICInit:
+      000000 88               [ 1]   59 	push	a
+                                     60 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 58: assert_param(IS_TIM3_CHANNEL_OK(TIM3_Channel));
+      000001 6B 01            [ 1]   61 	ld	(0x01, sp), a
+      000003 27 10            [ 1]   62 	jreq	00107$
+      000005 0D 01            [ 1]   63 	tnz	(0x01, sp)
+      000007 26 0C            [ 1]   64 	jrne	00107$
+      000009 4B 3A            [ 1]   65 	push	#0x3a
+      00000B 5F               [ 1]   66 	clrw	x
+      00000C 89               [ 2]   67 	pushw	x
+      00000D 4B 00            [ 1]   68 	push	#0x00
+      00000F AEr00r00         [ 2]   69 	ldw	x, #(___str_0+0)
+      000012 CDr00r00         [ 4]   70 	call	_assert_failed
+      000015                         71 00107$:
+                                     72 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 59: assert_param(IS_TIM3_IC_POLARITY_OK(TIM3_ICPolarity));
+      000015 0D 04            [ 1]   73 	tnz	(0x04, sp)
+      000017 27 12            [ 1]   74 	jreq	00112$
+      000019 7B 04            [ 1]   75 	ld	a, (0x04, sp)
+      00001B A1 44            [ 1]   76 	cp	a, #0x44
+      00001D 27 0C            [ 1]   77 	jreq	00112$
+      00001F 4B 3B            [ 1]   78 	push	#0x3b
+      000021 5F               [ 1]   79 	clrw	x
+      000022 89               [ 2]   80 	pushw	x
+      000023 4B 00            [ 1]   81 	push	#0x00
+      000025 AEr00r00         [ 2]   82 	ldw	x, #(___str_0+0)
+      000028 CDr00r00         [ 4]   83 	call	_assert_failed
+      00002B                         84 00112$:
+                                     85 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 60: assert_param(IS_TIM3_IC_SELECTION_OK(TIM3_ICSelection));
+      00002B 7B 05            [ 1]   86 	ld	a, (0x05, sp)
+      00002D 4A               [ 1]   87 	dec	a
+      00002E 27 18            [ 1]   88 	jreq	00117$
+      000030 7B 05            [ 1]   89 	ld	a, (0x05, sp)
+      000032 A1 02            [ 1]   90 	cp	a, #0x02
+      000034 27 12            [ 1]   91 	jreq	00117$
+      000036 7B 05            [ 1]   92 	ld	a, (0x05, sp)
+      000038 A1 03            [ 1]   93 	cp	a, #0x03
+      00003A 27 0C            [ 1]   94 	jreq	00117$
+      00003C 4B 3C            [ 1]   95 	push	#0x3c
+      00003E 5F               [ 1]   96 	clrw	x
+      00003F 89               [ 2]   97 	pushw	x
+      000040 4B 00            [ 1]   98 	push	#0x00
+      000042 AEr00r00         [ 2]   99 	ldw	x, #(___str_0+0)
+      000045 CDr00r00         [ 4]  100 	call	_assert_failed
+      000048                        101 00117$:
+                                    102 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 61: assert_param(IS_TIM3_IC_PRESCALER_OK(TIM3_ICPrescaler));
+      000048 0D 06            [ 1]  103 	tnz	(0x06, sp)
+      00004A 27 1E            [ 1]  104 	jreq	00125$
+      00004C 7B 06            [ 1]  105 	ld	a, (0x06, sp)
+      00004E A1 04            [ 1]  106 	cp	a, #0x04
+      000050 27 18            [ 1]  107 	jreq	00125$
+      000052 7B 06            [ 1]  108 	ld	a, (0x06, sp)
+      000054 A1 08            [ 1]  109 	cp	a, #0x08
+      000056 27 12            [ 1]  110 	jreq	00125$
+      000058 7B 06            [ 1]  111 	ld	a, (0x06, sp)
+      00005A A1 0C            [ 1]  112 	cp	a, #0x0c
+      00005C 27 0C            [ 1]  113 	jreq	00125$
+      00005E 4B 3D            [ 1]  114 	push	#0x3d
+      000060 5F               [ 1]  115 	clrw	x
+      000061 89               [ 2]  116 	pushw	x
+      000062 4B 00            [ 1]  117 	push	#0x00
+      000064 AEr00r00         [ 2]  118 	ldw	x, #(___str_0+0)
+      000067 CDr00r00         [ 4]  119 	call	_assert_failed
+      00006A                        120 00125$:
+                                    121 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 62: assert_param(IS_TIM3_IC_FILTER_OK(TIM3_ICFilter));
+      00006A 7B 07            [ 1]  122 	ld	a, (0x07, sp)
+      00006C A1 0F            [ 1]  123 	cp	a, #0x0f
+      00006E 23 0C            [ 2]  124 	jrule	00136$
+      000070 4B 3E            [ 1]  125 	push	#0x3e
+      000072 5F               [ 1]  126 	clrw	x
+      000073 89               [ 2]  127 	pushw	x
+      000074 4B 00            [ 1]  128 	push	#0x00
+      000076 AEr00r00         [ 2]  129 	ldw	x, #(___str_0+0)
+      000079 CDr00r00         [ 4]  130 	call	_assert_failed
+      00007C                        131 00136$:
+                                    132 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 64: if (TIM3_Channel != TIM3_CHANNEL_2)
+      00007C 0D 01            [ 1]  133 	tnz	(0x01, sp)
+      00007E 26 12            [ 1]  134 	jrne	00102$
+                                    135 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 67: TIM3_TI1_Config((uint8_t)TIM3_ICPolarity,
+      000080 7B 07            [ 1]  136 	ld	a, (0x07, sp)
+      000082 88               [ 1]  137 	push	a
+      000083 7B 06            [ 1]  138 	ld	a, (0x06, sp)
+      000085 88               [ 1]  139 	push	a
+      000086 7B 06            [ 1]  140 	ld	a, (0x06, sp)
+      000088 CDr00r00         [ 4]  141 	call	_TIM3_TI1_Config
+                                    142 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 72: TIM3_SetIC1Prescaler(TIM3_ICPrescaler);
+      00008B 7B 06            [ 1]  143 	ld	a, (0x06, sp)
+      00008D CDr00r00         [ 4]  144 	call	_TIM3_SetIC1Prescaler
+      000090 20 10            [ 2]  145 	jra	00104$
+      000092                        146 00102$:
+                                    147 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 77: TIM3_TI2_Config((uint8_t)TIM3_ICPolarity,
+      000092 7B 07            [ 1]  148 	ld	a, (0x07, sp)
+      000094 88               [ 1]  149 	push	a
+      000095 7B 06            [ 1]  150 	ld	a, (0x06, sp)
+      000097 88               [ 1]  151 	push	a
+      000098 7B 06            [ 1]  152 	ld	a, (0x06, sp)
+      00009A CDr00r00         [ 4]  153 	call	_TIM3_TI2_Config
+                                    154 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 82: TIM3_SetIC2Prescaler(TIM3_ICPrescaler);
+      00009D 7B 06            [ 1]  155 	ld	a, (0x06, sp)
+      00009F CDr00r00         [ 4]  156 	call	_TIM3_SetIC2Prescaler
+      0000A2                        157 00104$:
+                                    158 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c: 84: }
+      0000A2 1E 02            [ 2]  159 	ldw	x, (2, sp)
+      0000A4 5B 07            [ 2]  160 	addw	sp, #7
+      0000A6 FC               [ 2]  161 	jp	(x)
+                                    162 	.area CODE
+                                    163 	.area CONST
+                                    164 	.area CONST
+      000000                        165 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   166 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_tim3_ICInit.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 74 69 6D 33 5F 49
+             43 49 6E 69 74 2E 63
+      000031 00                     167 	.db 0x00
+                                    168 	.area CODE
+                                    169 	.area INITIALIZER
+                                    170 	.area CABS (ABS)

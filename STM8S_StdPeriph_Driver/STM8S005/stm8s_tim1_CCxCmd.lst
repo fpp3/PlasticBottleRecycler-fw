@@ -1,0 +1,198 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_tim1_CCxCmd
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _TIM1_CCxCmd
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 54: void TIM1_CCxCmd(TIM1_Channel_TypeDef TIM1_Channel, FunctionalState NewState)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function TIM1_CCxCmd
+                                     53 ;	-----------------------------------------
+      000000                         54 _TIM1_CCxCmd:
+      000000 89               [ 2]   55 	pushw	x
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 57: assert_param(IS_TIM1_CHANNEL_OK(TIM1_Channel));
+      000001 A1 01            [ 1]   57 	cp	a, #0x01
+      000003 26 07            [ 1]   58 	jrne	00232$
+      000005 88               [ 1]   59 	push	a
+      000006 A6 01            [ 1]   60 	ld	a, #0x01
+      000008 6B 02            [ 1]   61 	ld	(0x02, sp), a
+      00000A 84               [ 1]   62 	pop	a
+      00000B C5                      63 	.byte 0xc5
+      00000C                         64 00232$:
+      00000C 0F 01            [ 1]   65 	clr	(0x01, sp)
+      00000E                         66 00233$:
+      00000E A1 02            [ 1]   67 	cp	a, #0x02
+      000010 26 07            [ 1]   68 	jrne	00235$
+      000012 88               [ 1]   69 	push	a
+      000013 A6 01            [ 1]   70 	ld	a, #0x01
+      000015 6B 03            [ 1]   71 	ld	(0x03, sp), a
+      000017 84               [ 1]   72 	pop	a
+      000018 C5                      73 	.byte 0xc5
+      000019                         74 00235$:
+      000019 0F 02            [ 1]   75 	clr	(0x02, sp)
+      00001B                         76 00236$:
+      00001B 4D               [ 1]   77 	tnz	a
+      00001C 27 1A            [ 1]   78 	jreq	00125$
+      00001E 0D 01            [ 1]   79 	tnz	(0x01, sp)
+      000020 26 16            [ 1]   80 	jrne	00125$
+      000022 0D 02            [ 1]   81 	tnz	(0x02, sp)
+      000024 26 12            [ 1]   82 	jrne	00125$
+      000026 A1 03            [ 1]   83 	cp	a, #0x03
+      000028 27 0E            [ 1]   84 	jreq	00125$
+      00002A 88               [ 1]   85 	push	a
+      00002B 4B 39            [ 1]   86 	push	#0x39
+      00002D 5F               [ 1]   87 	clrw	x
+      00002E 89               [ 2]   88 	pushw	x
+      00002F 4B 00            [ 1]   89 	push	#0x00
+      000031 AEr00r00         [ 2]   90 	ldw	x, #(___str_0+0)
+      000034 CDr00r00         [ 4]   91 	call	_assert_failed
+      000037 84               [ 1]   92 	pop	a
+      000038                         93 00125$:
+                                     94 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 58: assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+      000038 0D 05            [ 1]   95 	tnz	(0x05, sp)
+      00003A 27 12            [ 1]   96 	jreq	00136$
+      00003C 0D 05            [ 1]   97 	tnz	(0x05, sp)
+      00003E 26 0E            [ 1]   98 	jrne	00136$
+      000040 88               [ 1]   99 	push	a
+      000041 4B 3A            [ 1]  100 	push	#0x3a
+      000043 5F               [ 1]  101 	clrw	x
+      000044 89               [ 2]  102 	pushw	x
+      000045 4B 00            [ 1]  103 	push	#0x00
+      000047 AEr00r00         [ 2]  104 	ldw	x, #(___str_0+0)
+      00004A CDr00r00         [ 4]  105 	call	_assert_failed
+      00004D 84               [ 1]  106 	pop	a
+      00004E                        107 00136$:
+                                    108 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 60: if (TIM1_Channel == TIM1_CHANNEL_1)
+      00004E 4D               [ 1]  109 	tnz	a
+      00004F 26 15            [ 1]  110 	jrne	00120$
+                                    111 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 65: TIM1->CCER1 |= TIM1_CCER1_CC1E;
+      000051 C6 52 5C         [ 1]  112 	ld	a, 0x525c
+                                    113 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 63: if (NewState != DISABLE)
+      000054 0D 05            [ 1]  114 	tnz	(0x05, sp)
+      000056 27 07            [ 1]  115 	jreq	00102$
+                                    116 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 65: TIM1->CCER1 |= TIM1_CCER1_CC1E;
+      000058 AA 01            [ 1]  117 	or	a, #0x01
+      00005A C7 52 5C         [ 1]  118 	ld	0x525c, a
+      00005D 20 4E            [ 2]  119 	jra	00122$
+      00005F                        120 00102$:
+                                    121 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 69: TIM1->CCER1 &= (uint8_t)(~TIM1_CCER1_CC1E);
+      00005F A4 FE            [ 1]  122 	and	a, #0xfe
+      000061 C7 52 5C         [ 1]  123 	ld	0x525c, a
+      000064 20 47            [ 2]  124 	jra	00122$
+      000066                        125 00120$:
+                                    126 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 73: else if (TIM1_Channel == TIM1_CHANNEL_2)
+      000066 7B 01            [ 1]  127 	ld	a, (0x01, sp)
+      000068 27 15            [ 1]  128 	jreq	00117$
+                                    129 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 65: TIM1->CCER1 |= TIM1_CCER1_CC1E;
+      00006A C6 52 5C         [ 1]  130 	ld	a, 0x525c
+                                    131 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 76: if (NewState != DISABLE)
+      00006D 0D 05            [ 1]  132 	tnz	(0x05, sp)
+      00006F 27 07            [ 1]  133 	jreq	00105$
+                                    134 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 78: TIM1->CCER1 |= TIM1_CCER1_CC2E;
+      000071 AA 10            [ 1]  135 	or	a, #0x10
+      000073 C7 52 5C         [ 1]  136 	ld	0x525c, a
+      000076 20 35            [ 2]  137 	jra	00122$
+      000078                        138 00105$:
+                                    139 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 82: TIM1->CCER1 &= (uint8_t)(~TIM1_CCER1_CC2E);
+      000078 A4 EF            [ 1]  140 	and	a, #0xef
+      00007A C7 52 5C         [ 1]  141 	ld	0x525c, a
+      00007D 20 2E            [ 2]  142 	jra	00122$
+      00007F                        143 00117$:
+                                    144 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 90: TIM1->CCER2 |= TIM1_CCER2_CC3E;
+      00007F C6 52 5D         [ 1]  145 	ld	a, 0x525d
+                                    146 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 85: else if (TIM1_Channel == TIM1_CHANNEL_3)
+      000082 41               [ 1]  147 	exg	a, xl
+      000083 7B 02            [ 1]  148 	ld	a, (0x02, sp)
+      000085 41               [ 1]  149 	exg	a, xl
+      000086 41               [ 1]  150 	exg	a, xl
+      000087 4D               [ 1]  151 	tnz	a
+      000088 41               [ 1]  152 	exg	a, xl
+      000089 27 12            [ 1]  153 	jreq	00114$
+                                    154 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 88: if (NewState != DISABLE)
+      00008B 0D 05            [ 1]  155 	tnz	(0x05, sp)
+      00008D 27 07            [ 1]  156 	jreq	00108$
+                                    157 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 90: TIM1->CCER2 |= TIM1_CCER2_CC3E;
+      00008F AA 01            [ 1]  158 	or	a, #0x01
+      000091 C7 52 5D         [ 1]  159 	ld	0x525d, a
+      000094 20 17            [ 2]  160 	jra	00122$
+      000096                        161 00108$:
+                                    162 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 94: TIM1->CCER2 &= (uint8_t)(~TIM1_CCER2_CC3E);
+      000096 A4 FE            [ 1]  163 	and	a, #0xfe
+      000098 C7 52 5D         [ 1]  164 	ld	0x525d, a
+      00009B 20 10            [ 2]  165 	jra	00122$
+      00009D                        166 00114$:
+                                    167 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 100: if (NewState != DISABLE)
+      00009D 0D 05            [ 1]  168 	tnz	(0x05, sp)
+      00009F 27 07            [ 1]  169 	jreq	00111$
+                                    170 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 102: TIM1->CCER2 |= TIM1_CCER2_CC4E;
+      0000A1 AA 10            [ 1]  171 	or	a, #0x10
+      0000A3 C7 52 5D         [ 1]  172 	ld	0x525d, a
+      0000A6 20 05            [ 2]  173 	jra	00122$
+      0000A8                        174 00111$:
+                                    175 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 106: TIM1->CCER2 &= (uint8_t)(~TIM1_CCER2_CC4E);
+      0000A8 A4 EF            [ 1]  176 	and	a, #0xef
+      0000AA C7 52 5D         [ 1]  177 	ld	0x525d, a
+      0000AD                        178 00122$:
+                                    179 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c: 109: }
+      0000AD 85               [ 2]  180 	popw	x
+      0000AE 85               [ 2]  181 	popw	x
+      0000AF 84               [ 1]  182 	pop	a
+      0000B0 FC               [ 2]  183 	jp	(x)
+                                    184 	.area CODE
+                                    185 	.area CONST
+                                    186 	.area CONST
+      000000                        187 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   188 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_tim1_CCxCmd.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 74 69 6D 31 5F 43
+             43 78 43 6D 64 2E 63
+      000031 00                     189 	.db 0x00
+                                    190 	.area CODE
+                                    191 	.area INITIALIZER
+                                    192 	.area CABS (ABS)

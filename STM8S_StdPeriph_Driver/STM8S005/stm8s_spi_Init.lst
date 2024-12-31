@@ -1,0 +1,244 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_spi_Init
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _SPI_Init
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 60: void SPI_Init(SPI_FirstBit_TypeDef FirstBit, SPI_BaudRatePrescaler_TypeDef BaudRatePrescaler, SPI_Mode_TypeDef Mode, SPI_ClockPolarity_TypeDef ClockPolarity, SPI_ClockPhase_TypeDef ClockPhase, SPI_DataDirection_TypeDef Data_Direction, SPI_NSS_TypeDef Slave_Management, uint8_t CRCPolynomial)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function SPI_Init
+                                     53 ;	-----------------------------------------
+      000000                         54 _SPI_Init:
+      000000 52 03            [ 2]   55 	sub	sp, #3
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 63: assert_param(IS_SPI_FIRSTBIT_OK(FirstBit));
+      000002 6B 03            [ 1]   57 	ld	(0x03, sp), a
+      000004 27 12            [ 1]   58 	jreq	00107$
+      000006 7B 03            [ 1]   59 	ld	a, (0x03, sp)
+      000008 A1 80            [ 1]   60 	cp	a, #0x80
+      00000A 27 0C            [ 1]   61 	jreq	00107$
+      00000C 4B 3F            [ 1]   62 	push	#0x3f
+      00000E 5F               [ 1]   63 	clrw	x
+      00000F 89               [ 2]   64 	pushw	x
+      000010 4B 00            [ 1]   65 	push	#0x00
+      000012 AEr00r00         [ 2]   66 	ldw	x, #(___str_0+0)
+      000015 CDr00r00         [ 4]   67 	call	_assert_failed
+      000018                         68 00107$:
+                                     69 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 64: assert_param(IS_SPI_BAUDRATE_PRESCALER_OK(BaudRatePrescaler));
+      000018 0D 06            [ 1]   70 	tnz	(0x06, sp)
+      00001A 27 36            [ 1]   71 	jreq	00112$
+      00001C 7B 06            [ 1]   72 	ld	a, (0x06, sp)
+      00001E A1 08            [ 1]   73 	cp	a, #0x08
+      000020 27 30            [ 1]   74 	jreq	00112$
+      000022 7B 06            [ 1]   75 	ld	a, (0x06, sp)
+      000024 A1 10            [ 1]   76 	cp	a, #0x10
+      000026 27 2A            [ 1]   77 	jreq	00112$
+      000028 7B 06            [ 1]   78 	ld	a, (0x06, sp)
+      00002A A1 18            [ 1]   79 	cp	a, #0x18
+      00002C 27 24            [ 1]   80 	jreq	00112$
+      00002E 7B 06            [ 1]   81 	ld	a, (0x06, sp)
+      000030 A1 20            [ 1]   82 	cp	a, #0x20
+      000032 27 1E            [ 1]   83 	jreq	00112$
+      000034 7B 06            [ 1]   84 	ld	a, (0x06, sp)
+      000036 A1 28            [ 1]   85 	cp	a, #0x28
+      000038 27 18            [ 1]   86 	jreq	00112$
+      00003A 7B 06            [ 1]   87 	ld	a, (0x06, sp)
+      00003C A1 30            [ 1]   88 	cp	a, #0x30
+      00003E 27 12            [ 1]   89 	jreq	00112$
+      000040 7B 06            [ 1]   90 	ld	a, (0x06, sp)
+      000042 A1 38            [ 1]   91 	cp	a, #0x38
+      000044 27 0C            [ 1]   92 	jreq	00112$
+      000046 4B 40            [ 1]   93 	push	#0x40
+      000048 5F               [ 1]   94 	clrw	x
+      000049 89               [ 2]   95 	pushw	x
+      00004A 4B 00            [ 1]   96 	push	#0x00
+      00004C AEr00r00         [ 2]   97 	ldw	x, #(___str_0+0)
+      00004F CDr00r00         [ 4]   98 	call	_assert_failed
+      000052                         99 00112$:
+                                    100 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 65: assert_param(IS_SPI_MODE_OK(Mode));
+      000052 7B 07            [ 1]  101 	ld	a, (0x07, sp)
+      000054 A1 04            [ 1]  102 	cp	a, #0x04
+      000056 26 05            [ 1]  103 	jrne	00362$
+      000058 A6 01            [ 1]  104 	ld	a, #0x01
+      00005A 6B 01            [ 1]  105 	ld	(0x01, sp), a
+      00005C C5                     106 	.byte 0xc5
+      00005D                        107 00362$:
+      00005D 0F 01            [ 1]  108 	clr	(0x01, sp)
+      00005F                        109 00363$:
+      00005F 0D 01            [ 1]  110 	tnz	(0x01, sp)
+      000061 26 10            [ 1]  111 	jrne	00135$
+      000063 0D 07            [ 1]  112 	tnz	(0x07, sp)
+      000065 27 0C            [ 1]  113 	jreq	00135$
+      000067 4B 41            [ 1]  114 	push	#0x41
+      000069 5F               [ 1]  115 	clrw	x
+      00006A 89               [ 2]  116 	pushw	x
+      00006B 4B 00            [ 1]  117 	push	#0x00
+      00006D AEr00r00         [ 2]  118 	ldw	x, #(___str_0+0)
+      000070 CDr00r00         [ 4]  119 	call	_assert_failed
+      000073                        120 00135$:
+                                    121 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 66: assert_param(IS_SPI_POLARITY_OK(ClockPolarity));
+      000073 0D 08            [ 1]  122 	tnz	(0x08, sp)
+      000075 27 12            [ 1]  123 	jreq	00140$
+      000077 7B 08            [ 1]  124 	ld	a, (0x08, sp)
+      000079 A1 02            [ 1]  125 	cp	a, #0x02
+      00007B 27 0C            [ 1]  126 	jreq	00140$
+      00007D 4B 42            [ 1]  127 	push	#0x42
+      00007F 5F               [ 1]  128 	clrw	x
+      000080 89               [ 2]  129 	pushw	x
+      000081 4B 00            [ 1]  130 	push	#0x00
+      000083 AEr00r00         [ 2]  131 	ldw	x, #(___str_0+0)
+      000086 CDr00r00         [ 4]  132 	call	_assert_failed
+      000089                        133 00140$:
+                                    134 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 67: assert_param(IS_SPI_PHASE_OK(ClockPhase));
+      000089 0D 09            [ 1]  135 	tnz	(0x09, sp)
+      00008B 27 10            [ 1]  136 	jreq	00145$
+      00008D 0D 09            [ 1]  137 	tnz	(0x09, sp)
+      00008F 26 0C            [ 1]  138 	jrne	00145$
+      000091 4B 43            [ 1]  139 	push	#0x43
+      000093 5F               [ 1]  140 	clrw	x
+      000094 89               [ 2]  141 	pushw	x
+      000095 4B 00            [ 1]  142 	push	#0x00
+      000097 AEr00r00         [ 2]  143 	ldw	x, #(___str_0+0)
+      00009A CDr00r00         [ 4]  144 	call	_assert_failed
+      00009D                        145 00145$:
+                                    146 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 68: assert_param(IS_SPI_DATA_DIRECTION_OK(Data_Direction));
+      00009D 0D 0A            [ 1]  147 	tnz	(0x0a, sp)
+      00009F 27 1E            [ 1]  148 	jreq	00150$
+      0000A1 7B 0A            [ 1]  149 	ld	a, (0x0a, sp)
+      0000A3 A1 04            [ 1]  150 	cp	a, #0x04
+      0000A5 27 18            [ 1]  151 	jreq	00150$
+      0000A7 7B 0A            [ 1]  152 	ld	a, (0x0a, sp)
+      0000A9 A1 80            [ 1]  153 	cp	a, #0x80
+      0000AB 27 12            [ 1]  154 	jreq	00150$
+      0000AD 7B 0A            [ 1]  155 	ld	a, (0x0a, sp)
+      0000AF A1 C0            [ 1]  156 	cp	a, #0xc0
+      0000B1 27 0C            [ 1]  157 	jreq	00150$
+      0000B3 4B 44            [ 1]  158 	push	#0x44
+      0000B5 5F               [ 1]  159 	clrw	x
+      0000B6 89               [ 2]  160 	pushw	x
+      0000B7 4B 00            [ 1]  161 	push	#0x00
+      0000B9 AEr00r00         [ 2]  162 	ldw	x, #(___str_0+0)
+      0000BC CDr00r00         [ 4]  163 	call	_assert_failed
+      0000BF                        164 00150$:
+                                    165 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 69: assert_param(IS_SPI_SLAVEMANAGEMENT_OK(Slave_Management));
+      0000BF 7B 0B            [ 1]  166 	ld	a, (0x0b, sp)
+      0000C1 A1 02            [ 1]  167 	cp	a, #0x02
+      0000C3 27 10            [ 1]  168 	jreq	00161$
+      0000C5 0D 0B            [ 1]  169 	tnz	(0x0b, sp)
+      0000C7 27 0C            [ 1]  170 	jreq	00161$
+      0000C9 4B 45            [ 1]  171 	push	#0x45
+      0000CB 5F               [ 1]  172 	clrw	x
+      0000CC 89               [ 2]  173 	pushw	x
+      0000CD 4B 00            [ 1]  174 	push	#0x00
+      0000CF AEr00r00         [ 2]  175 	ldw	x, #(___str_0+0)
+      0000D2 CDr00r00         [ 4]  176 	call	_assert_failed
+      0000D5                        177 00161$:
+                                    178 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 70: assert_param(IS_SPI_CRC_POLYNOMIAL_OK(CRCPolynomial));
+      0000D5 0D 0C            [ 1]  179 	tnz	(0x0c, sp)
+      0000D7 26 0C            [ 1]  180 	jrne	00166$
+      0000D9 4B 46            [ 1]  181 	push	#0x46
+      0000DB 5F               [ 1]  182 	clrw	x
+      0000DC 89               [ 2]  183 	pushw	x
+      0000DD 4B 00            [ 1]  184 	push	#0x00
+      0000DF AEr00r00         [ 2]  185 	ldw	x, #(___str_0+0)
+      0000E2 CDr00r00         [ 4]  186 	call	_assert_failed
+      0000E5                        187 00166$:
+                                    188 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 73: SPI->CR1 = (uint8_t)((uint8_t)((uint8_t)FirstBit | BaudRatePrescaler) |
+      0000E5 7B 03            [ 1]  189 	ld	a, (0x03, sp)
+      0000E7 1A 06            [ 1]  190 	or	a, (0x06, sp)
+      0000E9 6B 02            [ 1]  191 	ld	(0x02, sp), a
+                                    192 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 74: (uint8_t)((uint8_t)ClockPolarity | ClockPhase));
+      0000EB 7B 09            [ 1]  193 	ld	a, (0x09, sp)
+      0000ED 1A 08            [ 1]  194 	or	a, (0x08, sp)
+      0000EF 1A 02            [ 1]  195 	or	a, (0x02, sp)
+      0000F1 C7 52 00         [ 1]  196 	ld	0x5200, a
+                                    197 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 77: SPI->CR2 = (uint8_t)((uint8_t)(Data_Direction) | (uint8_t)(Slave_Management));
+      0000F4 7B 0A            [ 1]  198 	ld	a, (0x0a, sp)
+      0000F6 1A 0B            [ 1]  199 	or	a, (0x0b, sp)
+      0000F8 C7 52 01         [ 1]  200 	ld	0x5201, a
+                                    201 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 81: SPI->CR2 |= (uint8_t)SPI_CR2_SSI;
+      0000FB C6 52 01         [ 1]  202 	ld	a, 0x5201
+      0000FE 97               [ 1]  203 	ld	xl, a
+                                    204 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 79: if (Mode == SPI_MODE_MASTER)
+      0000FF 7B 01            [ 1]  205 	ld	a, (0x01, sp)
+      000101 27 08            [ 1]  206 	jreq	00102$
+                                    207 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 81: SPI->CR2 |= (uint8_t)SPI_CR2_SSI;
+      000103 9F               [ 1]  208 	ld	a, xl
+      000104 AA 01            [ 1]  209 	or	a, #0x01
+      000106 C7 52 01         [ 1]  210 	ld	0x5201, a
+      000109 20 06            [ 2]  211 	jra	00103$
+      00010B                        212 00102$:
+                                    213 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 85: SPI->CR2 &= (uint8_t)~(SPI_CR2_SSI);
+      00010B 9F               [ 1]  214 	ld	a, xl
+      00010C A4 FE            [ 1]  215 	and	a, #0xfe
+      00010E C7 52 01         [ 1]  216 	ld	0x5201, a
+      000111                        217 00103$:
+                                    218 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 89: SPI->CR1 |= (uint8_t)(Mode);
+      000111 C6 52 00         [ 1]  219 	ld	a, 0x5200
+      000114 1A 07            [ 1]  220 	or	a, (0x07, sp)
+      000116 C7 52 00         [ 1]  221 	ld	0x5200, a
+                                    222 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 92: SPI->CRCPR = (uint8_t)CRCPolynomial;
+      000119 AE 52 05         [ 2]  223 	ldw	x, #0x5205
+      00011C 7B 0C            [ 1]  224 	ld	a, (0x0c, sp)
+      00011E F7               [ 1]  225 	ld	(x), a
+                                    226 ;	../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c: 93: }
+      00011F 1E 04            [ 2]  227 	ldw	x, (4, sp)
+      000121 5B 0C            [ 2]  228 	addw	sp, #12
+      000123 FC               [ 2]  229 	jp	(x)
+                                    230 	.area CODE
+                                    231 	.area CONST
+                                    232 	.area CONST
+      000000                        233 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38   234 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_spi_Init.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 73 70 69 5F 49 6E
+             69 74 2E 63
+      00002E 00                     235 	.db 0x00
+                                    236 	.area CODE
+                                    237 	.area INITIALIZER
+                                    238 	.area CABS (ABS)

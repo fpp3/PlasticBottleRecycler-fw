@@ -1,0 +1,102 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_tim2_OC1PolarityConfig
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _assert_failed
+                                     12 	.globl _TIM2_OC1PolarityConfig
+                                     13 ;--------------------------------------------------------
+                                     14 ; ram data
+                                     15 ;--------------------------------------------------------
+                                     16 	.area DATA
+                                     17 ;--------------------------------------------------------
+                                     18 ; ram data
+                                     19 ;--------------------------------------------------------
+                                     20 	.area INITIALIZED
+                                     21 ;--------------------------------------------------------
+                                     22 ; absolute external ram data
+                                     23 ;--------------------------------------------------------
+                                     24 	.area DABS (ABS)
+                                     25 
+                                     26 ; default segment ordering for linker
+                                     27 	.area HOME
+                                     28 	.area GSINIT
+                                     29 	.area GSFINAL
+                                     30 	.area CONST
+                                     31 	.area INITIALIZER
+                                     32 	.area CODE
+                                     33 
+                                     34 ;--------------------------------------------------------
+                                     35 ; global & static initialisations
+                                     36 ;--------------------------------------------------------
+                                     37 	.area HOME
+                                     38 	.area GSINIT
+                                     39 	.area GSFINAL
+                                     40 	.area GSINIT
+                                     41 ;--------------------------------------------------------
+                                     42 ; Home
+                                     43 ;--------------------------------------------------------
+                                     44 	.area HOME
+                                     45 	.area HOME
+                                     46 ;--------------------------------------------------------
+                                     47 ; code
+                                     48 ;--------------------------------------------------------
+                                     49 	.area CODE
+                                     50 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 50: void TIM2_OC1PolarityConfig(TIM2_OCPolarity_TypeDef TIM2_OCPolarity)
+                                     51 ;	-----------------------------------------
+                                     52 ;	 function TIM2_OC1PolarityConfig
+                                     53 ;	-----------------------------------------
+      000000                         54 _TIM2_OC1PolarityConfig:
+      000000 88               [ 1]   55 	push	a
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 53: assert_param(IS_TIM2_OC_POLARITY_OK(TIM2_OCPolarity));
+      000001 6B 01            [ 1]   57 	ld	(0x01, sp), a
+      000003 27 12            [ 1]   58 	jreq	00107$
+      000005 7B 01            [ 1]   59 	ld	a, (0x01, sp)
+      000007 A1 22            [ 1]   60 	cp	a, #0x22
+      000009 27 0C            [ 1]   61 	jreq	00107$
+      00000B 4B 35            [ 1]   62 	push	#0x35
+      00000D 5F               [ 1]   63 	clrw	x
+      00000E 89               [ 2]   64 	pushw	x
+      00000F 4B 00            [ 1]   65 	push	#0x00
+      000011 AEr00r00         [ 2]   66 	ldw	x, #(___str_0+0)
+      000014 CDr00r00         [ 4]   67 	call	_assert_failed
+      000017                         68 00107$:
+                                     69 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 58: TIM2->CCER1 |= (uint8_t)TIM2_CCER1_CC1P;
+      000017 C6 53 08         [ 1]   70 	ld	a, 0x5308
+                                     71 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 56: if (TIM2_OCPolarity != TIM2_OCPOLARITY_HIGH)
+      00001A 0D 01            [ 1]   72 	tnz	(0x01, sp)
+      00001C 27 07            [ 1]   73 	jreq	00102$
+                                     74 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 58: TIM2->CCER1 |= (uint8_t)TIM2_CCER1_CC1P;
+      00001E AA 02            [ 1]   75 	or	a, #0x02
+      000020 C7 53 08         [ 1]   76 	ld	0x5308, a
+      000023 20 05            [ 2]   77 	jra	00104$
+      000025                         78 00102$:
+                                     79 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 62: TIM2->CCER1 &= (uint8_t)(~TIM2_CCER1_CC1P);
+      000025 A4 FD            [ 1]   80 	and	a, #0xfd
+      000027 C7 53 08         [ 1]   81 	ld	0x5308, a
+      00002A                         82 00104$:
+                                     83 ;	../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c: 64: }
+      00002A 84               [ 1]   84 	pop	a
+      00002B 81               [ 4]   85 	ret
+                                     86 	.area CODE
+                                     87 	.area CONST
+                                     88 	.area CONST
+      000000                         89 ___str_0:
+      000000 2E 2E 2F 53 54 4D 38    90 	.ascii "../STM8S_StdPeriph_Driver/src/stm8s_tim2_OC1PolarityConfig.c"
+             53 5F 53 74 64 50 65
+             72 69 70 68 5F 44 72
+             69 76 65 72 2F 73 72
+             63 2F 73 74 6D 38 73
+             5F 74 69 6D 32 5F 4F
+             43 31 50 6F 6C 61 72
+             69 74 79 43 6F 6E 66
+             69 67 2E 63
+      00003C 00                      91 	.db 0x00
+                                     92 	.area CODE
+                                     93 	.area INITIALIZER
+                                     94 	.area CABS (ABS)

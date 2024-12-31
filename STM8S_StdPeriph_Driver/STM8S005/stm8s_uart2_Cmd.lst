@@ -1,0 +1,76 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_uart2_Cmd
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _UART2_Cmd
+                                     12 ;--------------------------------------------------------
+                                     13 ; ram data
+                                     14 ;--------------------------------------------------------
+                                     15 	.area DATA
+                                     16 ;--------------------------------------------------------
+                                     17 ; ram data
+                                     18 ;--------------------------------------------------------
+                                     19 	.area INITIALIZED
+                                     20 ;--------------------------------------------------------
+                                     21 ; absolute external ram data
+                                     22 ;--------------------------------------------------------
+                                     23 	.area DABS (ABS)
+                                     24 
+                                     25 ; default segment ordering for linker
+                                     26 	.area HOME
+                                     27 	.area GSINIT
+                                     28 	.area GSFINAL
+                                     29 	.area CONST
+                                     30 	.area INITIALIZER
+                                     31 	.area CODE
+                                     32 
+                                     33 ;--------------------------------------------------------
+                                     34 ; global & static initialisations
+                                     35 ;--------------------------------------------------------
+                                     36 	.area HOME
+                                     37 	.area GSINIT
+                                     38 	.area GSFINAL
+                                     39 	.area GSINIT
+                                     40 ;--------------------------------------------------------
+                                     41 ; Home
+                                     42 ;--------------------------------------------------------
+                                     43 	.area HOME
+                                     44 	.area HOME
+                                     45 ;--------------------------------------------------------
+                                     46 ; code
+                                     47 ;--------------------------------------------------------
+                                     48 	.area CODE
+                                     49 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_Cmd.c: 47: void UART2_Cmd(FunctionalState NewState)
+                                     50 ;	-----------------------------------------
+                                     51 ;	 function UART2_Cmd
+                                     52 ;	-----------------------------------------
+      000000                         53 _UART2_Cmd:
+      000000 88               [ 1]   54 	push	a
+      000001 6B 01            [ 1]   55 	ld	(0x01, sp), a
+                                     56 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_Cmd.c: 52: UART2->CR1 &= (uint8_t)(~UART2_CR1_UARTD);
+      000003 C6 52 44         [ 1]   57 	ld	a, 0x5244
+                                     58 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_Cmd.c: 49: if (NewState != DISABLE)
+      000006 0D 01            [ 1]   59 	tnz	(0x01, sp)
+      000008 27 07            [ 1]   60 	jreq	00102$
+                                     61 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_Cmd.c: 52: UART2->CR1 &= (uint8_t)(~UART2_CR1_UARTD);
+      00000A A4 DF            [ 1]   62 	and	a, #0xdf
+      00000C C7 52 44         [ 1]   63 	ld	0x5244, a
+      00000F 20 05            [ 2]   64 	jra	00104$
+      000011                         65 00102$:
+                                     66 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_Cmd.c: 57: UART2->CR1 |= UART2_CR1_UARTD; 
+      000011 AA 20            [ 1]   67 	or	a, #0x20
+      000013 C7 52 44         [ 1]   68 	ld	0x5244, a
+      000016                         69 00104$:
+                                     70 ;	../STM8S_StdPeriph_Driver/src/stm8s_uart2_Cmd.c: 59: }
+      000016 84               [ 1]   71 	pop	a
+      000017 81               [ 4]   72 	ret
+                                     73 	.area CODE
+                                     74 	.area CONST
+                                     75 	.area INITIALIZER
+                                     76 	.area CABS (ABS)
