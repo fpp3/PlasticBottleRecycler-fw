@@ -36,6 +36,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 extern void (*TIM2_InterruptCallback)(void);
+extern void (*TIM2_OCC2_InterruptCallback)(void);
+extern volatile uint16_t *adcValue;
 
 #ifdef _COSMIC_
  void _stext(void); /* RESET startup routine */

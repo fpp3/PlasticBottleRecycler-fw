@@ -29,6 +29,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s_it.h"
+#include "stm8s_adc1.h"
+#include "stm8s_tim2.h"
 /** @addtogroup Template_Project
   * @{
   */
@@ -42,6 +44,8 @@
 /* Public variables ----------------------------------------------------------*/
 /* Public functions ----------------------------------------------------------*/
 void (*TIM2_InterruptCallback)(void) = 0;
+void (*TIM2_OCC2_InterruptCallback)(void) = 0;
+volatile uint16_t *adcValue = 0;
 
 #ifdef _COSMIC_
 /**
@@ -280,11 +284,12 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-    TIM2_ClearITPendingBit(TIM2_IT_UPDATE);
-    if (TIM2_InterruptCallback != 0) {
-        TIM2_InterruptCallback();
-    }
- }
+   if (TIM2_GetITStatus(TIM2_IT_UPDATE)){
+     TIM2_ClearITPendingBit(TIM2_IT_UPDATE);
+     if (TIM2_InterruptCallback != 0) 
+       TIM2_InterruptCallback();
+   }
+}
 
 /**
   * @brief Timer2 Capture/Compare Interrupt routine.
@@ -296,7 +301,32 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
- }
+   if (TIM2_GetITStatus(TIM2_IT_CC1) != RESET) {
+     TIM2_ClearITPendingBit(TIM2_IT_CC1);
+   } else
+   if (TIM2_GetITStatus(TIM2_IT_CC2) != RESET) {
+     static uint16_t count1 = 0, count2 = 0;
+     TIM2_ClearITPendingBit(TIM2_IT_CC2);
+     if (count1 >= 2000){
+        count1 = 0;
+        if (TIM2_OCC2_InterruptCallback != 0)
+           TIM2_OCC2_InterruptCallback();
+        else
+           ;
+       } else {
+          count1++;
+       }
+     if (count2 >= 500) {
+        count2 = 0;
+        ADC1_StartConversion();
+     } else {
+        count2++;
+     }
+   } else
+   if (TIM2_GetITStatus(TIM2_IT_CC3) != RESET) {
+     TIM2_ClearITPendingBit(TIM2_IT_CC3);
+   }
+}
 #endif /* (STM8S903) || (STM8AF622x) */
 
 #if defined (STM8S208) || defined(STM8S207) || defined(STM8S007) || defined(STM8S105) || \
@@ -468,6 +498,9 @@ INTERRUPT_HANDLER(I2C_IRQHandler, 19)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
+      ADC1_ClearFlag(ADC1_FLAG_EOC);
+      if (adcValue != 0)
+         *adcValue = ADC1_GetConversionValue();
  }
 #endif /* (STM8S208) || (STM8S207) || (STM8AF52Ax) || (STM8AF62Ax) */
 
