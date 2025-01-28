@@ -81,37 +81,11 @@ void lcd_puts_auto(uint8_t *c){
   }
 }
 
-void lcd_puti(int16_t number){
-  char string[7];
-  if(number == 0) { string[0] = '0'; return; };
-  int divide = 0;
-  int modResult;
-  int  length = 0;
-  int isNegative = 0;
-  int  copyOfNumber;
-  int offset = 0;
-  copyOfNumber = number;
-  if( number < 0 ) {
-    isNegative = 1;
-    number = 0 - number;
-    length++;
-  }
-  while(copyOfNumber != 0)
-  {
-    length++;
-    copyOfNumber /= 10;
-  }
-
-  for(divide = 0; divide < length; divide++) {
-    modResult = number % 10;
-    number    = number / 10;
-    string[length - (divide + 1)] = modResult + '0';
-  }
-  if(isNegative) {
-  string[0] = '-';
-  }
-  string[length] = '\0';
-
-  lcd_puts(string);
+void lcd_create_char(uint8_t location, const uint8_t *charmap) {
+    location &= 0x07; 
+    lcd_send_byte(LCD_CGRAM_SET | (location << 3), LCD_CMD); 
+    for (int i = 0; i < 8; i++) {
+        lcd_send_byte(charmap[i], LCD_DATA); // Escribir cada fila del carácter
+    }
 }
 

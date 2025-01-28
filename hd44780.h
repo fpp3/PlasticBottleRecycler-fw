@@ -85,6 +85,9 @@
 #define LCD_DDRAM_SET 0x80
 #define LCD_LINE2 0x40
 
+/* CGRAM set */
+#define LCD_CGRAM_SET 0x40
+
 
 /* 
  * Initialize the GPIO pins
@@ -123,5 +126,6 @@ void lcd_setpos(uint8_t l, uint8_t c);
  */
 void lcd_puts_auto(uint8_t *c);
 
-void lcd_puti(int16_t number);
+void lcd_create_char(uint8_t location, const uint8_t *charmap);
+
 #endif
