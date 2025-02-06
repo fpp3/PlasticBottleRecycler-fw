@@ -48,7 +48,7 @@
 #define TEMP_UPPER_LIMIT 260
 #define TEMP_LOWER_LIMIT 100
 #define STEPPER_UPPER_LIMIT 1750
-#define STEPPER_LOWER_LIMIT 10
+#define STEPPER_LOWER_LIMIT 2
 
 #define EEPROM_BASE 0x4000
 #define EEPROM_TEMP_H 0
@@ -178,14 +178,22 @@ void main(void) { // NOLINT
         case 1:
           sprintf(buff, "Veloc: %-4dRPM %c", setSpeed, (setSpeed < STEPPER_UPPER_LIMIT && setSpeed > STEPPER_LOWER_LIMIT) ? 2 : (setSpeed == STEPPER_UPPER_LIMIT ? 3 : 1));
           if (minPress) {
-            if (setSpeed > STEPPER_LOWER_LIMIT)
-              setSpeed -= 10;
+            if (setSpeed > STEPPER_LOWER_LIMIT) {
+              if (setSpeed < 100)
+                setSpeed -= 2;
+              else
+                setSpeed -= 10;
+            }
             minPress = 0;
             hr4988_setSpeed(setSpeed);
           }
           if (plsPress) {
-            if (setSpeed < STEPPER_UPPER_LIMIT)
-              setSpeed += 10;
+            if (setSpeed < STEPPER_UPPER_LIMIT) {
+              if (setSpeed < 100)
+                setSpeed += 2;
+              else
+                setSpeed += 10;
+            }
             plsPress = 0;
             hr4988_setSpeed(setSpeed);
           }
