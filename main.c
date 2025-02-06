@@ -29,9 +29,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdlib.h>
 #include <stdio.h>
-#include "stm8s.h"
 #include "stm8s_conf.h"
-#include "stm8s_gpio.h"
 #include "stm8s_it.h"    /* SDCC patch: required by SDCC for interrupts */
 #include "hd44780.h"
 #include "delay.h"
@@ -49,10 +47,14 @@
 
 #define TEMP_UPPER_LIMIT 260
 #define TEMP_LOWER_LIMIT 100
-#define TEMP_DEFAULT 240
 #define STEPPER_UPPER_LIMIT 1750
 #define STEPPER_LOWER_LIMIT 10
-#define STEPPER_DEFAULT 50
+
+#define EEPROM_BASE 0x4000
+#define EEPROM_TEMP_H 0
+#define EEPROM_TEMP_L 1
+#define EEPROM_SPEED_H 2
+#define EEPROM_SPEED_L 3
 
 typedef union REGISTER {
   uint8_t REG;
@@ -94,7 +96,10 @@ void main(void) { // NOLINT
   lcd_create_char(1, char_arrUp);
   lcd_create_char(2, char_arrUpNDown);
   lcd_create_char(3, char_arrDown);
-  //lcd_send_byte(LCD_CURDISP | LCD_SHIFT_CUR | LCD_SHIFT_R, LCD_CMD);
+  lcd_setpos(0,0);
+  lcd_puts_auto("Bottle Recycler");
+  
+  FLASH_SetProgrammingTime(FLASH_PROGRAMTIME_STANDARD);
 
   hr4988_init();
   hr4988_setSteps(200);
@@ -103,18 +108,15 @@ void main(void) { // NOLINT
 
   hotend_init();
 
-  GPIO_Init(GPIOE, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_SLOW);
   GPIO_Init(BTN_GPIO, BTN_MINUS | BTN_OK | BTN_PLUS, GPIO_MODE_IN_FL_NO_IT);
-  GPIO_WriteHigh(GPIOE, GPIO_PIN_5);
 
-  lcd_setpos(0,0);
-  lcd_puts_auto("Bottle Recycler");
   _delay_ms(1500);
   char buff[17];
   uint8_t menuPos = 0, fastCount = 0;
   bool selected = 0, minPress = 0, plsPress = 0, okPress = 0, running = 0, stepper = 0;
   volatile bool minus = 0, minusp = 0, plus = 0, plusp = 0, ok = 0, okp = 0;
-  uint16_t setTemp = TEMP_DEFAULT, setSpeed = STEPPER_DEFAULT;
+  uint16_t setTemp = FLASH_ReadByte(EEPROM_BASE | EEPROM_TEMP_H) | FLASH_ReadByte(EEPROM_BASE | EEPROM_TEMP_L);
+  uint16_t setSpeed = FLASH_ReadByte(EEPROM_BASE | EEPROM_SPEED_H) | FLASH_ReadByte(EEPROM_BASE | EEPROM_SPEED_L);
   lcd_send_byte(LCD_CLR, LCD_CMD);
   while (1) {
     minus = GPIO_ReadInputPin(BTN_GPIO, BTN_MINUS);
@@ -214,6 +216,20 @@ void main(void) { // NOLINT
       }
       if (okPress){
         okPress = 0;
+        if (menuPos == 5 || menuPos == 1){
+          FLASH_Unlock(FLASH_MEMTYPE_DATA);
+          FLASH_ProgramByte(EEPROM_BASE | EEPROM_SPEED_H, setSpeed >> 8);
+          FLASH_ProgramByte(EEPROM_BASE | EEPROM_SPEED_L, setSpeed & 0xFF);
+          FLASH_Lock(FLASH_MEMTYPE_DATA);
+        }
+        if (menuPos == 0){
+          FLASH_Unlock(FLASH_MEMTYPE_DATA);
+          FLASH_ProgramByte(EEPROM_BASE | EEPROM_TEMP_H, setTemp >> 8);
+          FLASH_ProgramByte(EEPROM_BASE | EEPROM_TEMP_L, setTemp & 0xFF);
+          FLASH_Lock(FLASH_MEMTYPE_DATA);
+        }
+
+
         selected = 0;
       }
     } else {
