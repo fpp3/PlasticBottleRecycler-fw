@@ -115,16 +115,8 @@ void main(void) { // NOLINT
   bool selected = 0, minPress = 0, plsPress = 0, okPress = 0, running = 0, stepper = 0;
   volatile bool minus = 0, minusp = 0, plus = 0, plusp = 0, ok = 0, okp = 0;
   uint16_t setTemp = TEMP_DEFAULT, setSpeed = STEPPER_DEFAULT;
-  //btnReg_t buttonStates = {0}; //1st three are actual, 2nd three are previous. minus_btn, ok_btn, plus_btn
   lcd_send_byte(LCD_CLR, LCD_CMD);
-    /*for (uint16_t i = 0; i < 256; i += 16){
-      lcd_setpos(0,0);
-      char charmap[17] = {i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9, i+10, i+11, i+12, i+13, i+14, i+15, 0};
-      lcd_puts_auto(charmap);
-      _delay_ms(2000);
-    }*/
   while (1) {
-    //buttonStates.REG = (buttonStates.REG & ~(BTN_MINUS | BTN_OK | BTN_PLUS)) | (GPIO_ReadInputData(BTN_GPIO) & (BTN_MINUS | BTN_OK | BTN_PLUS));
     minus = GPIO_ReadInputPin(BTN_GPIO, BTN_MINUS);
     plus = GPIO_ReadInputPin(BTN_GPIO, BTN_PLUS);
     ok = GPIO_ReadInputPin(BTN_GPIO, BTN_OK);
@@ -262,10 +254,33 @@ void assert_failed(u8* file, u32 line) {
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
   /* Infinite loop */
-  lcd_send_byte(LCD_CLR, LCD_CMD);
-  lcd_setpos(0,0);
-  lcd_puts_auto(file + 35);
-  while (1) {
+  uint8_t *tmp;
+  uint8_t buff[16];
+  while (1){
+    uint8_t eol = 0;
+    tmp = file;
+    while (!eol){
+      for (uint8_t i = 0; i < 16; i++){
+        if (tmp[i]) {
+          buff[i] = tmp[i];
+        } else {
+          eol = 1;
+          buff[i] = 0;
+          break;
+        }
+      }
+      lcd_send_byte(LCD_CLR, LCD_CMD);
+      lcd_setpos(0,0);
+      lcd_puts_auto(buff);
+      _delay_ms(1500);
+      tmp++;
+    }
+    sprintf(buff, "line: %04d", line);
+    lcd_send_byte(LCD_CLR, LCD_CMD);
+    lcd_setpos(0,0);
+    lcd_puts_auto(buff);
+
+    _delay_ms(5000);
   }
 }
 #endif
