@@ -138,5 +138,5 @@ void changeRotation(void){
 }
 
 void setSpeed(uint16_t speed){
-  TIM1_SetFrequency((speed / 60) * stepsPerRevolution);
+  TIM1_SetFrequency(((uint32_t)((uint32_t)speed * stepsPerRevolution) * 1092)  >> 16);
 }
