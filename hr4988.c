@@ -105,16 +105,18 @@ void stepperService(void) {
   static uint32_t update = 0;
 
   if (update >= 1000){
+
     if (rotationChange)
       changeRotation();
 
-    if (currentSpeed < desiredSpeed)
-      currentSpeed++;
-    else if (currentSpeed > desiredSpeed)
-      currentSpeed--;
-
-    if (currentSpeed != desiredSpeed)
+    if (currentSpeed != desiredSpeed) {
+      if (currentSpeed < desiredSpeed)
+        currentSpeed++;
+      else if (currentSpeed > desiredSpeed)
+        currentSpeed--;
       setSpeed(currentSpeed);
+    }
+
     update = 0;
   }
   update += 50;
