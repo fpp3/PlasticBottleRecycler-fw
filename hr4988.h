@@ -21,10 +21,11 @@ typedef enum {
 } rotation_t;
 
 typedef enum {
-  STEP_1_16 = 4,
-  STEP_1_32 = 5,
-  STEP_1_64 = 6,
-  STEP_1_128 = 7
+  STEP_1_1 = 0,
+  STEP_1_2 = 1,
+  STEP_1_4 = 2,
+  STEP_1_8 = 3,
+  STEP_1_16 = 7,
 } stepMode_t;
 
 // public functions

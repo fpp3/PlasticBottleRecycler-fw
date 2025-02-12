@@ -57,19 +57,24 @@
 #define EEPROM_BASE 0x4000
 #define EEPROM_TEMP 0
 #define EEPROM_SPEED 2
+#define EEPROM_USTEPPING 4
+#define EEPROM_ROTATION 8
 
 const char back[] = "Volver";
 const char *submenu0_0[] = {"Iniciar", NULL};
 const char *submenu0_1[] = {"Hotend", "Temperatura", back, NULL};
-const char *submenu0_2[] = {"Stepper", "Velocidad", back, NULL};
+const char *submenu0_2[] = {"Stepper", "Velocidad", "Microstepping", "Direccion", back, NULL};
 const char *submenu1_0[] = {"Detener", NULL};
 const char *submenu1_1[] = {"Informacion", NULL};
-const char *submenu1_3[] = {"Stepper", "Velocidad", "Act/Des Stepper", back, NULL};
+const char *submenu1_3[] = {"Stepper", "Velocidad", "Microstepping", "Direccion", "Act/Des Stepper", back, NULL};
 
 const char **menu0[] = {submenu0_0, submenu0_1, submenu0_2, NULL}; // First item of EVERY menu is going to work as a "button". No sub-menues there
 const char **menu1[] = {submenu1_0, submenu1_1, submenu0_1, submenu1_3, NULL}; // Repeating submenues is possible by repeating them in their respective menu
 
 const char ***menu[] = {menu0, menu1, NULL};
+
+const char *uSteps_numMask[] = {"1:1", "1:2", "1:4", "1:8", "1:16"};
+const char *dir_numMask[] = {"A", "B"};
 
 const uint8_t char_arrUp[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00};
 const uint8_t char_arrUpNDown[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x1F, 0x0E, 0x04};
@@ -78,10 +83,10 @@ const uint8_t char_arrDown[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x0E, 0x04};
 int8_t button_getEdge(volatile bool newState, volatile bool *currentState, volatile bool *previousState, volatile uint8_t *holdCount);
 size_t count_items(const char **submenu);
 size_t count_submenus(const char ***menu_level);
-bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
+bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, const char *numMask[], uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
 void save_to_EEPROM(void *value, uint8_t size, uint8_t address);
 void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setTemp, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
-void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
+void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, uint16_t *uStepping, uint16_t *rotation, bool *stepper, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
 
 void main(void) { // NOLINT 
   CLK_DeInit();
@@ -128,6 +133,8 @@ void main(void) { // NOLINT
   volatile uint8_t minusHold = 0, plusHold = 0, okHold = 0;
   uint16_t setTemp = FLASH_ReadByte(EEPROM_BASE + EEPROM_TEMP) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_TEMP + 1);
   uint16_t setSpeed = FLASH_ReadByte(EEPROM_BASE + EEPROM_SPEED) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_SPEED + 1);
+  uint16_t uStepping = FLASH_ReadByte(EEPROM_BASE + EEPROM_USTEPPING) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_USTEPPING + 1);
+  uint16_t rotation = FLASH_ReadByte(EEPROM_BASE + EEPROM_ROTATION) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_ROTATION + 1);
   lcd_send_byte(LCD_CLR, LCD_CMD);
   while (1) {
     minusEdge = button_getEdge(GPIO_ReadInputPin(BTN_GPIO, BTN_MINUS), &minus, &minusp, &minusHold);
@@ -194,6 +201,8 @@ void main(void) { // NOLINT
             case 0:
               hotend_setTemp(setTemp);
               hr4988_setSpeed(setSpeed);
+              hr4988_setStepMode((stepMode_t)(uStepping > 3 ? 7 : uStepping));
+              hr4988_setRotation((rotation_t)rotation);
               currMenu = 1;
               selected = 0;
               break;
@@ -201,7 +210,7 @@ void main(void) { // NOLINT
               submenu_hotend(buff, &currPos, &currSubMenu, &selected, &setTemp, &minusEdge, &plusEdge, &okEdge, 0);
               break;
             case 2:
-              submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &minusEdge, &plusEdge, &okEdge, 0);
+              submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &uStepping, &rotation, &stepper, &minusEdge, &plusEdge, &okEdge, 0);
               break;
           }
           break;
@@ -223,7 +232,7 @@ void main(void) { // NOLINT
               submenu_hotend(buff, &currPos, &currSubMenu, &selected, &setTemp, &minusEdge, &plusEdge, &okEdge, 1);
               break;
             case 3:
-              submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &minusEdge, &plusEdge, &okEdge, 1);
+              submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &uStepping, &rotation, &stepper, &minusEdge, &plusEdge, &okEdge, 1);
               break;
           }
 
@@ -276,7 +285,7 @@ size_t count_submenus(const char ***menu_level) {
     return count;
 }
 
-bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge) {
+bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, const char *numMask[], uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge) {
   char arrow = 0;
   if (*minusEdge > 0) {
     if (*variable > lowerLimit) {
@@ -307,7 +316,10 @@ bool menu_value_selector(char *buffer, const char *string, const char *unit, con
     arrow = CHAR_ARROW_UP;
   else
     arrow = CHAR_ARROW_UPNDOWN;
-  sprintf(buffer, "%-7.7s %4.4u%-3.3s%c", string, *variable, unit, arrow);
+  if (numMask == NULL)
+    sprintf(buffer, "%-7.7s %4.4u%-3.3s%c", string, *variable, unit, arrow);
+  else
+    sprintf(buffer, "%-9.9s %5.5s%c", string, numMask[*variable], arrow);
   return 1;
 }
 
@@ -322,7 +334,7 @@ void save_to_EEPROM(void *value, uint8_t size, uint8_t address) {
 void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setTemp, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running) {
   switch (*currPos + 1) {
     case 1:
-      *selected = menu_value_selector(buff, "Temp.:", "\322C", TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT, setTemp, minusEdge, plusEdge, okEdge);
+      *selected = menu_value_selector(buff, "Temp.:", "\322C", TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT, NULL, setTemp, minusEdge, plusEdge, okEdge);
       break;
     case 2:
       //go back
@@ -336,26 +348,42 @@ void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *se
   }
 }
 
-void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running) {
+void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, uint16_t *uStepping, uint16_t *rotation, bool *stepper, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running) {
   switch (*currPos + 1) {
     case 1:
-      *selected = menu_value_selector(buff, "Veloc.:", "RPM", STEPPER_LOWER_LIMIT, STEPPER_UPPER_LIMIT, setSpeed, minusEdge, plusEdge, okEdge);
+      *selected = menu_value_selector(buff, "Veloc.:", "RPM", STEPPER_LOWER_LIMIT, STEPPER_UPPER_LIMIT, NULL, setSpeed, minusEdge, plusEdge, okEdge);
+      if (*selected == 0)
+        save_to_EEPROM(setSpeed, sizeof(*setSpeed), EEPROM_SPEED);
       if (running)
         hr4988_setSpeed(*setSpeed);
       break;
     case 2:
+      *selected = menu_value_selector(buff, "\371Stepping:", NULL, 0, 4, uSteps_numMask, uStepping, minusEdge, plusEdge, okEdge);
+      if (*selected == 0)
+        save_to_EEPROM(uStepping, sizeof(*uStepping), EEPROM_USTEPPING);
+      if (running)
+        hr4988_setStepMode((stepMode_t)(*uStepping > 3 ? 7 : *uStepping));
+      break;
+    case 3:
+      *selected = menu_value_selector(buff, "Direccion:", NULL, 0, 1, dir_numMask, rotation, minusEdge, plusEdge, okEdge);
+      if (*selected == 0)
+        save_to_EEPROM(rotation, sizeof(*rotation), EEPROM_ROTATION);
+      if (running)
+        hr4988_setRotation((rotation_t)*rotation);
+      break;
+    case 4:
       if (running) {
-        hr4988_setStepper(ENABLE);
+        *stepper = !(*stepper);
+        hr4988_setStepper((FunctionalState)(*stepper));
         *selected = 0;
         break;
       }
       //break;  // <------ CAREFUL ------ this is so i dont need to make two switches depending on the state of 'running' in order to have always the "back" at the end of the list
-    case 3:
+    case 5:
       //go back
       *selected = 0;
       *currPos = *currSubMenu;
       *currSubMenu = 0;
-      save_to_EEPROM(setSpeed, sizeof(*setSpeed), EEPROM_SPEED);
       break;
   }
 }
