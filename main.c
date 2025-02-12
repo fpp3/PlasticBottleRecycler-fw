@@ -78,7 +78,7 @@ const uint8_t char_arrDown[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x0E, 0x04};
 int8_t button_getEdge(volatile bool newState, volatile bool *currentState, volatile bool *previousState, volatile uint8_t *holdCount);
 size_t count_items(const char **submenu);
 size_t count_submenus(const char ***menu_level);
-bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
+bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, const char *numMask[], uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
 void save_to_EEPROM(void *value, uint8_t size, uint8_t address);
 void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setTemp, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
 void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
@@ -276,7 +276,7 @@ size_t count_submenus(const char ***menu_level) {
     return count;
 }
 
-bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge) {
+bool menu_value_selector(char *buffer, const char *string, const char *unit, const uint16_t lowerLimit, const uint16_t upperLimit, const char *numMask[], uint16_t *variable, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge) {
   char arrow = 0;
   if (*minusEdge > 0) {
     if (*variable > lowerLimit) {
@@ -307,7 +307,10 @@ bool menu_value_selector(char *buffer, const char *string, const char *unit, con
     arrow = CHAR_ARROW_UP;
   else
     arrow = CHAR_ARROW_UPNDOWN;
-  sprintf(buffer, "%-7.7s %4.4u%-3.3s%c", string, *variable, unit, arrow);
+  if (numMask == NULL)
+    sprintf(buffer, "%-7.7s %4.4u%-3.3s%c", string, *variable, unit, arrow);
+  else
+    sprintf(buffer, "%-9.9s %5.5s%c", string, numMask[*variable], arrow);
   return 1;
 }
 
@@ -322,7 +325,7 @@ void save_to_EEPROM(void *value, uint8_t size, uint8_t address) {
 void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setTemp, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running) {
   switch (*currPos + 1) {
     case 1:
-      *selected = menu_value_selector(buff, "Temp.:", "\322C", TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT, setTemp, minusEdge, plusEdge, okEdge);
+      *selected = menu_value_selector(buff, "Temp.:", "\322C", TEMP_LOWER_LIMIT, TEMP_UPPER_LIMIT, NULL, setTemp, minusEdge, plusEdge, okEdge);
       break;
     case 2:
       //go back
