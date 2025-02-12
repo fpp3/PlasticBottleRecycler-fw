@@ -14,7 +14,7 @@ static volatile uint16_t currentSpeed;
 static volatile bool rotationChange;
 static FunctionalState stepperState;
 static rotation_t rotation;
-static stepMode_t stepMode = STEP_1_16;
+static stepMode_t stepMode = STEP_1_1;
 static uint16_t desiredSpeed, stepsPerRevolution = 50;
 
 
@@ -51,6 +51,7 @@ void hr4988_setStepMode(stepMode_t mode){
                            ((stepMode >> 1) & 0x01) << STEPPER_MS2_PINN |
                            ((stepMode) & 0x01) << STEPPER_MS1_PINN
                            );
+  setSpeed(currentSpeed);
 }
 
 void hr4988_setStepper(FunctionalState state){
@@ -140,5 +141,5 @@ void changeRotation(void){
 }
 
 void setSpeed(uint16_t speed){
-  TIM1_SetFrequency(((uint32_t)((uint32_t)speed * stepsPerRevolution) * 1092)  >> 16);
+  TIM1_SetFrequency((((uint32_t)((uint32_t)speed * stepsPerRevolution * (1 << (stepMode > 3 ? 4 : stepMode))) * 1092)  >> 16));
 }
