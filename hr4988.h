@@ -35,5 +35,6 @@ void hr4988_setSpeed(uint16_t rpm);
 void hr4988_setRotation(rotation_t rot);
 void hr4988_setStepMode(stepMode_t mode);
 void hr4988_setStepper(FunctionalState state);
+uint16_t hr4988_getSpeed(void);
 
 #endif
