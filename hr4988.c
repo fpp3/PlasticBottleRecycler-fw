@@ -56,13 +56,17 @@ void hr4988_setStepMode(stepMode_t mode){
 
 void hr4988_setStepper(FunctionalState state){
   if (state){
-    currentSpeed = 0;
     GPIO_WriteLow(STEPPER_GPIO, STEPPER_ENA);
   } else {
     GPIO_WriteHigh(STEPPER_GPIO, STEPPER_ENA);
   }
+  currentSpeed = 0;
   TIM1_CtrlPWMOutputs(state);
   stepperState = state;
+}
+
+uint16_t hr4988_getSpeed(void){
+  return currentSpeed;
 }
 
 // ------ private function definitions ------
@@ -120,7 +124,8 @@ void stepperService(void) {
 
     update = 0;
   }
-  update += 50;
+  if (stepperState)
+    update += 50;
 }
 
 void changeRotation(void){

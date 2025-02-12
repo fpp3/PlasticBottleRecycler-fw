@@ -190,7 +190,7 @@ void main(void) { // NOLINT
         }
       } else {
         inacTime = 200;
-        sprintf(buff, " %-3.3u\322C  %4.4uRPM ", hotend_getTemp(), setSpeed);
+        sprintf(buff, " %-3.3u\322C  %4.4uRPM ", hotend_getTemp(), hr4988_getSpeed());
       }
       if (okEdge == 1 || minusEdge == 1 || plusEdge == 1)
         inacTime = 0;
