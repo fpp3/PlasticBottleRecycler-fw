@@ -63,7 +63,7 @@ void hotend_init(void){
 
 void hotend_setTemp(int16_t temp){
   set_temp = temp;
-  assert_param(pid_configure(&tune, 45, 7, 0, 1000, 10, false));
+  pid_configure(&tune, 45, 7, 0, 1000, 10, false);
   pid_set_limits(&tune, 0, 799);
   TIM2_OCC2_InterruptCallback = hotend_update;
 }
