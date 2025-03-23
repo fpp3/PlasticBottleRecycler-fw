@@ -31,6 +31,7 @@
 #include "stm8s_it.h"
 #include "stm8s_adc1.h"
 #include "stm8s_tim2.h"
+#include "stm8s_tim3.h"
 /** @addtogroup Template_Project
   * @{
   */
@@ -45,6 +46,7 @@
 /* Public functions ----------------------------------------------------------*/
 void (*TIM2_InterruptCallback)(void) = 0;
 void (*TIM2_OCC2_InterruptCallback)(void) = 0;
+void (*TIM3_OCC1_InterruptCallback)(void) = 0;
 volatile uint16_t *adcValue = 0;
 
 #ifdef _COSMIC_
@@ -350,6 +352,11 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   */
  INTERRUPT_HANDLER(TIM3_CAP_COM_IRQHandler, 16)
  {
+   if (TIM3_GetITStatus(TIM3_IT_CC1) != RESET) {
+     TIM3_ClearITPendingBit(TIM3_IT_CC1);
+     if (TIM3_OCC1_InterruptCallback != 0) 
+       TIM3_OCC1_InterruptCallback();
+   }
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */

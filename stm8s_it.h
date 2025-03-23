@@ -37,6 +37,7 @@
 /* Exported functions ------------------------------------------------------- */
 extern void (*TIM2_InterruptCallback)(void);
 extern void (*TIM2_OCC2_InterruptCallback)(void);
+extern void (*TIM3_OCC1_InterruptCallback)(void);
 extern volatile uint16_t *adcValue;
 
 #ifdef _COSMIC_

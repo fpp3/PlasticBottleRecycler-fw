@@ -35,6 +35,7 @@
 #include "delay.h"
 #include "hr4988.h"
 #include "hotend.h"
+#include "buzzer.h"
 
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -80,6 +81,15 @@ const uint8_t char_arrUp[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00};
 const uint8_t char_arrUpNDown[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x1F, 0x0E, 0x04};
 const uint8_t char_arrDown[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x0E, 0x04};
 
+const buzzerTone_s bootMelody[] = {
+    {.period = 50,  .frequency = NOTE_A4, .volume = 10},
+    {.period = 50,  .frequency = NOTE_A4, .volume = 0},
+    {.period = 75,  .frequency = NOTE_A6, .volume = 10},
+    {.period = 75,  .frequency = NOTE_A6, .volume = 0},
+    {.period = 75,  .frequency = NOTE_A6, .volume = 10},
+    {.period = 0,   .frequency = 0,   .volume = 0} // Fin de la melodía
+};
+
 int8_t button_getEdge(volatile bool newState, volatile bool *currentState, volatile bool *previousState, volatile uint8_t *holdCount);
 size_t count_items(const char **submenu);
 size_t count_submenus(const char ***menu_level);
@@ -123,6 +133,9 @@ void main(void) { // NOLINT
   hotend_init();
 
   GPIO_Init(BTN_GPIO, BTN_MINUS | BTN_OK | BTN_PLUS, GPIO_MODE_IN_FL_NO_IT);
+
+  buzzer_init();
+  buzzer_melody(bootMelody, 0, 0);
 
   _delay_ms(1500);
   char buff[17], arrow = 0;
