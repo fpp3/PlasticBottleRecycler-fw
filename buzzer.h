@@ -17,6 +17,7 @@ void buzzer_init(void);
 void buzzer_tone(uint16_t period, uint16_t frequency, uint8_t volume);
 void buzzer_melody(buzzerTone_s *melody, uint8_t repetitions, uint16_t delay);
 bool buzzer_ready(void);
+void buzzer_stop(void);
 
 // Notas del piano (A0 - C8)
 #define NOTE_A0   27

@@ -5,11 +5,11 @@ static void TIM3_SetPWM(uint16_t frequency, uint8_t width);
 static void buzzer_service_single(void);
 static void buzzer_service_multi(void);
 
-static uint32_t _cycles, _currentCycles;
-static buzzerTone_s *_currentMelody;
-static uint8_t _melodyRepetitions, _currentMelodyRepetitions;
-static uint16_t _melodyDelay;
-static bool _busy;
+static volatile uint32_t _cycles, _currentCycles;
+static volatile buzzerTone_s *_currentMelody;
+static volatile uint8_t _melodyRepetitions, _currentMelodyRepetitions;
+static volatile uint16_t _melodyDelay;
+static volatile bool _busy;
 
 void buzzer_init(void) {
   GPIO_Init(BUZZER_GPIO, BUZZER_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
@@ -38,6 +38,18 @@ void buzzer_melody(buzzerTone_s *melody, uint8_t repetitions, uint16_t delay) {
 
 bool buzzer_ready(void) {
   return _busy;
+}
+
+void buzzer_stop(void){
+  TIM3_OCC1_InterruptCallback = 0;
+  _cycles = 0;
+  _currentCycles = 0;
+  _melodyDelay = 0;
+  _melodyRepetitions = 0;
+  _currentMelodyRepetitions = 0;
+  _currentMelody = 0;
+  TIM3_SetPWM(0, 0);
+  _busy = FALSE;
 }
 
 void TIM3_PWM_init(void) {
@@ -93,8 +105,9 @@ void buzzer_service_multi(void) {
       } else {
         _currentMelodyRepetitions++;
         _cycles = ((uint32_t)_melodyDelay * 1000) / (float)(((F_CPU / ((_currentMelody + count - 1)->frequency * (TIM3_PRESCALER_16 + 1)))) - 1);
-        TIM3_SetPWM(0, 0);
+        TIM3_SetPWM((_currentMelody + count - 1)->frequency, 0);
         count = 0;
+        done = FALSE;
       }
     }
   } else {
