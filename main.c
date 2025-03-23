@@ -45,6 +45,8 @@
 #define BTN_MINUS GPIO_PIN_5
 #define BTN_OK GPIO_PIN_6
 #define BTN_GPIO GPIOD
+#define RUNOUT_GPIO GPIOD
+#define RUNOUT_PIN GPIO_PIN_0
 
 #define CHAR_ARROW_UP 1
 #define CHAR_ARROW_UPNDOWN 2
@@ -82,12 +84,20 @@ const uint8_t char_arrUpNDown[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x1F, 0x0E, 0x0
 const uint8_t char_arrDown[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x0E, 0x04};
 
 const buzzerTone_s bootMelody[] = {
-    {.period = 50,  .frequency = NOTE_A4, .volume = 10},
-    {.period = 50,  .frequency = NOTE_A4, .volume = 0},
-    {.period = 75,  .frequency = NOTE_A6, .volume = 10},
-    {.period = 75,  .frequency = NOTE_A6, .volume = 0},
-    {.period = 75,  .frequency = NOTE_A6, .volume = 10},
-    {.period = 0,   .frequency = 0,   .volume = 0} // Fin de la melodía
+  {.period = 50,  .frequency = NOTE_A4, .volume = 10},
+  {.period = 50,  .frequency = NOTE_A4, .volume = 0},
+  {.period = 75,  .frequency = NOTE_A6, .volume = 10},
+  {.period = 75,  .frequency = NOTE_A6, .volume = 0},
+  {.period = 75,  .frequency = NOTE_A6, .volume = 10},
+  {.period = 0,   .frequency = 0,   .volume = 0} // Fin de la melodía
+};
+const buzzerTone_s runoutMeoldy[] = {
+  {.period = 75, .frequency = NOTE_A6, .volume = 5},
+  {.period = 75, .frequency = NOTE_A6, .volume = 0},
+  {.period = 75, .frequency = NOTE_A6, .volume = 5},
+  {.period = 75, .frequency = NOTE_A6, .volume = 0},
+  {.period = 75, .frequency = NOTE_A6, .volume = 5},
+  {.period = 0,   .frequency = 0,   .volume = 0} // Fin de la melodía
 };
 
 int8_t button_getEdge(volatile bool newState, volatile bool *currentState, volatile bool *previousState, volatile uint8_t *holdCount);
@@ -133,6 +143,7 @@ void main(void) { // NOLINT
   hotend_init();
 
   GPIO_Init(BTN_GPIO, BTN_MINUS | BTN_OK | BTN_PLUS, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(RUNOUT_GPIO, RUNOUT_PIN, GPIO_MODE_IN_PU_NO_IT);
 
   buzzer_init();
   buzzer_melody(bootMelody, 0, 0);
@@ -248,9 +259,22 @@ void main(void) { // NOLINT
               submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &uStepping, &rotation, &stepper, &minusEdge, &plusEdge, &okEdge, 1);
               break;
           }
-
           break;
       }
+    }
+
+    if (currMenu == 1 && GPIO_ReadInputPin(RUNOUT_GPIO, RUNOUT_PIN) == RESET) {   // Runout sensor triggered
+      hr4988_setStepper(DISABLE);
+      sprintf(buff, "Fin de Filamento");
+      lcd_setpos(0,0);
+      lcd_puts_auto(buff);
+      buzzer_melody(runoutMeoldy, 254, 10000);
+      while (!okEdge && !minusEdge && !plusEdge){
+        minusEdge = button_getEdge(GPIO_ReadInputPin(BTN_GPIO, BTN_MINUS), &minus, &minusp, &minusHold);
+        plusEdge = button_getEdge(GPIO_ReadInputPin(BTN_GPIO, BTN_PLUS), &plus, &plusp, &plusHold);
+        okEdge = button_getEdge(GPIO_ReadInputPin(BTN_GPIO, BTN_OK), &ok, &okp, &okHold);
+      }
+      buzzer_stop();
     }
 
     lcd_setpos(0,0);
