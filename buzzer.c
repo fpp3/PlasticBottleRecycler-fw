@@ -40,6 +40,18 @@ bool buzzer_ready(void) {
   return _busy;
 }
 
+void buzzer_stop(void){
+  TIM3_OCC1_InterruptCallback = 0;
+  _cycles = 0;
+  _currentCycles = 0;
+  _melodyDelay = 0;
+  _melodyRepetitions = 0;
+  _currentMelodyRepetitions = 0;
+  _currentMelody = 0;
+  TIM3_SetPWM(0, 0);
+  _busy = FALSE;
+}
+
 void TIM3_PWM_init(void) {
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER3, ENABLE);
   TIM3_TimeBaseInit(TIM3_PRESCALER_16, 50000);
