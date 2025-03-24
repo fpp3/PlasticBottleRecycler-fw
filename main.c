@@ -61,23 +61,28 @@
 #define EEPROM_TEMP 0
 #define EEPROM_SPEED 2
 #define EEPROM_USTEPPING 4
-#define EEPROM_ROTATION 8
+#define EEPROM_ROTATION 6
+#define EEPROM_BOOT_SOUND 8
+#define EEPROM_CLICK_SOUND 10
+#define EEPROM_RUNOUT_SOUND 12
 
 const char back[] = "Volver";
 const char *submenu0_0[] = {"Iniciar", NULL};
 const char *submenu0_1[] = {"Hotend", "Temperatura", back, NULL};
 const char *submenu0_2[] = {"Stepper", "Velocidad", "Microstepping", "Direccion", back, NULL};
+const char *submenu0_3[] = {"Sonido", "Notif. Runout", "Son. Botones", "Son. Bienvenida", back, NULL};
 const char *submenu1_0[] = {"Detener", NULL};
 const char *submenu1_1[] = {"Informacion", NULL};
 const char *submenu1_3[] = {"Stepper", "Velocidad", "Microstepping", "Direccion", "Act/Des Stepper", back, NULL};
 
-const char **menu0[] = {submenu0_0, submenu0_1, submenu0_2, NULL}; // First item of EVERY menu is going to work as a "button". No sub-menues there
+const char **menu0[] = {submenu0_0, submenu0_1, submenu0_2, submenu0_3, NULL}; // First item of EVERY menu is going to work as a "button". No sub-menues there
 const char **menu1[] = {submenu1_0, submenu1_1, submenu0_1, submenu1_3, NULL}; // Repeating submenues is possible by repeating them in their respective menu
 
 const char ***menu[] = {menu0, menu1, NULL};
 
 const char *uSteps_numMask[] = {"1:1", "1:2", "1:4", "1:8", "1:16"};
 const char *dir_numMask[] = {"A", "B"};
+const char *state_numMask[] = {"Off", "On"};
 
 const uint8_t char_arrUp[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00};
 const uint8_t char_arrUpNDown[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x1F, 0x0E, 0x04};
@@ -107,6 +112,7 @@ bool menu_value_selector(char *buffer, const char *string, const char *unit, con
 void save_to_EEPROM(void *value, uint8_t size, uint8_t address);
 void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setTemp, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
 void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, uint16_t *uStepping, uint16_t *rotation, bool *stepper, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
+void submenu_sound(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *clickSound, uint16_t *runoutNotif, uint16_t *bootSound,  volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
 
 void main(void) { // NOLINT 
   CLK_DeInit();
@@ -146,9 +152,7 @@ void main(void) { // NOLINT
   GPIO_Init(RUNOUT_GPIO, RUNOUT_PIN, GPIO_MODE_IN_PU_NO_IT);
 
   buzzer_init();
-  buzzer_melody(bootMelody, 0, 0);
 
-  _delay_ms(1500);
   char buff[17], arrow = 0;
   uint8_t currPos = 0, currMenu = 0, currSubMenu = 0, maxPos = 0, inacTime = 0;
   bool selected = 0, stepper = 0;
@@ -159,6 +163,12 @@ void main(void) { // NOLINT
   uint16_t setSpeed = FLASH_ReadByte(EEPROM_BASE + EEPROM_SPEED) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_SPEED + 1);
   uint16_t uStepping = FLASH_ReadByte(EEPROM_BASE + EEPROM_USTEPPING) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_USTEPPING + 1);
   uint16_t rotation = FLASH_ReadByte(EEPROM_BASE + EEPROM_ROTATION) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_ROTATION + 1);
+  uint16_t bootSound = FLASH_ReadByte(EEPROM_BASE + EEPROM_BOOT_SOUND) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_BOOT_SOUND + 1);
+  uint16_t clickSound = FLASH_ReadByte(EEPROM_BASE + EEPROM_CLICK_SOUND) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_CLICK_SOUND + 1);
+  uint16_t runoutNotif = FLASH_ReadByte(EEPROM_BASE + EEPROM_RUNOUT_SOUND) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_RUNOUT_SOUND + 1);
+  if (bootSound)
+    buzzer_melody(bootMelody, 0, 0);
+  _delay_ms(1500);
   lcd_send_byte(LCD_CLR, LCD_CMD);
   while (1) {
     minusEdge = button_getEdge(GPIO_ReadInputPin(BTN_GPIO, BTN_MINUS), &minus, &minusp, &minusHold);
@@ -172,13 +182,21 @@ void main(void) { // NOLINT
         inacTime = 0;
 
       if (inacTime < 200) {
-        if (minusEdge == 1)
+        if (minusEdge == 1){
+          if (clickSound)
+            buzzer_tone(10, 5000, 10);
           if (currPos > 0)
             currPos--;
-        if (plusEdge == 1)
+        }
+        if (plusEdge == 1){
+          if (clickSound)
+            buzzer_tone(10, 5000, 10);
           if (currPos < maxPos)
             currPos++;
+        }
         if (okEdge == 1) {
+          if (clickSound)
+            buzzer_tone(10, 1500, 7);
           if (currPos == 0 || (currPos == 1 && currMenu == 1)) {
             // Action occurs (start/stop)
             selected = 1;
@@ -236,6 +254,8 @@ void main(void) { // NOLINT
             case 2:
               submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &uStepping, &rotation, &stepper, &minusEdge, &plusEdge, &okEdge, 0);
               break;
+            case 3:
+              submenu_sound(buff, &currPos, &currSubMenu, &selected, &clickSound, &runoutNotif, &bootSound, &minusEdge, &plusEdge, &okEdge);
           }
           break;
         case 1:
@@ -424,6 +444,33 @@ void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *s
       break;
   }
 }
+
+void submenu_sound(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *clickSound, uint16_t *runoutNotif, uint16_t *bootSound,  volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge) {
+  switch (*currPos + 1) {
+    case 1:
+      *selected = menu_value_selector(buff, "Notific.:", 0, 0, 1, state_numMask, runoutNotif, minusEdge, plusEdge, okEdge);
+      if (*selected == 1)
+        save_to_EEPROM(runoutNotif, sizeof(*runoutNotif), EEPROM_RUNOUT_SOUND);
+      break;
+    case 2:
+      *selected = menu_value_selector(buff, "Click:", 0, 0, 1, state_numMask, clickSound, minusEdge, plusEdge, okEdge);
+      if (*selected == 1)
+        save_to_EEPROM(clickSound, sizeof(*clickSound), EEPROM_CLICK_SOUND);
+      break;
+    case 3:
+      *selected = menu_value_selector(buff, "Bienv.:", 0, 0, 1, state_numMask, bootSound, minusEdge, plusEdge, okEdge);
+      if (*selected == 1)
+        save_to_EEPROM(bootSound, sizeof(*bootSound), EEPROM_BOOT_SOUND);
+      break;
+    case 4:
+      //go back
+      *selected = 0;
+      *currPos = *currSubMenu;
+      *currSubMenu = 0;
+      break;
+  }
+}
+
 #ifdef USE_FULL_ASSERT
 
 /**
