@@ -16,8 +16,8 @@
 #define STEPPER_GPIO GPIOC
 
 typedef enum {
-  CLKWISE = (bool) 0,
-  C_CLkWISE = (bool) 1
+  CLKWISE = 0,
+  C_CLkWISE = 1
 } rotation_t;
 
 typedef enum {

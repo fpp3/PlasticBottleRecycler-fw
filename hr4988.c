@@ -17,10 +17,11 @@ static rotation_t rotation;
 static stepMode_t stepMode = STEP_1_1;
 static uint16_t desiredSpeed, stepsPerRevolution = 50;
 
-
 // ----- public function definitions -----
-void hr4988_init(void){
-  GPIO_Init(STEPPER_GPIO, STEPPER_MS1 | STEPPER_MS2 | STEPPER_MS3 | STEPPER_ENA | STEPPER_DIR | STEPPER_SLP | STEPPER_STP, GPIO_MODE_OUT_PP_LOW_FAST);
+void hr4988_init(void) {
+  GPIO_Init(STEPPER_GPIO,
+            STEPPER_MS1 | STEPPER_MS2 | STEPPER_MS3 | STEPPER_ENA | STEPPER_DIR | STEPPER_SLP | STEPPER_STP,
+            GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_WriteLow(STEPPER_GPIO, STEPPER_MS1 | STEPPER_MS2 | STEPPER_MS3);
   GPIO_WriteHigh(STEPPER_GPIO, STEPPER_SLP | STEPPER_ENA);
 
@@ -29,33 +30,27 @@ void hr4988_init(void){
   TIM2_INT_Init();
 }
 
-void hr4988_setSpeed(uint16_t rpm){
-  desiredSpeed = rpm;
-}
+void hr4988_setSpeed(uint16_t rpm) { desiredSpeed = rpm; }
 
-void hr4988_setSteps(uint16_t steps){
-  stepsPerRevolution = steps;
-}
+void hr4988_setSteps(uint16_t steps) { stepsPerRevolution = steps; }
 
-void hr4988_setRotation(rotation_t rot){
+void hr4988_setRotation(rotation_t rot) {
   if (rot != rotation) {
     rotation = rot;
     rotationChange = 1;
   }
 }
 
-void hr4988_setStepMode(stepMode_t mode){
+void hr4988_setStepMode(stepMode_t mode) {
   stepMode = mode;
-  GPIO_Write(STEPPER_GPIO, GPIO_ReadOutputData(STEPPER_GPIO) & ~(STEPPER_MS1 | STEPPER_MS2 | STEPPER_MS3) | 
-                           ((stepMode >> 2) & 0x01) << STEPPER_MS3_PINN |
-                           ((stepMode >> 1) & 0x01) << STEPPER_MS2_PINN |
-                           ((stepMode) & 0x01) << STEPPER_MS1_PINN
-                           );
+  GPIO_Write(STEPPER_GPIO, GPIO_ReadOutputData(STEPPER_GPIO) & ~(STEPPER_MS1 | STEPPER_MS2 | STEPPER_MS3) |
+                               ((stepMode >> 2) & 0x01) << STEPPER_MS3_PINN |
+                               ((stepMode >> 1) & 0x01) << STEPPER_MS2_PINN | ((stepMode) & 0x01) << STEPPER_MS1_PINN);
   setSpeed(currentSpeed);
 }
 
-void hr4988_setStepper(FunctionalState state){
-  if (state){
+void hr4988_setStepper(FunctionalState state) {
+  if (state) {
     GPIO_WriteLow(STEPPER_GPIO, STEPPER_ENA);
   } else {
     GPIO_WriteHigh(STEPPER_GPIO, STEPPER_ENA);
@@ -65,9 +60,7 @@ void hr4988_setStepper(FunctionalState state){
   stepperState = state;
 }
 
-uint16_t hr4988_getSpeed(void){
-  return currentSpeed;
-}
+uint16_t hr4988_getSpeed(void) { return currentSpeed; }
 
 // ------ private function definitions ------
 void TIM2_INT_Init(void) {
@@ -81,35 +74,29 @@ void TIM2_INT_Init(void) {
 }
 
 void TIM1_PWM_Init(uint16_t frequency) {
-    uint16_t prescaler = (F_CPU / frequency) / 65536;
-    uint16_t arr = (F_CPU / (frequency * (prescaler + 1))) - 1;
+  uint16_t prescaler = (F_CPU / frequency) / 65536;
+  uint16_t arr = (F_CPU / (frequency * (prescaler + 1))) - 1;
 
-    TIM1_TimeBaseInit(prescaler, TIM1_COUNTERMODE_UP, arr, 0);
-    TIM1_OC4Init(
-        TIM1_OCMODE_PWM1,              // Modo PWM
-        TIM1_OUTPUTSTATE_ENABLE,       // Salida habilitada
-        (arr + 1) / 2,                 // Duty cycle inicial al 50%
-        TIM1_OCPOLARITY_HIGH,          // Polaridad de la salida
-        TIM1_OCIDLESTATE_RESET         // Estado idle de la salida
-    );
+  TIM1_TimeBaseInit(prescaler, TIM1_COUNTERMODE_UP, arr, 0);
+  TIM1_OC4Init(TIM1_OCMODE_PWM1, TIM1_OUTPUTSTATE_ENABLE, (arr + 1) / 2, TIM1_OCPOLARITY_HIGH, TIM1_OCIDLESTATE_RESET);
 
-    TIM1_OC4PreloadConfig(ENABLE); // Habilitar pre-carga para CCR4
-    TIM1_ARRPreloadConfig(ENABLE);
-    TIM1_Cmd(ENABLE);
+  TIM1_OC4PreloadConfig(ENABLE);
+  TIM1_ARRPreloadConfig(ENABLE);
+  TIM1_Cmd(ENABLE);
 }
 
 void TIM1_SetFrequency(uint16_t frequency) {
-    uint16_t prescaler = (F_CPU / frequency) / 65536;
-    uint16_t arr = (F_CPU / (frequency * (prescaler + 1))) - 1;
+  uint16_t prescaler = (F_CPU / frequency) / 65536;
+  uint16_t arr = (F_CPU / (frequency * (prescaler + 1))) - 1;
 
-    TIM1_TimeBaseInit(prescaler, TIM1_COUNTERMODE_UP, arr, 0);
-    TIM1_SetCompare4((arr + 1) / 2);
+  TIM1_TimeBaseInit(prescaler, TIM1_COUNTERMODE_UP, arr, 0);
+  TIM1_SetCompare4((arr + 1) / 2);
 }
 
 void stepperService(void) {
   static uint32_t update = 0;
 
-  if (update >= 1000){
+  if (update >= 1000) {
 
     if (rotationChange)
       changeRotation();
@@ -128,9 +115,9 @@ void stepperService(void) {
     update += 50;
 }
 
-void changeRotation(void){
+void changeRotation(void) {
   static bool deaccelPasses = 0;
-  if (deaccelPasses | !stepperState){
+  if (deaccelPasses | !stepperState) {
     if (rotation == CLKWISE)
       GPIO_WriteLow(STEPPER_GPIO, STEPPER_DIR);
     else
@@ -145,6 +132,7 @@ void changeRotation(void){
   }
 }
 
-void setSpeed(uint16_t speed){
-  TIM1_SetFrequency((((uint32_t)((uint32_t)speed * stepsPerRevolution * (1 << (stepMode > 3 ? 4 : stepMode))) * 1092)  >> 16));
+void setSpeed(uint16_t speed) {
+  TIM1_SetFrequency(
+      (((uint32_t)((uint32_t)speed * stepsPerRevolution * (1 << (stepMode > 3 ? 4 : stepMode))) * 1092) >> 16));
 }

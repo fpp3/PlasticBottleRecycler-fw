@@ -36,11 +36,9 @@ void buzzer_melody(buzzerTone_s *melody, uint8_t repetitions, uint16_t delay) {
   _busy = TRUE;
 }
 
-bool buzzer_ready(void) {
-  return _busy;
-}
+bool buzzer_ready(void) { return _busy; }
 
-void buzzer_stop(void){
+void buzzer_stop(void) {
   TIM3_OCC1_InterruptCallback = 0;
   _cycles = 0;
   _currentCycles = 0;
@@ -88,7 +86,8 @@ void buzzer_service_multi(void) {
   if (done == TRUE) {
     if ((_currentMelody + count)->frequency != 0) {
       TIM3_SetPWM((_currentMelody + count)->frequency, (_currentMelody + count)->volume);
-      _cycles = ((uint32_t)(_currentMelody + count)->period * 1000) / (float)(((F_CPU / ((_currentMelody + count)->frequency * (TIM3_PRESCALER_16 + 1)))) - 1);
+      _cycles = ((uint32_t)(_currentMelody + count)->period * 1000) /
+                (float)(((F_CPU / ((_currentMelody + count)->frequency * (TIM3_PRESCALER_16 + 1)))) - 1);
       count++;
       done = FALSE;
     } else {
@@ -104,7 +103,8 @@ void buzzer_service_multi(void) {
         _busy = FALSE;
       } else {
         _currentMelodyRepetitions++;
-        _cycles = ((uint32_t)_melodyDelay * 1000) / (float)(((F_CPU / ((_currentMelody + count - 1)->frequency * (TIM3_PRESCALER_16 + 1)))) - 1);
+        _cycles = ((uint32_t)_melodyDelay * 1000) /
+                  (float)(((F_CPU / ((_currentMelody + count - 1)->frequency * (TIM3_PRESCALER_16 + 1)))) - 1);
         TIM3_SetPWM((_currentMelody + count - 1)->frequency, 0);
         count = 0;
         done = FALSE;
@@ -120,4 +120,3 @@ void buzzer_service_multi(void) {
     }
   }
 }
-

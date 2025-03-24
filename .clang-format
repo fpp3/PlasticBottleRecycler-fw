@@ -1,0 +1,8 @@
+---
+BasedOnStyle: LLVM
+AllowShortEnumsOnASingleLine: false
+ColumnLimit: 120
+IndentCaseBlocks: true
+InsertNewlineAtEOF: true
+TabWidth: 2
+

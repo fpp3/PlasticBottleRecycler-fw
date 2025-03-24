@@ -6,7 +6,6 @@
 #include "FastPID.h"
 #include <math.h>
 
-
 void hotend_init(void);
 void hotend_setTemp(int16_t temp);
 void hotend_off(void);
