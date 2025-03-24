@@ -430,9 +430,12 @@ void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *s
       break;
     case 4:
       if (running) {
-        *stepper = !(*stepper);
-        hr4988_setStepper((FunctionalState)(*stepper));
-        *selected = 0;
+        uint16_t stepperBuf = *stepper;
+        *selected = menu_value_selector(buff, "Stepper:", NULL, 0, 1, state_numMask, &stepperBuf, minusEdge, plusEdge, okEdge);
+        if (stepperBuf != *stepper) {
+          *stepper = stepperBuf;
+          hr4988_setStepper((FunctionalState)(*stepper));
+        }
         break;
       }
       //break;  // <------ CAREFUL ------ this is so i dont need to make two switches depending on the state of 'running' in order to have always the "back" at the end of the list
