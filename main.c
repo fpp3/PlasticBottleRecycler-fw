@@ -29,6 +29,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdlib.h>
 #include <stdio.h>
+#include "stm8s.h"
 #include "stm8s_conf.h"
 #include "stm8s_it.h"    /* SDCC patch: required by SDCC for interrupts */
 #include "hd44780.h"
@@ -65,24 +66,28 @@
 #define EEPROM_BOOT_SOUND 8
 #define EEPROM_CLICK_SOUND 10
 #define EEPROM_RUNOUT_SOUND 12
+#define EEPROM_FAN_TIE 14
+#define EEPROM_FAN_SPEED 16
 
 const char back[] = "Volver";
 const char *submenu0_0[] = {"Iniciar", NULL};
 const char *submenu0_1[] = {"Hotend", "Temperatura", back, NULL};
 const char *submenu0_2[] = {"Stepper", "Velocidad", "Microstepping", "Direccion", back, NULL};
 const char *submenu0_3[] = {"Sonido", "Notif. Runout", "Son. Botones", "Son. Bienvenida", back, NULL};
+const char *submenu0_4[] = {"Ventilador", "Arranque con...", "Velocidad", back, NULL};
 const char *submenu1_0[] = {"Detener", NULL};
 const char *submenu1_1[] = {"Informacion", NULL};
 const char *submenu1_3[] = {"Stepper", "Velocidad", "Microstepping", "Direccion", "Act/Des Stepper", back, NULL};
 
-const char **menu0[] = {submenu0_0, submenu0_1, submenu0_2, submenu0_3, NULL}; // First item of EVERY menu is going to work as a "button". No sub-menues there
-const char **menu1[] = {submenu1_0, submenu1_1, submenu0_1, submenu1_3, NULL}; // Repeating submenues is possible by repeating them in their respective menu
+const char **menu0[] = {submenu0_0, submenu0_1, submenu0_2, submenu0_3, submenu0_4, NULL}; // First item of EVERY menu is going to work as a "button". No sub-menues there
+const char **menu1[] = {submenu1_0, submenu1_1, submenu0_1, submenu1_3, submenu0_4, NULL}; // Repeating submenues is possible by repeating them in their respective menu
 
 const char ***menu[] = {menu0, menu1, NULL};
 
 const char *uSteps_numMask[] = {"1:1", "1:2", "1:4", "1:8", "1:16"};
 const char *dir_numMask[] = {"A", "B"};
 const char *state_numMask[] = {"Off", "On"};
+const char *fanTie_numMask[] = {"Off", "Htnd", "Sttpr", "On"};
 
 const uint8_t char_arrUp[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00};
 const uint8_t char_arrUpNDown[] = {0x04, 0x0E, 0x1F, 0x00, 0x00, 0x1F, 0x0E, 0x04};
@@ -113,6 +118,7 @@ void save_to_EEPROM(void *value, uint8_t size, uint8_t address);
 void submenu_hotend(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setTemp, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
 void submenu_stepper(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *setSpeed, uint16_t *uStepping, uint16_t *rotation, bool *stepper, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge, bool running);
 void submenu_sound(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *clickSound, uint16_t *runoutNotif, uint16_t *bootSound,  volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
+void submenu_fan(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *fanTiedTo, uint16_t *fanSpeed, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge);
 
 void main(void) { // NOLINT 
   CLK_DeInit();
@@ -166,6 +172,8 @@ void main(void) { // NOLINT
   uint16_t bootSound = FLASH_ReadByte(EEPROM_BASE + EEPROM_BOOT_SOUND) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_BOOT_SOUND + 1);
   uint16_t clickSound = FLASH_ReadByte(EEPROM_BASE + EEPROM_CLICK_SOUND) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_CLICK_SOUND + 1);
   uint16_t runoutNotif = FLASH_ReadByte(EEPROM_BASE + EEPROM_RUNOUT_SOUND) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_RUNOUT_SOUND + 1);
+  uint16_t fanTieTo = FLASH_ReadByte(EEPROM_BASE + EEPROM_FAN_TIE) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_FAN_TIE + 1);
+  uint16_t fanSpeed = FLASH_ReadByte(EEPROM_BASE + EEPROM_FAN_SPEED) << 8 | FLASH_ReadByte(EEPROM_BASE + EEPROM_FAN_SPEED + 1);
   if (bootSound)
     buzzer_melody(bootMelody, 0, 0);
   _delay_ms(1500);
@@ -256,6 +264,10 @@ void main(void) { // NOLINT
               break;
             case 3:
               submenu_sound(buff, &currPos, &currSubMenu, &selected, &clickSound, &runoutNotif, &bootSound, &minusEdge, &plusEdge, &okEdge);
+              break;
+            case 4:
+              submenu_fan(buff, &currPos, &currSubMenu, &selected, &fanTieTo, &fanSpeed, &minusEdge, &plusEdge, &okEdge);
+              break;
           }
           break;
         case 1:
@@ -278,6 +290,9 @@ void main(void) { // NOLINT
             case 3:
               submenu_stepper(buff, &currPos, &currSubMenu, &selected, &setSpeed, &uStepping, &rotation, &stepper, &minusEdge, &plusEdge, &okEdge, 1);
               break;
+            case 4:
+              submenu_fan(buff, &currPos, &currSubMenu, &selected, &fanTieTo, &fanSpeed, &minusEdge, &plusEdge, &okEdge);
+              break;
           }
           break;
       }
@@ -295,6 +310,21 @@ void main(void) { // NOLINT
         okEdge = button_getEdge(GPIO_ReadInputPin(BTN_GPIO, BTN_OK), &ok, &okp, &okHold);
       }
       buzzer_stop();
+    }
+
+    switch (fanTieTo) {
+      case 0:
+        hotend_setFanSpeed(0);
+        break;
+      case 1:
+        hotend_setFanSpeed(currMenu == 1 ? fanSpeed : 0);
+        break;
+      case 2:
+        hotend_setFanSpeed(stepper == 1 ? fanSpeed : 0);
+        break;
+      case 3:
+        hotend_setFanSpeed(fanSpeed);
+        break;
     }
 
     lcd_setpos(0,0);
@@ -466,6 +496,27 @@ void submenu_sound(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *sel
         save_to_EEPROM(bootSound, sizeof(*bootSound), EEPROM_BOOT_SOUND);
       break;
     case 4:
+      //go back
+      *selected = 0;
+      *currPos = *currSubMenu;
+      *currSubMenu = 0;
+      break;
+  }
+}
+
+void submenu_fan(char *buff, uint8_t *currPos, uint8_t *currSubMenu, bool *selected, uint16_t *fanTiedTo, uint16_t *fanSpeed, volatile int8_t *minusEdge, volatile int8_t *plusEdge, volatile int8_t *okEdge){
+  switch (*currPos + 1) {
+    case 1:
+      *selected = menu_value_selector(buff, "Arr. con:", NULL, 0, 3, fanTie_numMask, fanTiedTo, minusEdge, plusEdge, okEdge);
+      if (*selected == 1)
+        save_to_EEPROM(fanTiedTo, sizeof(*fanTiedTo), EEPROM_FAN_TIE);
+      break;
+    case 2:
+      *selected = menu_value_selector(buff, "Veloc.:", "%PW", 0, 100, NULL, fanSpeed, minusEdge, plusEdge, okEdge);
+      if (*selected == 1)
+        save_to_EEPROM(fanSpeed, sizeof(*fanSpeed), EEPROM_FAN_SPEED);
+      break;
+    case 3:
       //go back
       *selected = 0;
       *currPos = *currSubMenu;
